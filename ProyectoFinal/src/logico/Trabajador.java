@@ -54,5 +54,8 @@ public class Trabajador {
 	public String getPassword() {
 		return password;
 	};
+	public void salario() {
+		salario = 0;
+	}
 
 }
