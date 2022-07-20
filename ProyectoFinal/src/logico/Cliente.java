@@ -7,7 +7,7 @@ public class Cliente {
 	private String apellido;
 	private String telefono;
 	private String direccion;
-	//poner fecha registro
+
 	
 
 }

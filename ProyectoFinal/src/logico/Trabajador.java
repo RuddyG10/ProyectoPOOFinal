@@ -2,15 +2,17 @@ package logico;
 
 public class Trabajador {
 	protected String nombre;
+	protected String apellidos;
 	protected String Cedula;
 	protected String telefono;
 	protected String email;
 	protected float salario;
 	protected String userName;
 	protected String password;
-	public Trabajador(String nombre, String cedula, String telefono, String email, String userName, String password) {
+	public Trabajador(String nombre, String apellidos, String cedula, String telefono, String email, String userName, String password) {
 		super();
 		this.nombre = nombre;
+		this.apellidos = apellidos;
 		Cedula = cedula;
 		this.telefono = telefono;
 		this.email = email;
@@ -18,6 +20,19 @@ public class Trabajador {
 		this.password = password;
 		this.salario = 0;
 	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}

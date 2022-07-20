@@ -42,6 +42,72 @@ public class Altice {
 		planes.add(plan);
 		genCodePlan++;
 	}
+	public Trabajador buscarTrabajadorByCedula(String cedula) {
+		Trabajador auxTrab = null;
+		boolean found = false;
+		int i = 0;
+		while(i< misTrabajadores.size() && !found) {
+			if(misTrabajadores.get(i).getCedula().equalsIgnoreCase(cedula)) {
+				auxTrab = misTrabajadores.get(i);
+				found = true;
+			}
+			i++;
+		}
+		return auxTrab;
+	}
+	public Trabajador mejorComercial() {
+		Trabajador mejorComercial = null;
+		int cantV = 0;
+		for (Trabajador trabajador : misTrabajadores) {
+			if(trabajador instanceof Comercial) {
+				if(((Comercial) trabajador).getMisVentas().size() > cantV) {
+					cantV = ((Comercial) trabajador).getMisVentas().size();
+					mejorComercial = trabajador;
+				}
+			}
+		}
+		
+		return mejorComercial;
+	}
+	public Trabajador buscarTrabajadorPorUserOEmail(String user) {
+		Trabajador aux = null;
+		boolean found = false;
+		int i = 0;
+		while(i< misTrabajadores.size() && !found) {
+			if(misTrabajadores.get(i).getUserName().equalsIgnoreCase(user) ||
+					misTrabajadores.get(i).getEmail().equalsIgnoreCase(user)) {
+				
+				aux = misTrabajadores.get(i);
+				found = true;
+			}
+			i++;
+		}
+		return aux;
+	}
 	
+	public boolean login(String userName, String password) {
+		boolean log = false;
+		Trabajador admin = buscarTrabajadorPorUserOEmail(userName);
+		if(admin != null) {
+			if(admin.getPassword().equalsIgnoreCase(password)) {
+				log =true;
+			}
+		}
+		
+		return log;
+	}
+	public Cliente buscarClientePorCedula(String cedula) {
+		Cliente auxClient = null;
+		boolean found = false;
+		int i = 0;
+		while(i< misClientes.size() && !found) {
+			/*if(misClientes.get(i).getCedula().equalsIgnoreCase(cedula)) {
+				auxClient = misTrabajadores.get(i);
+				found = true;
+			}
+			i++;*/
+		}
+		return auxClient;
+	}
 	
 }
