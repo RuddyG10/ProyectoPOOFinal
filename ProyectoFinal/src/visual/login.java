@@ -30,8 +30,19 @@ public class login extends JFrame {
 	private JTextField txtUser;
 	private final JPanel panel = new JPanel();
 	private JTextField txtPassword;
+	private JPasswordField jPassClave;
 
-	
+	public CentrarJFrame(){
+	      super("Centrar JFrame");	
+
+	      Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+	      int height = pantalla.height;
+	      int width = pantalla.width;
+	      setSize(width/2, height/2);		
+
+	      setLocationRelativeTo(null);		
+	      setVisible(true);
+	  }
 	//metodos
 	
 			/**
@@ -39,10 +50,10 @@ public class login extends JFrame {
 			 * @param password
 			 */
 	//Metodo para vincular con clase empleado
-	public void datos (String usuario, String password) {
-	usuario="Admin";
+	/*public void datos (String usuario, String password) {
+	usuario="admin";
 	password="prueba";
-	}
+	}*/
 			
 	
 	
@@ -103,8 +114,8 @@ public class login extends JFrame {
 		contentPane.add(txtUser);
 		txtUser.setColumns(10);
 		
-		txtUser = new javax.swing.JTextField();
-	    txtPassword = new javax.swing.JPasswordField();
+		//txtUser = new javax.swing.JTextField();
+	  //  txtPassword = new javax.swing.JPasswordField();
 		
 		
 		JButton btnIngresar = new JButton("Ingresar");
@@ -122,33 +133,21 @@ public class login extends JFrame {
 		});
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				datos(usuario, password);
-			    if(usuario.equals(txtUser.getText()) && password.equals(txtPassword.getText())){
-			    	//Manda al menu de inicio
-			         home st = new home();
-			         st.setVisible(true);
-			         
-			    }else if(txtUser.getText().equals("") && txtPassword.getText().equals("")){
-			        JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña estan vacios\\nIngrese los datos por favor.");
-			        txtUser.setFocusable(true);
-			    }else if(txtUser.getText().equals("")){
-			        JOptionPane.showMessageDialog(null, "Usuario está vacio\nIngrese lo por favor.");
-			        txtUser.setFocusable(true);
-			    }else if(txtPassword.getText().equals("")){
-			        JOptionPane.showMessageDialog(null, "Contraseña está vacio\nIngrese lo por favor.");
-			        txtPassword.setFocusable(true);
-			    }
-			    else if(txtUser.getText().compareTo(usuario)!=0 && txtPassword.getText().compareTo(password)!=0){
-			        JOptionPane.showMessageDialog(null,"Usuario y/o Contraseña no válidos\nIngrese nuevamente.");
-			         txtUser.setFocusable(true);
-			    }
-			    else if(txtUser.getText().compareTo(usuario)!=0){
-			        JOptionPane.showMessageDialog(null,"Usuario no válido\nIngrese nuevamente.");
-			        txtUser.setFocusable(true);
-			    }else if(txtPassword.getText().compareTo(password)!=0){
-			        JOptionPane.showMessageDialog(null,"Contraseña no válida\nIngrese nuevamente.");
-			        txtPassword.setFocusable(true);
-			    }
+				
+				char[] clave = jPassClave.getPassword();
+				String claveFinal=new String(clave);
+				
+				if(txtUser.getText().equals("prueba")&& claveFinal.equals("123")) {
+					
+					dispose();
+					home ventana= new home();
+					ventana.setVisible(true);
+				}else {
+					JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrectos","Error", JOptionPane.ERROR_MESSAGE);
+					txtUser.setText("");
+					jPassClave.setText("");
+					txtUser.requestFocus();
+				}
 			}
 		});
 		btnIngresar.setFont(new Font("Arial", Font.BOLD, 14));
@@ -178,19 +177,15 @@ public class login extends JFrame {
 		lblNewLabel_5.setBounds(372, 278, 163, 14);
 		contentPane.add(lblNewLabel_5);
 		
-		txtPassword = new JTextField();
-		txtPassword.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		txtPassword.setText("*********\r\n");
-		txtPassword.setForeground(Color.LIGHT_GRAY);
-		txtPassword.setColumns(10);
-		txtPassword.setBounds(337, 207, 221, 26);
-		contentPane.add(txtPassword);
-		
 		JLabel lblContacteASu = new JLabel("Contacte al Admin. del Sistema al 1-800-2000\r\n");
 		lblContacteASu.setForeground(Color.BLUE);
 		lblContacteASu.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblContacteASu.setBounds(337, 290, 238, 14);
 		contentPane.add(lblContacteASu);
+		
+		jPassClave = new JPasswordField();
+		jPassClave.setBounds(337, 207, 221, 26);
+		contentPane.add(jPassClave);
 		
 		
 	}
