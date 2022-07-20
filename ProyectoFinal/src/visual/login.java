@@ -31,18 +31,9 @@ public class login extends JFrame {
 	private final JPanel panel = new JPanel();
 	private JTextField txtPassword;
 	private JPasswordField jPassClave;
+	
 
-	public CentrarJFrame(){
-	      super("Centrar JFrame");	
-
-	      Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-	      int height = pantalla.height;
-	      int width = pantalla.width;
-	      setSize(width/2, height/2);		
-
-	      setLocationRelativeTo(null);		
-	      setVisible(true);
-	  }
+	
 	//metodos
 	
 			/**
@@ -88,7 +79,7 @@ public class login extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		setLocationRelativeTo(null);
 		
 		
 		JLabel lblNewLabel = new JLabel("Iniciar Sesi\u00F3n");
