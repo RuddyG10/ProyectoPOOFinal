@@ -2,6 +2,8 @@ package logico;
 
 import java.util.ArrayList;
 
+//Edith entrando y viendo si le funciona la vaina
+
 public class Altice {
 	private ArrayList<Trabajador> misTrabajadores;
 	private ArrayList<Plan> planes;
