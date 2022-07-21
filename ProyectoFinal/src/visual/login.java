@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import logico.Trabajador;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -41,8 +44,9 @@ public class login extends JFrame {
 			 * @param password
 			 */
 	//Metodo para vincular con clase empleado
-	/*public void datos (String usuario, String password) {
-	usuario="admin";
+/*	public void datos (String usuario, String password) {
+		
+	usuario=Trabajador.getUserName;
 	password="prueba";
 	}*/
 			
@@ -124,11 +128,21 @@ public class login extends JFrame {
 		});
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				String usuario = txtUser.getText();
+				String contraseña=jPassClave.getText();
+				int pos = Trabajador.verificarLogueo(usuario, contraseña);
+				if(pos==-1) {
+					JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+				}else {
+					home menuInicio = new home();
+					menuInicio.setVisible(true);
+					dispose();
+				}
 				
-				char[] clave = jPassClave.getPassword();
+			/*	char[] clave = jPassClave.getPassword();
 				String claveFinal=new String(clave);
 				
-				if(txtUser.getText().equals("prueba")&& claveFinal.equals("123")) {
+				if(txtUser.getText().equals("")&& claveFinal.equals("123")) {
 					
 					dispose();
 					home ventana= new home();
@@ -138,7 +152,7 @@ public class login extends JFrame {
 					txtUser.setText("");
 					jPassClave.setText("");
 					txtUser.requestFocus();
-				}
+				}*/
 			}
 		});
 		btnIngresar.setFont(new Font("Arial", Font.BOLD, 14));

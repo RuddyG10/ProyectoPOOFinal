@@ -1,5 +1,7 @@
 package logico;
 
+import java.util.Vector;
+
 public class Trabajador {
 	protected String nombre;
 	protected String apellidos;
@@ -7,8 +9,15 @@ public class Trabajador {
 	protected String telefono;
 	protected String email;
 	protected float salario;
-	protected String userName;
+	protected static String userName;
 	protected String password;
+	
+	
+	
+	public Trabajador() {
+		super();
+	}
+
 	public Trabajador(String nombre, String apellidos, String cedula, String telefono, String email, String userName, String password) {
 		super();
 		this.nombre = nombre;
@@ -57,7 +66,7 @@ public class Trabajador {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getUserName() {
+	public static String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
@@ -71,6 +80,34 @@ public class Trabajador {
 	};
 	public void salario() {
 		salario = 0;
+	}
+	
+	public static int verificarUserNuevo (String usuario) {
+		Vector lista = mostrar();
+		Trabajador obj;
+		for(int i=0; i<lista.size();i++) {
+			obj = (Trabajador) lista.elementAt(i);
+			if(obj.getUserName().equalsIgnoreCase(usuario)){
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public static int verificarLogueo(String usuario, String contraseña) {
+		Vector lista = mostrar();
+		Trabajador obj;
+		for(int i=0;i<lista.size();i++) {
+			obj =(Trabajador) lista.elementAt(i);
+			if(obj.getUserName().equalsIgnoreCase(usuario)&&obj.getPassword().equalsIgnoreCase(contraseña)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public static Vector mostrar() {
+		return ListaUsuario.mostrar();
 	}
 
 }
