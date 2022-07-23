@@ -6,23 +6,35 @@ import java.util.Date;
 public class Plan {
 	private String codigo;
 	private String nombrePlan;
+	private String descripcion;
 	private int duracionPlan;
 	private ArrayList<Servicio> servicios;
 	private float totalPrecio;
 	private Date fechaInicio;
-	private Date fechaTermino;
+	private Date fechaPago;
 	
-	public Plan(String codigo, String nombrePlan, int duracionPlan, ArrayList<Servicio> servicios, float totalPrecio,
-			Date fechaInicio, Date fechaTermino) {
+	public Plan(String codigo, String nombrePlan,String descripcion, int duracionPlan, ArrayList<Servicio> servicios, float totalPrecio) {
 		super();
 		this.codigo = codigo;
 		this.nombrePlan = nombrePlan;
+		this.descripcion = descripcion;
 		this.duracionPlan = duracionPlan;
-		this.servicios = new ArrayList<>();
+		this.servicios = new ArrayList<Servicio>();
 		this.totalPrecio = totalPrecio;
 		this.fechaInicio = new Date();
-		this.fechaTermino = new Date();
+		this.fechaPago = new Date();
 	}
+	
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 
 	public String getCodigo() {
 		return codigo;
@@ -68,8 +80,8 @@ public class Plan {
 		return fechaInicio;
 	}
 
-	public Date getFechaTermino() {
-		return fechaTermino;
+	public Date getFechaPago() {
+		return fechaPago;
 	}
 	
 	

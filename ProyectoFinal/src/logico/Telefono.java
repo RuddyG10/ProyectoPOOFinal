@@ -3,9 +3,9 @@ package logico;
 public class Telefono extends Servicio {
 	private float cantMinutos;
 
-	public Telefono(String codigo, String nombre, String tipo, String estado, float costoImp, float valorGanancia,
+	public Telefono(String codigo, String nombre, String estado,
 			float precioFinal, float cantMinutos) {
-		super(codigo, nombre, tipo, estado, costoImp, valorGanancia, precioFinal);
+		super(codigo, nombre, estado, precioFinal);
 		this.cantMinutos = cantMinutos;
 	}
 

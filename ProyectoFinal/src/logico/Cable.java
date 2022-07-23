@@ -3,9 +3,9 @@ package logico;
 public class Cable extends Servicio {
 	private int cantCanales;
 
-	public Cable(String codigo, String nombre, String tipo, String estado, float costoImp, float valorGanancia,
+	public Cable(String codigo, String nombre, String estado,
 			float precioFinal, int cantCanales) {
-		super(codigo, nombre, tipo, estado, costoImp, valorGanancia, precioFinal);
+		super(codigo, nombre, estado, precioFinal);
 		 this.cantCanales = cantCanales;
 	}
 
