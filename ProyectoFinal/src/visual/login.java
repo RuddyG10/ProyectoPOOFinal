@@ -129,10 +129,10 @@ public class login extends JFrame {
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String usuario = txtUser.getText();
-				String contraseña=jPassClave.getText();
-				int pos = Trabajador.verificarLogueo(usuario, contraseña);
+				String contrasena=jPassClave.getText();
+				int pos = Trabajador.verificarLogueo(usuario, contrasena);
 				if(pos==-1) {
-					JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Usuario o Contraseï¿½a Incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
 				}else {
 					home menuInicio = new home();
 					menuInicio.setVisible(true);
@@ -148,7 +148,7 @@ public class login extends JFrame {
 					home ventana= new home();
 					ventana.setVisible(true);
 				}else {
-					JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrectos","Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Usuario o Contraseï¿½a Incorrectos","Error", JOptionPane.ERROR_MESSAGE);
 					txtUser.setText("");
 					jPassClave.setText("");
 					txtUser.requestFocus();
@@ -169,7 +169,7 @@ public class login extends JFrame {
 		panel.add(lblNewLabel_4);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(0, 70, 302, 247);
+		panel_1.setBounds(0, 70, 302, 257);
 		contentPane.add(panel_1);
 		
 		JLabel lblNewLabel_3 = new JLabel("");

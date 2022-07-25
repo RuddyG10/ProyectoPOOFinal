@@ -12,12 +12,6 @@ public class Trabajador {
 	protected String userName;
 	protected String password;
 	
-	
-	
-	public Trabajador() {
-		super();
-	}
-
 	public Trabajador(String nombre, String apellidos, String cedula, String telefono, String email, String userName, String password) {
 		super();
 		this.nombre = nombre;
@@ -94,12 +88,12 @@ public class Trabajador {
 		return -1;
 	}
 	
-	public static int verificarLogueo(String usuario, String contraseña) {
+	public static int verificarLogueo(String usuario, String contrasena) {
 		Vector lista = mostrar();
 		Trabajador obj;
 		for(int i=0;i<lista.size();i++) {
 			obj =(Trabajador) lista.elementAt(i);
-			if(obj.getUserName().equalsIgnoreCase(usuario)&&obj.getPassword().equalsIgnoreCase(contraseña)) {
+			if(obj.getUserName().equalsIgnoreCase(usuario)&&obj.getPassword().equalsIgnoreCase(contrasena)) {
 				return i;
 			}
 		}

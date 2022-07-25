@@ -21,7 +21,7 @@ public class RegistroUsuario extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
-	private JTextField txtContraseña;
+	private JTextField txtContrasena;
 	private JTextField txtRango;
 	private JButton btnNewButton_1;
 
@@ -65,16 +65,16 @@ public class RegistroUsuario extends JFrame {
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
-		txtContraseña = new JTextField();
-		txtContraseña.setBounds(82, 63, 124, 20);
-		contentPane.add(txtContraseña);
-		txtContraseña.setColumns(10);
+		txtContrasena = new JTextField();
+		txtContrasena.setBounds(82, 63, 124, 20);
+		contentPane.add(txtContrasena);
+		txtContrasena.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Guardar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String usuario = txtUsuario.getText();
-				String contrasena = txtContraseña.getText();
+				String contrasena = txtContrasena.getText();
 				String rango = txtRango.getText();
 				Trabajador obj = new Trabajador();
 				if(Trabajador.verificarUserNuevo(usuario)==-1) {
