@@ -7,7 +7,7 @@ public class Plan {
 	private String codigo;
 	private String nombrePlan;
 	private String descripcion;
-	private int duracionPlan;
+	private int duracionPlan; // eso no va
 	private ArrayList<Servicio> servicios;
 	private float totalPrecio;
 	private Date fechaInicio;
