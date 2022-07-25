@@ -9,7 +9,7 @@ public class Trabajador {
 	protected String telefono;
 	protected String email;
 	protected float salario;
-	protected static String userName;
+	protected String userName;
 	protected String password;
 	
 	
@@ -66,7 +66,7 @@ public class Trabajador {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public static String getUserName() {
+	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
