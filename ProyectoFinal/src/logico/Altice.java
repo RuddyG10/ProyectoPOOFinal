@@ -13,8 +13,9 @@ public class Altice {
 	public static int genCodeFac = 1;
 	public static int genCodeVent = 1;
 	public static int genCodeServ = 1;
+	public static Altice altice = null;
 	
-	public Altice() {
+	private Altice() {
 		super();
 		this.facturas = new ArrayList<Factura>();
 		this.misClientes = new ArrayList<Cliente>();
@@ -22,7 +23,12 @@ public class Altice {
 		this.misPlanes = new ArrayList<Plan>();
 		this.servicios = new ArrayList<Servicio>();
 	}
-	
+	public static Altice getInstace() {
+		if(altice == null) {
+			altice = new Altice();
+		}
+		return altice;
+	}
 	public ArrayList<Servicio> getServicios() {
 		return servicios;
 	}
@@ -131,25 +137,43 @@ public class Altice {
 		Venta auxVenta = null;
 		Trabajador auxTrab = buscarTrabajadorByCedula(cedulaTrabajador);
 		Cliente auxClient = buscarClientePorCedula(cedulaCliente);
+		boolean habilitado = false;
+		int i = 0;
 		
 		if(auxTrab != null && auxClient != null && auxTrab instanceof Comercial) {
-			auxVenta = new Venta("V-"+genCodeVent, auxTrab, auxClient, planes);
-			Factura fac = realizarFactura(auxVenta);
-			if(fac != null) {
-				((Comercial) auxTrab).getMisVentas().add(auxVenta);
-				genCodeVent++;
-				auxClient.getMisFacturas().add(fac);
-				insertarFactura(fac);
-				for (Plan plan : planes) {
-					misPlanes.remove(plan);
+			if(planesHabilitados(auxClient)) {
+				auxVenta = new Venta("V-"+genCodeVent, auxTrab, auxClient, planes);
+				Factura fac = realizarFactura(auxVenta);
+				if(fac != null) {
+					((Comercial) auxTrab).getMisVentas().add(auxVenta);
+					genCodeVent++;
+					auxClient.getMisFacturas().add(fac);
+					insertarFactura(fac);
+					for (Plan plan : planes) {
+						misPlanes.remove(plan);
+					}
 				}
 			}
+			
 			
 		}
 		
 		return auxVenta;
 		
 	}
+	public boolean planesHabilitados(Cliente auxClient) {
+		boolean habilitado = true;
+		ArrayList<Plan> planesCliente = auxClient.getPlanes();
+		int i = 0;
+		while(i< planesCliente.size() && habilitado) {
+			if(planesCliente.get(i).getEstado().equalsIgnoreCase("Inhabilitado")) {
+				habilitado = false;
+			}
+			i++;
+		}
+		return habilitado;
+	}
+
 	public Factura realizarFactura(Venta venta) {
 		float total = 0;
 		Factura auxFac = null;
