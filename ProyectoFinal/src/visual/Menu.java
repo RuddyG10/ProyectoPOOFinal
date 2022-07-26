@@ -9,6 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+
+import logico.Trabajador;
+
 import javax.swing.UIManager;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -51,7 +54,7 @@ public class Menu extends JFrame {
 	private JButton btnRegPer;
 	private JButton btnNewButton;
 	private JLabel lblNewLabel;
-
+	
 	/**
 	 * Launch the application.
 	 */
