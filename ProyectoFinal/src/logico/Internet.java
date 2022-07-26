@@ -5,9 +5,9 @@ public class Internet extends Servicio {
 		 private float cantMegasSubida;
 		 private float cantMegasBajada;
 		 
-	public Internet(String codigo, String nombre, String estado,
+	public Internet(String codigo, String nombre,
 			float precioFinal, float cantMegasSubida, float cantMegasBajada) {
-		super(codigo, nombre, estado, precioFinal);
+		super(codigo, nombre, precioFinal);
 		this.cantMegasBajada= cantMegasBajada;
 		this.cantMegasSubida = cantMegasSubida;
 		}

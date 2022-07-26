@@ -4,16 +4,15 @@ public class Servicio {
 	
 	 protected String codigo;
 	 protected String nombre;
-	 protected String estado;
-	 protected float precioFinal;
+	 protected float precio;
 	 
-	public Servicio(String codigo, String nombre, String estado,
+	 
+	public Servicio(String codigo, String nombre,
 			float precioFinal) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
-		this.estado = estado;
-		this.precioFinal = precioFinal;
+		this.precio = precioFinal;
 	}
 
 	public String getCodigo() {
@@ -32,17 +31,8 @@ public class Servicio {
 		this.nombre = nombre;
 	}
 
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-
-	public float getPrecioFinal() {
-		return precioFinal;
+	public float getPrecio() {
+		return precio;
 	}
 	 
 	

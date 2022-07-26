@@ -75,33 +75,5 @@ public class Trabajador {
 	public void salario() {
 		salario = 0;
 	}
-	
-	public static int verificarUserNuevo (String usuario) {
-		Vector lista = mostrar();
-		Trabajador obj;
-		for(int i=0; i<lista.size();i++) {
-			obj = (Trabajador) lista.elementAt(i);
-			if(obj.getUserName().equalsIgnoreCase(usuario)){
-				return i;
-			}
-		}
-		return -1;
-	}
-	
-	public static int verificarLogueo(String usuario, String contrasena) {
-		Vector lista = mostrar();
-		Trabajador obj;
-		for(int i=0;i<lista.size();i++) {
-			obj =(Trabajador) lista.elementAt(i);
-			if(obj.getUserName().equalsIgnoreCase(usuario)&&obj.getPassword().equalsIgnoreCase(contrasena)) {
-				return i;
-			}
-		}
-		return -1;
-	}
-	
-	public static Vector mostrar() {
-		return ListaUsuario.mostrar();
-	}
 
 }

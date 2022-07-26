@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Main {
 
 	public static void main(String[] args) {
-		Altice adm = new Altice();
+		/*Altice adm = new Altice();
 		float totalPrecio = 0;
 		ArrayList<Servicio> servicios = new ArrayList<>();
 		ArrayList<Plan> planes = new ArrayList<>();
@@ -29,7 +29,7 @@ public class Main {
 		
 		for (Factura factura2 : factura) {
 			System.out.println(factura2.getTotal());
-		}
+		}*/
 	}
 
 }

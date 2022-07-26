@@ -7,25 +7,35 @@ public class Plan {
 	private String codigo;
 	private String nombrePlan;
 	private String descripcion;
-	private int duracionPlan; // eso no va
+	private String estado;
 	private ArrayList<Servicio> servicios;
 	private float totalPrecio;
 	private Date fechaInicio;
 	private Date fechaPago;
 	
-	public Plan(String codigo, String nombrePlan,String descripcion, int duracionPlan, ArrayList<Servicio> servicios, float totalPrecio) {
+	public Plan(String codigo, String nombrePlan,String descripcion, ArrayList<Servicio> servicios, float totalPrecio) {
 		super();
 		this.codigo = codigo;
 		this.nombrePlan = nombrePlan;
 		this.descripcion = descripcion;
-		this.duracionPlan = duracionPlan;
 		this.servicios = new ArrayList<Servicio>();
 		this.totalPrecio = totalPrecio;
 		this.fechaInicio = new Date();
 		this.fechaPago = new Date();
+		this.estado = "Habilitado";
 	}
 	
 	
+	public String getEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -50,14 +60,6 @@ public class Plan {
 
 	public void setNombrePlan(String nombrePlan) {
 		this.nombrePlan = nombrePlan;
-	}
-
-	public int getDuracionPlan() {
-		return duracionPlan;
-	}
-
-	public void setDuracionPlan(int duracionPlan) {
-		this.duracionPlan = duracionPlan;
 	}
 
 	public ArrayList<Servicio> getServicios() {
