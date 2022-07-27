@@ -119,23 +119,23 @@ public class RegPlan extends JDialog {
 		JLabel lblNewLabel_1 = new JLabel("C\u00F3digo:");
 		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(6, 22, 116, 31);
+		lblNewLabel_1.setBounds(0, 22, 116, 31);
 		panel_2.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Nombre:");
 		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(331, 22, 116, 31);
+		lblNewLabel_2.setBounds(315, 22, 116, 31);
 		panel_2.add(lblNewLabel_2);
 		
 		txtCodigo = new JTextField();
 		txtCodigo.setEditable(false);
-		txtCodigo.setBounds(128, 22, 197, 31);
+		txtCodigo.setBounds(108, 22, 197, 31);
 		panel_2.add(txtCodigo);
 		txtCodigo.setColumns(10);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(453, 23, 197, 31);
+		txtNombre.setBounds(433, 22, 197, 31);
 		panel_2.add(txtNombre);
 		txtNombre.setColumns(10);
 		{

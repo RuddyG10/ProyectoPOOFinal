@@ -1,6 +1,7 @@
 package visual;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -19,14 +20,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class DetallesPlan extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtCodigo;
 	private JTextField txtNombre;
 	private JTextField txtDescripcion;
-	private JTextField txtTotal;
 	private JTable table;
+	private JTextField textField;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -48,7 +56,8 @@ public class DetallesPlan extends JDialog {
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DetallesPlan.class.getResource("/imagenes/logo altice pf.PNG")));
 		setTitle("Altice");
-		setBounds(100, 100, 678, 609);
+		setBounds(100, 100, 678, 620);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.controlLtHighlight);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -57,7 +66,7 @@ public class DetallesPlan extends JDialog {
 		{
 			JPanel panel = new JPanel();
 			panel.setBackground(SystemColor.activeCaptionText);
-			panel.setBounds(0, 0, 662, 75);
+			panel.setBounds(0, 7, 672, 75);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
@@ -65,7 +74,7 @@ public class DetallesPlan extends JDialog {
 				lblNewLabel.setIcon(new ImageIcon(DetallesPlan.class.getResource("/imagenes/detalles icono.png")));
 				lblNewLabel.setForeground(SystemColor.text);
 				lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
-				lblNewLabel.setBounds(26, 11, 352, 53);
+				lblNewLabel.setBounds(27, 11, 352, 53);
 				panel.add(lblNewLabel);
 			}
 		}
@@ -73,7 +82,7 @@ public class DetallesPlan extends JDialog {
 			JPanel panel = new JPanel();
 			panel.setBackground(SystemColor.controlLtHighlight);
 			panel.setBorder(new TitledBorder(null, "Informacion", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel.setBounds(10, 91, 642, 131);
+			panel.setBounds(10, 89, 642, 114);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
@@ -92,7 +101,7 @@ public class DetallesPlan extends JDialog {
 				panel.add(lblNewLabel_2);
 			}
 			{
-				JLabel lblNewLabel_3 = new JLabel("Descripcion:");
+				JLabel lblNewLabel_3 = new JLabel("Estado:");
 				lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 15));
 				lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 				lblNewLabel_3.setBounds(4, 79, 112, 25);
@@ -101,21 +110,21 @@ public class DetallesPlan extends JDialog {
 			{
 				txtCodigo = new JTextField();
 				txtCodigo.setEditable(false);
-				txtCodigo.setBounds(115, 28, 199, 25);
+				txtCodigo.setBounds(115, 27, 199, 25);
 				panel.add(txtCodigo);
 				txtCodigo.setColumns(10);
 			}
 			{
 				txtNombre = new JTextField();
 				txtNombre.setEditable(false);
-				txtNombre.setBounds(433, 28, 199, 25);
+				txtNombre.setBounds(433, 27, 199, 25);
 				panel.add(txtNombre);
 				txtNombre.setColumns(10);
 			}
 			{
 				txtDescripcion = new JTextField();
 				txtDescripcion.setEditable(false);
-				txtDescripcion.setBounds(115, 72, 517, 48);
+				txtDescripcion.setBounds(115, 79, 199, 25);
 				panel.add(txtDescripcion);
 				txtDescripcion.setColumns(10);
 			}
@@ -124,11 +133,12 @@ public class DetallesPlan extends JDialog {
 			JPanel panel = new JPanel();
 			panel.setBackground(SystemColor.controlLtHighlight);
 			panel.setBorder(new TitledBorder(null, "Servicios incluidos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel.setBounds(10, 230, 642, 219);
+			panel.setBounds(10, 210, 642, 219);
 			contentPanel.add(panel);
 			panel.setLayout(new BorderLayout(0, 0));
 			
 			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setLocation(16, 16);
 			panel.add(scrollPane, BorderLayout.CENTER);
 			
 			table = new JTable();
@@ -145,28 +155,36 @@ public class DetallesPlan extends JDialog {
 		}
 		{
 			JPanel panel = new JPanel();
+			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel.setBackground(SystemColor.controlLtHighlight);
-			panel.setBounds(10, 457, 642, 60);
+			panel.setBounds(10, 436, 642, 96);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
-				txtTotal = new JTextField();
-				txtTotal.setEditable(false);
-				txtTotal.setBounds(366, 14, 276, 27);
-				panel.add(txtTotal);
-				txtTotal.setColumns(10);
+				JLabel lblNewLabel_4 = new JLabel("Descripcion:");
+				lblNewLabel_4.setFont(new Font("Arial", Font.PLAIN, 15));
+				lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+				lblNewLabel_4.setBounds(10, 19, 112, 25);
+				panel.add(lblNewLabel_4);
 			}
 			{
-				JLabel lblNewLabel_5 = new JLabel("RD$");
-				lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 16));
-				lblNewLabel_5.setBounds(302, 12, 54, 30);
+				textField = new JTextField();
+				textField.setBounds(118, 12, 514, 38);
+				panel.add(textField);
+				textField.setColumns(10);
+			}
+			{
+				JLabel lblNewLabel_5 = new JLabel("Precio total:");
+				lblNewLabel_5.setFont(new Font("Arial", Font.PLAIN, 15));
+				lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+				lblNewLabel_5.setBounds(10, 60, 112, 25);
 				panel.add(lblNewLabel_5);
 			}
 			{
-				JLabel lblNewLabel_4 = new JLabel("Precio total:");
-				lblNewLabel_4.setBounds(205, 8, 171, 38);
-				panel.add(lblNewLabel_4);
-				lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 15));
+				textField_1 = new JTextField();
+				textField_1.setBounds(118, 62, 514, 20);
+				panel.add(textField_1);
+				textField_1.setColumns(10);
 			}
 		}
 		{
@@ -177,6 +195,18 @@ public class DetallesPlan extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnSalir = new JButton("Salir");
+				btnSalir.setFont(new Font("Arial", Font.BOLD, 12));
+				btnSalir.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						btnSalir.setBackground(new Color (2,21,58));
+					}
+				});
+				btnSalir.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				btnSalir.setIcon(new ImageIcon(DetallesPlan.class.getResource("/imagenes/icono cancelar.png")));
 				btnSalir.setActionCommand("Cancel");
 				buttonPane.add(btnSalir);
