@@ -53,7 +53,6 @@ public class Menu extends JFrame {
 	private JButton btnListFac;
 	private JButton btnRegPer;
 	private JButton btnNewButton;
-	private JLabel lblNewLabel;
 	
 	/**
 	 * Launch the application.
@@ -81,6 +80,7 @@ public class Menu extends JFrame {
 		dim = getToolkit().getScreenSize();
 		setSize(dim.width,dim.height-50);
 		setLocationRelativeTo(null);
+		
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(253, 245, 230));
 		contentPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -127,7 +127,7 @@ public class Menu extends JFrame {
 		panelMenu.setVisible(false);
 		panelMenu.setBackground(Color.LIGHT_GRAY);
 		panelMenu.setForeground(new Color(0, 0, 0));
-		panelMenu.setBounds(0, 109, 696, 1002);
+		panelMenu.setBounds(0, 109, 303, 522);
 		contentPane.add(panelMenu);
 		panelMenu.setLayout(null);
 		
@@ -135,7 +135,7 @@ public class Menu extends JFrame {
 		btnClient.setRolloverIcon(new ImageIcon(Menu.class.getResource("/imagenes/Cliente dark.png")));
 		btnClient.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/Cliente gris.png")));
 		btnClient.setForeground(Color.LIGHT_GRAY);
-		btnClient.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		btnClient.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnClient.setBackground(new Color(52,52,52));
 		btnClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -154,7 +154,7 @@ public class Menu extends JFrame {
 
 			
 		});
-		btnClient.setBounds(0, 5, 696, 137);
+		btnClient.setBounds(0, 9, 301, 64);
 		panelMenu.add(btnClient);
 		
 		btnPlanes = new JButton("Administrar Planes y Servicios\r\n");
@@ -175,10 +175,10 @@ public class Menu extends JFrame {
 		});
 		btnPlanes.setRolloverIcon(new ImageIcon(Menu.class.getResource("/imagenes/WifiDark.png")));
 		btnPlanes.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/WifiGris.png")));
-		btnPlanes.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		btnPlanes.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnPlanes.setForeground(Color.LIGHT_GRAY);
 		btnPlanes.setBackground(new Color(52,52,52));
-		btnPlanes.setBounds(0, 147, 696, 137);
+		btnPlanes.setBounds(0, 82, 301, 64);
 		panelMenu.add(btnPlanes);
 		
 		btnFacturacion = new JButton("Facturacion");
@@ -200,9 +200,9 @@ public class Menu extends JFrame {
 		btnFacturacion.setRolloverIcon(new ImageIcon(Menu.class.getResource("/imagenes/FacturaDark.png")));
 		btnFacturacion.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/FacturaGris.png")));
 		btnFacturacion.setForeground(Color.LIGHT_GRAY);
-		btnFacturacion.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		btnFacturacion.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnFacturacion.setBackground(new Color(52,52,52));
-		btnFacturacion.setBounds(0, 289, 696, 137);
+		btnFacturacion.setBounds(0, 155, 301, 64);
 		panelMenu.add(btnFacturacion);
 		
 		btnPersonal = new JButton("Administrar Personal");
@@ -224,23 +224,23 @@ public class Menu extends JFrame {
 		btnPersonal.setRolloverIcon(new ImageIcon(Menu.class.getResource("/imagenes/PersonalDark.png")));
 		btnPersonal.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/personal.png")));
 		btnPersonal.setForeground(Color.LIGHT_GRAY);
-		btnPersonal.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		btnPersonal.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnPersonal.setBackground(new Color(52,52,52));
-		btnPersonal.setBounds(0, 431, 696, 137);
+		btnPersonal.setBounds(0, 228, 301, 64);
 		panelMenu.add(btnPersonal);
 		
 		btnConsultas = new JButton("Consultas");
 		btnConsultas.setForeground(Color.LIGHT_GRAY);
-		btnConsultas.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		btnConsultas.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnConsultas.setBackground(new Color(52,52,52));
-		btnConsultas.setBounds(0, 573, 696, 137);
+		btnConsultas.setBounds(0, 301, 301, 64);
 		panelMenu.add(btnConsultas);
 		
 		btnRevision = new JButton("Revision");
 		btnRevision.setForeground(Color.LIGHT_GRAY);
-		btnRevision.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		btnRevision.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnRevision.setBackground(new Color(52,52,52));
-		btnRevision.setBounds(0, 715, 696, 137);
+		btnRevision.setBounds(0, 374, 301, 64);
 		panelMenu.add(btnRevision);
 		
 		btnCerrarSesion = new JButton("Cerrar Sesion");
@@ -256,118 +256,113 @@ public class Menu extends JFrame {
 		btnCerrarSesion.setRolloverIcon(new ImageIcon(Menu.class.getResource("/imagenes/SesuinDark.png")));
 		btnCerrarSesion.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/SesionGris.png")));
 		btnCerrarSesion.setForeground(Color.LIGHT_GRAY);
-		btnCerrarSesion.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		btnCerrarSesion.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnCerrarSesion.setBackground(new Color(52,52,52));
-		btnCerrarSesion.setBounds(0, 857, 696, 137);
+		btnCerrarSesion.setBounds(0, 447, 301, 64);
 		panelMenu.add(btnCerrarSesion);
 		
 		panelClient = new JPanel();
 		panelClient.setBackground(Color.DARK_GRAY);
 		panelClient.setVisible(false);
 		panelClient.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelClient.setBounds(694, 109, 696, 1002);
+		panelClient.setBounds(299, 109, 312, 522);
 		contentPane.add(panelClient);
 		panelClient.setLayout(null);
 		
 		btnListClient = new JButton("Listar Clientes");
 		btnListClient.setForeground(Color.DARK_GRAY);
-		btnListClient.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		btnListClient.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnListClient.setBackground(Color.LIGHT_GRAY);
-		btnListClient.setBounds(10, 11, 676, 131);
+		btnListClient.setBounds(10, 11, 301, 64);
 		panelClient.add(btnListClient);
 		
 		panelPlanes = new JPanel();
 		panelPlanes.setBackground(Color.DARK_GRAY);
 		panelPlanes.setVisible(false);
-		panelPlanes.setBounds(694, 109, 696, 1002);
+		panelPlanes.setBounds(299, 109, 312, 522);
 		contentPane.add(panelPlanes);
 		panelPlanes.setLayout(null);
 		
 		btnRegPlan = new JButton("RegistrarPlan");
 		btnRegPlan.setForeground(Color.DARK_GRAY);
-		btnRegPlan.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		btnRegPlan.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnRegPlan.setBackground(Color.LIGHT_GRAY);
-		btnRegPlan.setBounds(10, 11, 676, 131);
+		btnRegPlan.setBounds(10, 11, 301, 64);
 		panelPlanes.add(btnRegPlan);
 		
 		btnListPlan = new JButton("Lista de Planes");
 		btnListPlan.setForeground(Color.DARK_GRAY);
-		btnListPlan.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		btnListPlan.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnListPlan.setBackground(Color.LIGHT_GRAY);
-		btnListPlan.setBounds(10, 153, 676, 131);
+		btnListPlan.setBounds(10, 153, 301, 64);
 		panelPlanes.add(btnListPlan);
 		
 		btnRegServ = new JButton("Registrar Servicio");
 		btnRegServ.setForeground(Color.DARK_GRAY);
-		btnRegServ.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		btnRegServ.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnRegServ.setBackground(Color.LIGHT_GRAY);
-		btnRegServ.setBounds(10, 295, 676, 131);
+		btnRegServ.setBounds(10, 295, 301, 64);
 		panelPlanes.add(btnRegServ);
 		
 		btnListServ = new JButton("Lista de Servicios");
 		btnListServ.setForeground(Color.DARK_GRAY);
-		btnListServ.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		btnListServ.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnListServ.setBackground(Color.LIGHT_GRAY);
-		btnListServ.setBounds(10, 437, 676, 131);
+		btnListServ.setBounds(10, 437, 301, 64);
 		panelPlanes.add(btnListServ);
 		
 		panelFactura = new JPanel();
 		panelFactura.setBackground(Color.DARK_GRAY);
 		panelFactura.setVisible(false);
-		panelFactura.setBounds(694, 109, 696, 1002);
+		panelFactura.setBounds(299, 109, 312, 522);
 		contentPane.add(panelFactura);
 		panelFactura.setLayout(null);
 		
 		btnVenta = new JButton("Realizar Venta");
 		btnVenta.setForeground(Color.DARK_GRAY);
-		btnVenta.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		btnVenta.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnVenta.setBackground(Color.LIGHT_GRAY);
-		btnVenta.setBounds(10, 11, 676, 131);
+		btnVenta.setBounds(10, 11, 301, 64);
 		panelFactura.add(btnVenta);
 		
 		btnListFac = new JButton("Lista de Facturas");
 		btnListFac.setForeground(Color.DARK_GRAY);
-		btnListFac.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		btnListFac.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnListFac.setBackground(Color.LIGHT_GRAY);
-		btnListFac.setBounds(10, 153, 676, 131);
+		btnListFac.setBounds(10, 153, 301, 64);
 		panelFactura.add(btnListFac);
 		
 		panelPersonal = new JPanel();
 		panelPersonal.setBackground(Color.DARK_GRAY);
 		panelPersonal.setVisible(false);
-		panelPersonal.setBounds(694, 109, 696, 1002);
+		panelPersonal.setBounds(299, 109, 312, 522);
 		contentPane.add(panelPersonal);
 		panelPersonal.setLayout(null);
 		
 		btnRegPer = new JButton("Registrar Personal");
 		btnRegPer.setForeground(Color.DARK_GRAY);
-		btnRegPer.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		btnRegPer.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnRegPer.setBackground(Color.LIGHT_GRAY);
-		btnRegPer.setBounds(10, 11, 676, 131);
+		btnRegPer.setBounds(10, 11, 301, 64);
 		panelPersonal.add(btnRegPer);
 		
 		btnNewButton = new JButton("New button");
 		btnNewButton.setForeground(Color.DARK_GRAY);
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		btnNewButton.setBounds(10, 153, 676, 131);
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		btnNewButton.setBounds(10, 153, 301, 64);
 		panelPersonal.add(btnNewButton);
 		
 		panelConsultas = new JPanel();
 		panelConsultas.setBackground(Color.DARK_GRAY);
 		panelConsultas.setVisible(false);
-		panelConsultas.setBounds(694, 109, 696, 1002);
+		panelConsultas.setBounds(299, 109, 312, 522);
 		contentPane.add(panelConsultas);
 		
 		JLabel lblLogo = new JLabel("Sistema de Administracion.");
-		lblLogo.setBounds(483, 871, 1241, 201);
+		lblLogo.setBounds(208, 342, 1241, 201);
 		contentPane.add(lblLogo);
 		lblLogo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 74));
-		
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/alticeLogo.png")));
-		lblNewLabel.setBounds(679, 204, 946, 641);
-		contentPane.add(lblNewLabel);
 	}
 	public void revision(boolean cerrarTodas) {
 		if(panelClient.isVisible()){
