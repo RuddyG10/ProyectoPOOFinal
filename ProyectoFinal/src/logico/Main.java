@@ -5,26 +5,28 @@ import java.util.ArrayList;
 public class Main {
 
 	public static void main(String[] args) {
-		/*Altice adm = new Altice();
+		/*
 		float totalPrecio = 0;
 		ArrayList<Servicio> servicios = new ArrayList<>();
 		ArrayList<Plan> planes = new ArrayList<>();
 		Trabajador jose = new Comercial("Jose", "Rod", "402", "829", "Jose@hotmail.com", "Jose402", "3000");
 		
-		Servicio internet = new Internet("I-"+adm.genCodeServ, "Internet", "Habilitado", 100, 100, 100);
-		adm.insertarServicio(internet);
+		Servicio internet = new Internet("I-"+Altice.getInstace().genCodeServ, "Internet", 100, 100, 100);
+		Altice.getInstace().insertarServicio(internet);
 		servicios.add(internet);
 		
 		for (Servicio servicio : servicios) {
-			totalPrecio+= servicio.getPrecioFinal();
+			totalPrecio+= servicio.getPrecio();
 		}
 		
-		Plan planInt = new Plan("P-"+adm.genCodePlan, "InternetFull", "Internet 100mbps", 20, servicios, totalPrecio);
+		Plan planInt = new Plan("P-"+Altice.getInstace().genCodePlan, "InternetFull", "Internet 100mbps", servicios, totalPrecio);
 		planes.add(planInt);
+		Altice.getInstace().insertarPlan(planInt);
+		/*
 		Cliente Ruddy = new Cliente("444", "Ruddy", "Gomez", "809", "Dorado", planes);
-		adm.insertarCliente(Ruddy);
-		adm.insertarTrabajador(jose);
-		adm.realizarVenta(Ruddy.getCedula(), jose.getCedula(), planes);
+		Altice.getInstace().insertarCliente(Ruddy);
+		Altice.getInstace().insertarTrabajador(jose);
+		Altice.getInstace().realizarVenta(Ruddy.getCedula(), jose.getCedula(), planes);
 		ArrayList<Factura> factura = Ruddy.getMisFacturas();
 		
 		for (Factura factura2 : factura) {

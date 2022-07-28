@@ -18,7 +18,7 @@ public class Plan {
 		this.codigo = codigo;
 		this.nombrePlan = nombrePlan;
 		this.descripcion = descripcion;
-		this.servicios = new ArrayList<Servicio>();
+		this.servicios = servicios;
 		this.totalPrecio = totalPrecio;
 		this.fechaInicio = new Date();
 		this.fechaPago = new Date();

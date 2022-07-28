@@ -189,6 +189,31 @@ public class Altice {
 		}
 		return auxFac;
 	}
+	public boolean planTieneServicio(Plan plan, String string) {
+		ArrayList<Servicio> servicios = plan.getServicios();
+		boolean find = false;
+		int i = 0;
+		while(i< servicios.size() && !find) {
+			
+			if(string.equalsIgnoreCase("Telefono")) {
+				if(servicios.get(i) instanceof Cable) {
+					find = true;
+				}
+			}
+			if(string.equalsIgnoreCase("Internet")) {
+				if(servicios.get(i) instanceof Internet) {
+					find = true;
+				}
+			}
+			if(string.equalsIgnoreCase("Telefono")) {
+				if(servicios.get(i) instanceof Telefono) {
+					find = true;
+				}
+			}
+			i++;
+		}
+		return find;
+	}
 	
 	
 }
