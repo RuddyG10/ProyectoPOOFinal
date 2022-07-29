@@ -1,6 +1,8 @@
 package logico;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class Altice {
@@ -70,6 +72,13 @@ public class Altice {
 		servicios.add(serv);
 		genCodeServ++;
 	}
+	public Date calcularFechaCorte(Date date) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.MONTH,1);
+		Date newDate = c.getTime();
+		return newDate;
+	}
 	public Trabajador buscarTrabajadorByCedula(String cedula) {
 		Trabajador auxTrab = null;
 		boolean found = false;
@@ -133,17 +142,16 @@ public class Altice {
 		}
 		return auxClient;
 	}
-	public Venta realizarVenta(String cedulaCliente,String cedulaTrabajador,ArrayList<Plan> planes) {
+	public Factura realizarVenta(String cedulaCliente,String cedulaTrabajador,ArrayList<Plan> planes) {
 		Venta auxVenta = null;
 		Trabajador auxTrab = buscarTrabajadorByCedula(cedulaTrabajador);
 		Cliente auxClient = buscarClientePorCedula(cedulaCliente);
+		Factura fac = null;
 		boolean habilitado = false;
-		int i = 0;
-		
 		if(auxTrab != null && auxClient != null && auxTrab instanceof Comercial) {
 			if(planesHabilitados(auxClient)) {
 				auxVenta = new Venta("V-"+genCodeVent, auxTrab, auxClient, planes);
-				Factura fac = realizarFactura(auxVenta);
+				fac = realizarFactura(auxVenta);
 				if(fac != null) {
 					((Comercial) auxTrab).getMisVentas().add(auxVenta);
 					genCodeVent++;
@@ -158,7 +166,7 @@ public class Altice {
 			
 		}
 		
-		return auxVenta;
+		return fac;
 		
 	}
 	public boolean planesHabilitados(Cliente auxClient) {
@@ -166,7 +174,7 @@ public class Altice {
 		ArrayList<Plan> planesCliente = auxClient.getPlanes();
 		int i = 0;
 		while(i< planesCliente.size() && habilitado) {
-			if(planesCliente.get(i).getEstado().equalsIgnoreCase("Inhabilitado")) {
+			if(!planesCliente.get(i).getEstado().equalsIgnoreCase("Habilitado")) {
 				habilitado = false;
 			}
 			i++;
@@ -185,7 +193,6 @@ public class Altice {
 		}
 		if(total > 0) {
 			auxFac = new Factura("F-"+genCodeFac, venta, total);
-			insertarFactura(auxFac);
 		}
 		return auxFac;
 	}
