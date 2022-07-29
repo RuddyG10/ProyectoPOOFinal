@@ -77,6 +77,7 @@ public class RegPlan extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegPlan.class.getResource("/imagenes/logo altice pf.PNG")));
 		setTitle("Altice");
 		setBounds(100, 100, 707, 568);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.text);
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -267,20 +268,20 @@ public class RegPlan extends JDialog {
 							ArrayList<Servicio> aux = new ArrayList<>();
 							if (rdbTelefono.isSelected()) {
 								float cantMinutos = Float.parseFloat(spnMinutos.getValue().toString());
-								Telefono tel = new Telefono("tel-"+Altice.genCodeServ, "Telefono", Altice.getInstace().calcularPrecioServicio(cantMinutos), cantMinutos);
+								Servicio tel = new Telefono("tel-"+Altice.genCodeServ, "Telefono", Altice.getInstace().calcularPrecioServicio(cantMinutos), cantMinutos);
 								Altice.getInstace().insertarServicio(tel);
 								aux.add(tel);
 							}
 							if (rdbCable.isSelected()) {
 								int cantCanales = Integer.parseInt(spnCanales.getValue().toString());
-								Cable cab = new Cable("cab-"+Altice.genCodeServ, "Cable", Altice.getInstace().calcularPrecioServicio(cantCanales), cantCanales);
+								Servicio cab = new Cable("cab-"+Altice.genCodeServ, "Cable", Altice.getInstace().calcularPrecioServicio(cantCanales), cantCanales);
 								Altice.getInstace().insertarServicio(cab);
 								aux.add(cab);
 							}
 							if (rdbInternet.isSelected()) {
 								float subida = Float.parseFloat(spnMSubida.getValue().toString());
 								float bajada = Float.parseFloat(spnMBajada.getValue().toString());
-								Internet net= new Internet("net-"+Altice.genCodeServ, "Internet", Altice.getInstace().calcularPrecioServicio(subida+bajada), subida, bajada);
+								Servicio net= new Internet("net-"+Altice.genCodeServ, "Internet", Altice.getInstace().calcularPrecioServicio(subida+bajada), subida, bajada);
 								aux.add(net);
 							}
 							Plan auxiliar = new Plan("P-"+Altice.genCodePlan, txtNombre.getText(), txtDescripcion.getText(), aux, Altice.getInstace().calcularPrecioPlan(aux));
