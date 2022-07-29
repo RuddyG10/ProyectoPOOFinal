@@ -15,6 +15,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
+
+import logico.Altice;
+
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -26,6 +29,8 @@ public class ListadoPlanes extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
+	private static DefaultTableModel model;
+	private static Object row[];
 
 	/**
 	 * Launch the application.
@@ -80,16 +85,12 @@ public class ListadoPlanes extends JDialog {
 			JScrollPane scrollPane = new JScrollPane();
 			panel_1.add(scrollPane, BorderLayout.CENTER);
 			
+			String headers [] = {"Codigo","Nombre","Precio"};
+			model = new DefaultTableModel();
+			model.setColumnIdentifiers(headers);
 			table = new JTable();
-			table.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			table.setBackground(SystemColor.window);
-			table.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Codigo", "Nombre", "Precio"
-				}
-			));
+			
+			table.setModel(model);
 			scrollPane.setViewportView(table);
 		}
 		{
@@ -98,8 +99,14 @@ public class ListadoPlanes extends JDialog {
 			buttonPane.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			
+			JButton btnNewButton = new JButton("Ver detalles");
+			btnNewButton.setFont(new Font("Arial", Font.PLAIN, 15));
+			btnNewButton.setIcon(new ImageIcon(ListadoPlanes.class.getResource("/imagenes/masDetalles icono.png")));
+			buttonPane.add(btnNewButton);
 			{
 				JButton btnModificar = new JButton("Modificar");
+				btnModificar.setFont(new Font("Arial", Font.PLAIN, 15));
 				btnModificar.setIcon(new ImageIcon(ListadoPlanes.class.getResource("/imagenes/icono editar.png")));
 				btnModificar.setActionCommand("OK");
 				buttonPane.add(btnModificar);
@@ -107,6 +114,7 @@ public class ListadoPlanes extends JDialog {
 			}
 			{
 				JButton btnSalir = new JButton("Salir");
+				btnSalir.setFont(new Font("Arial", Font.PLAIN, 15));
 				btnSalir.setIcon(new ImageIcon(ListadoPlanes.class.getResource("/imagenes/icono cancelar.png")));
 				btnSalir.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -117,6 +125,20 @@ public class ListadoPlanes extends JDialog {
 				btnSalir.setActionCommand("Cancel");
 				buttonPane.add(btnSalir);
 			}
+		}
+		loadTable();
+	}
+	private void loadTable() {
+		model.setRowCount(0);
+		row = new Object[model.getColumnCount()];
+		
+		for(int i = 0; i < Altice.getInstance().getmisPlanes().size(); i++) {
+			row[0] = Altice.getInstance().getmisPlanes().get(i).getCodigo();
+			row[1] = Altice.getInstance().getmisPlanes().get(i).getNombrePlan();
+			row[2] = Altice.getInstance().getmisPlanes().get(i).getTotalPrecio();
+
+			model.addRow(row);
+
 		}
 	}
 }

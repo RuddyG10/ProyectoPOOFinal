@@ -13,7 +13,7 @@ public class Altice {
 	public static int genCodeFac = 1;
 	public static int genCodeVent = 1;
 	public static int genCodeServ = 1;
-	public static Altice altice = null;
+	private static Altice altice = null;
 	
 	private Altice() {
 		super();
@@ -23,7 +23,7 @@ public class Altice {
 		this.misPlanes = new ArrayList<Plan>();
 		this.servicios = new ArrayList<Servicio>();
 	}
-	public static Altice getInstace() {
+	public static Altice getInstance() {
 		if(altice == null) {
 			altice = new Altice();
 		}
@@ -228,6 +228,20 @@ public class Altice {
 			i++;
 		}
 		return auxPlan;
+}
+
+	public float calcularPrecioServicio(float cantidad) {
+		float precioTotal = 0f;
+		float precioUnidad = 1.2f;
+		precioTotal+= precioUnidad *cantidad;
+		return precioTotal;
+	}
+	public float calcularPrecioPlan(ArrayList<Servicio> ServiciosDelPlan) {
+		float precioTotal = 0f;
+		for (Servicio servicio : ServiciosDelPlan) {
+		  precioTotal += servicio.getPrecio();
+		}
+		return precioTotal;
 	}
 	
 	

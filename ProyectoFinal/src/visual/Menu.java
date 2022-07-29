@@ -284,6 +284,13 @@ public class Menu extends JFrame {
 		panelPlanes.setLayout(null);
 		
 		btnRegPlan = new JButton("RegistrarPlan");
+		btnRegPlan.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegPlan aux = new RegPlan();
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
 		btnRegPlan.setForeground(Color.DARK_GRAY);
 		btnRegPlan.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnRegPlan.setBackground(Color.LIGHT_GRAY);
@@ -291,6 +298,13 @@ public class Menu extends JFrame {
 		panelPlanes.add(btnRegPlan);
 		
 		btnListPlan = new JButton("Lista de Planes");
+		btnListPlan.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListadoPlanes aux = new ListadoPlanes();
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
 		btnListPlan.setForeground(Color.DARK_GRAY);
 		btnListPlan.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnListPlan.setBackground(Color.LIGHT_GRAY);

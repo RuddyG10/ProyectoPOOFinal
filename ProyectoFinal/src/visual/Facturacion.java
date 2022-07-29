@@ -126,6 +126,11 @@ public class Facturacion extends JDialog {
 		txtCedula.setColumns(10);
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//TODO ventana de busqueda de clientes me diante su lista.
+			}
+		});
 		btnBuscar.setIcon(new ImageIcon(Facturacion.class.getResource("/imagenes/buscar1.png")));
 		btnBuscar.setBounds(252, 25, 125, 29);
 		panelCliente.add(btnBuscar);
@@ -266,6 +271,7 @@ public class Facturacion extends JDialog {
 					modelCarrito.addElement(data);
 					modelVenta.removeElement(data);
 				});
+				totalPrecio();
 			}
 		});
 		btnAddCarrito.setIcon(new ImageIcon(Facturacion.class.getResource("/imagenes/add_shopping_cart_FILL0_wght400_GRAD0_opsz24.png")));
@@ -279,6 +285,7 @@ public class Facturacion extends JDialog {
 					modelVenta.addElement(data);
 					modelCarrito.removeElement(data);
 				});
+				totalPrecio();
 			}
 		});
 		btnRemove.setIcon(new ImageIcon(Facturacion.class.getResource("/imagenes/remove_shopping_cart_FILL0_wght400_GRAD0_opsz24.png")));
@@ -313,9 +320,9 @@ public class Facturacion extends JDialog {
 		btnVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(activarRegistro()) {
-					Cliente auxClient = Altice.getInstace().buscarClientePorCedula(txtCedula.getText());
+					Cliente auxClient = Altice.getInstance().buscarClientePorCedula(txtCedula.getText());
 					if(auxClient != null) {
-						if(Altice.getInstace().planesHabilitados(auxClient)) {
+						if(Altice.getInstance().planesHabilitados(auxClient)) {
 							
 						}
 					}
@@ -355,8 +362,29 @@ public class Facturacion extends JDialog {
 			}
 		});
 		buttonPane.add(btnCancelar);
+		ArrayList<Servicio> servicios = new ArrayList<>();
+		Servicio internet = new Internet("I-"+Altice.getInstance().genCodeServ, "Internet", 100, 100, 100);
+		servicios.add(internet);
+		Plan planInt = new Plan("P-"+Altice.getInstance().genCodePlan, "InternetFull", "Internet 100mbps", servicios, 200);
+		Altice.getInstance().insertarPlan(planInt);
 		llenarList();
 		activarRegistro();
+		totalPrecio();
+	}
+
+	public void totalPrecio() {
+		float subTotal = 0;
+		String[] codes;
+		ArrayList<Plan> planes = new ArrayList<Plan>();
+		for (int i = 0; i < modelCarrito.getSize(); i++) {
+			codes = modelCarrito.get(i).toString().split(" ");
+			planes.add(Altice.getInstance().buscarPlanByCode(codes[0]));
+		}
+		for (Plan plan : planes) {
+			subTotal += plan.getTotalPrecio();
+		}
+		txtSubtotal.setText(String.valueOf(subTotal));
+		
 	}
 
 	public boolean activarRegistro() {
@@ -370,32 +398,49 @@ public class Facturacion extends JDialog {
 	}
 
 	public void llenarList() {
-		ArrayList<Plan> planes = Altice.getInstace().getmisPlanes();
-		ArrayList<Servicio> servicios = new ArrayList<>();
-		Servicio internet = new Internet("I-"+Altice.getInstace().genCodeServ, "Internet", 100, 100, 100);
-		servicios.add(internet);
-		Plan planInt = new Plan("P-"+Altice.getInstace().genCodePlan, "InternetFull", "Internet 100mbps", servicios, 200);
-		Altice.getInstace().insertarPlan(planInt);
+		ArrayList<Plan> planes = Altice.getInstance().getmisPlanes();
+		
 		modelVenta = new DefaultListModel();
 		for (Plan plan : planes) {
 			if(rdbtnCable.isSelected()) {
-				if(Altice.getInstace().planTieneServicio(plan,"Cable")) {
+				if(Altice.getInstance().planTieneServicio(plan,"Cable")) {
 					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
 				}
 			}
 			if(rdbtnInternet.isSelected()) {
-				if(Altice.getInstace().planTieneServicio(plan,"Internet")) {
-					System.out.println(Altice.getInstace().planTieneServicio(plan,"Internet"));
+				if(Altice.getInstance().planTieneServicio(plan,"Internet")) {
+					System.out.println(Altice.getInstance().planTieneServicio(plan,"Internet"));
 					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
 				}
 			}
 			if(rdbtnTelefono.isSelected()) {
-				if(Altice.getInstace().planTieneServicio(plan,"Telefono")) {
+				if(Altice.getInstance().planTieneServicio(plan,"Telefono")) {
 					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+				}
+			}
+			if(rdbtnCable.isSelected() && rdbtnInternet.isSelected()) {
+				if(Altice.getInstance().planTieneServicio(plan,"Cable") && Altice.getInstance().planTieneServicio(plan,"Internet")) {
+					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+				}
+			}
+			if(rdbtnCable.isSelected() && rdbtnTelefono.isSelected()) {
+				if(Altice.getInstance().planTieneServicio(plan,"Cable") && Altice.getInstance().planTieneServicio(plan,"Telefono")) {
+					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+				}
+			}
+			if(rdbtnInternet.isSelected() && rdbtnTelefono.isSelected()) {
+				if(Altice.getInstance().planTieneServicio(plan,"Internet") && Altice.getInstance().planTieneServicio(plan,"Telefono")) {
+					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+					System.out.println(Altice.getInstance().planTieneServicio(plan, "Cable"));
 				}
 			}
 			if(!rdbtnCable.isSelected()&&!rdbtnInternet.isSelected() && !rdbtnTelefono.isSelected()) {
 				modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+			}
+			if(rdbtnCable.isSelected()&&rdbtnInternet.isSelected() && rdbtnTelefono.isSelected()) {
+				if(Altice.getInstance().planTieneServicio(plan, "Cable") && Altice.getInstance().planTieneServicio(plan, "Internet") && Altice.getInstance().planTieneServicio(plan, "Internet")) {
+					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+				}
 			}
 			
 		}
