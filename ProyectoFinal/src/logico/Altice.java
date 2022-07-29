@@ -198,14 +198,16 @@ public class Altice {
 			if(string.equalsIgnoreCase("Telefono")) {
 				if(servicios.get(i) instanceof Cable) {
 					find = true;
+					
 				}
 			}
-			if(string.equalsIgnoreCase("Internet")) {
+			else if(string.equalsIgnoreCase("Internet")) {
 				if(servicios.get(i) instanceof Internet) {
 					find = true;
+					System.out.println(servicios.get(i).getCodigo());
 				}
 			}
-			if(string.equalsIgnoreCase("Telefono")) {
+			else if(string.equalsIgnoreCase("Telefono")) {
 				if(servicios.get(i) instanceof Telefono) {
 					find = true;
 				}
@@ -213,6 +215,19 @@ public class Altice {
 			i++;
 		}
 		return find;
+	}
+	public Plan buscarPlanByCode(String code) {
+		Plan auxPlan = null;
+		boolean found = false;
+		int i = 0;
+		while(i< misPlanes.size() && !found) {
+			if(misPlanes.get(i).getCodigo().equalsIgnoreCase(code)) {
+				auxPlan = misPlanes.get(i);
+				found = true;
+			}
+			i++;
+		}
+		return auxPlan;
 	}
 	
 	
