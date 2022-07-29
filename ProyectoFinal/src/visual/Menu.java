@@ -319,7 +319,7 @@ public class Menu extends JFrame {
 		btnVenta = new JButton("Realizar Venta");
 		btnVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Facturacion facturacion = new Facturacion();
+				Facturacion facturacion = new Facturacion(null);
 				facturacion.setVisible(true);
 			}
 		});
