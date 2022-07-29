@@ -214,6 +214,19 @@ public class Altice {
 		}
 		return find;
 	}
+	public float calcularPrecioServicio(float cantidad) {
+		float precioTotal = 0f;
+		float precioUnidad = 1.2f;
+		precioTotal+= precioUnidad *cantidad;
+		return precioTotal;
+	}
+	public float calcularPrecioPlan(ArrayList<Servicio> ServiciosDelPlan) {
+		float precioTotal = 0f;
+		for (Servicio servicio : ServiciosDelPlan) {
+		  precioTotal += servicio.getPrecio();
+		}
+		return precioTotal;
+	}
 	
 	
 }
