@@ -13,9 +13,12 @@ import javax.swing.border.TitledBorder;
 
 import logico.Altice;
 import logico.Cliente;
+import logico.Factura;
 import logico.Internet;
 import logico.Plan;
 import logico.Servicio;
+import logico.Trabajador;
+import logico.Venta;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -61,13 +64,13 @@ public class Facturacion extends JDialog {
 	private DefaultListModel modelCarrito;
 	private JScrollPane scrollVenta;
 	private JScrollPane scrollCarrito;
-
+	private Trabajador comercial;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			Facturacion dialog = new Facturacion();
+			Facturacion dialog = new Facturacion(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -78,7 +81,9 @@ public class Facturacion extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public Facturacion() {
+	public Facturacion(Trabajador aux) {
+		comercial = aux;
+		setResizable(false);
 		setTitle("Facturacion");
 		setModal(true);
 		setBounds(100, 100, 710, 670);
@@ -126,6 +131,11 @@ public class Facturacion extends JDialog {
 		txtCedula.setColumns(10);
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//TODO ventana de busqueda de clientes me diante su lista.
+			}
+		});
 		btnBuscar.setIcon(new ImageIcon(Facturacion.class.getResource("/imagenes/buscar1.png")));
 		btnBuscar.setBounds(252, 25, 125, 29);
 		panelCliente.add(btnBuscar);
@@ -197,6 +207,7 @@ public class Facturacion extends JDialog {
 		rdbtnCable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				llenarList();
+				
 			}
 		});
 		rdbtnCable.setBackground(new Color(253, 245, 230));
@@ -207,7 +218,7 @@ public class Facturacion extends JDialog {
 		rdbtnTelefono = new JRadioButton("Con Telefono");
 		rdbtnTelefono.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				llenarList();
+					llenarList();
 			}
 		});
 		rdbtnTelefono.setBackground(new Color(253, 245, 230));
@@ -266,6 +277,7 @@ public class Facturacion extends JDialog {
 					modelCarrito.addElement(data);
 					modelVenta.removeElement(data);
 				});
+				totalPrecio();
 			}
 		});
 		btnAddCarrito.setIcon(new ImageIcon(Facturacion.class.getResource("/imagenes/add_shopping_cart_FILL0_wght400_GRAD0_opsz24.png")));
@@ -279,6 +291,7 @@ public class Facturacion extends JDialog {
 					modelVenta.addElement(data);
 					modelCarrito.removeElement(data);
 				});
+				totalPrecio();
 			}
 		});
 		btnRemove.setIcon(new ImageIcon(Facturacion.class.getResource("/imagenes/remove_shopping_cart_FILL0_wght400_GRAD0_opsz24.png")));
@@ -313,9 +326,25 @@ public class Facturacion extends JDialog {
 		btnVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(activarRegistro()) {
-					Cliente auxClient = Altice.getInstace().buscarClientePorCedula(txtCedula.getText());
-					if(auxClient != null) {
-						if(Altice.getInstace().planesHabilitados(auxClient)) {
+					Cliente auxClient = Altice.getInstance().buscarClientePorCedula(txtCedula.getText());
+					ArrayList<Plan> planes = getPlanesCarrito();
+					if(auxClient == null) {
+						
+						if(planes!= null) {
+							auxClient = new Cliente(txtCedula.getText(), txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtDireccion.getText(), planes);
+							realizarVenta(auxClient,planes);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "No hay planes seleccionados.", "Error", JOptionPane.ERROR_MESSAGE);
+							
+						}
+					}
+					else {
+						if(Altice.getInstance().planesHabilitados(auxClient)) {
+							realizarVenta(auxClient,planes);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Al parecer el cliente tiene planes inhabilitados.", "Error", JOptionPane.ERROR_MESSAGE);
 							
 						}
 					}
@@ -325,6 +354,7 @@ public class Facturacion extends JDialog {
 				}
 				
 			}
+			
 		});
 		btnVenta.addMouseListener(new MouseAdapter() {
 			@Override
@@ -355,8 +385,29 @@ public class Facturacion extends JDialog {
 			}
 		});
 		buttonPane.add(btnCancelar);
+		ArrayList<Servicio> servicios = new ArrayList<>();
+		Servicio internet = new Internet("I-"+Altice.getInstance().genCodeServ, "Internet", 100, 100, 100);
+		servicios.add(internet);
+		Plan planInt = new Plan("P-"+Altice.getInstance().genCodePlan, "InternetFull", "Internet 100mbps", servicios, 200);
+		Altice.getInstance().insertarPlan(planInt);
 		llenarList();
 		activarRegistro();
+		totalPrecio();
+	}
+
+	public void totalPrecio() {
+		float subTotal = 0;
+		String[] codes;
+		ArrayList<Plan> planes = new ArrayList<Plan>();
+		for (int i = 0; i < modelCarrito.getSize(); i++) {
+			codes = modelCarrito.get(i).toString().split(" ");
+			planes.add(Altice.getInstance().buscarPlanByCode(codes[0]));
+		}
+		for (Plan plan : planes) {
+			subTotal += plan.getTotalPrecio();
+		}
+		txtSubtotal.setText(String.valueOf(subTotal));
+		
 	}
 
 	public boolean activarRegistro() {
@@ -370,35 +421,89 @@ public class Facturacion extends JDialog {
 	}
 
 	public void llenarList() {
-		ArrayList<Plan> planes = Altice.getInstace().getmisPlanes();
-		ArrayList<Servicio> servicios = new ArrayList<>();
-		Servicio internet = new Internet("I-"+Altice.getInstace().genCodeServ, "Internet", 100, 100, 100);
-		servicios.add(internet);
-		Plan planInt = new Plan("P-"+Altice.getInstace().genCodePlan, "InternetFull", "Internet 100mbps", servicios, 200);
-		Altice.getInstace().insertarPlan(planInt);
+		ArrayList<Plan> planes = Altice.getInstance().getmisPlanes();
+		
 		modelVenta = new DefaultListModel();
 		for (Plan plan : planes) {
-			if(rdbtnCable.isSelected()) {
-				if(Altice.getInstace().planTieneServicio(plan,"Cable")) {
-					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
-				}
-			}
-			if(rdbtnInternet.isSelected()) {
-				if(Altice.getInstace().planTieneServicio(plan,"Internet")) {
-					System.out.println(Altice.getInstace().planTieneServicio(plan,"Internet"));
-					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
-				}
-			}
-			if(rdbtnTelefono.isSelected()) {
-				if(Altice.getInstace().planTieneServicio(plan,"Telefono")) {
-					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
-				}
-			}
+			//ninguno selected
 			if(!rdbtnCable.isSelected()&&!rdbtnInternet.isSelected() && !rdbtnTelefono.isSelected()) {
+				modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+			}
+			//solo uno selected
+			if(rdbtnCable.isSelected()&&!rdbtnInternet.isSelected() && !rdbtnTelefono.isSelected() &&Altice.getInstance().planTieneServicio(plan, "Cable")) {
+				modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+			}
+			if(!rdbtnCable.isSelected()&&rdbtnInternet.isSelected() && !rdbtnTelefono.isSelected() && Altice.getInstance().planTieneServicio(plan, "Internet")) {
+				modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+			}
+			if(!rdbtnCable.isSelected()&&!rdbtnInternet.isSelected() && rdbtnTelefono.isSelected() && Altice.getInstance().planTieneServicio(plan, "Telefono")) {
+				modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+			}
+			//dose selected
+			if(rdbtnCable.isSelected()&&rdbtnInternet.isSelected() && !rdbtnTelefono.isSelected() &&Altice.getInstance().planTieneServicio(plan, "Cable") && Altice.getInstance().planTieneServicio(plan, "Internet")) {
+				modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+			}
+			if(rdbtnCable.isSelected()&&!rdbtnInternet.isSelected() && rdbtnTelefono.isSelected() && Altice.getInstance().planTieneServicio(plan, "Cable") && Altice.getInstance().planTieneServicio(plan, "Telefono")) {
+				modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+			}
+			if(!rdbtnCable.isSelected()&&rdbtnInternet.isSelected() && rdbtnTelefono.isSelected() && Altice.getInstance().planTieneServicio(plan, "Telefono") && Altice.getInstance().planTieneServicio(plan, "Internet")) {
+				modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+			}
+			//tres selected
+			if(rdbtnCable.isSelected()&&rdbtnInternet.isSelected() && rdbtnTelefono.isSelected() && Altice.getInstance().planTieneServicio(plan, "Telefono") && Altice.getInstance().planTieneServicio(plan, "Internet") && Altice.getInstance().planTieneServicio(plan, "Cable")) {
 				modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
 			}
 			
 		}
 		listPlan.setModel(modelVenta);
 	}
+	public ArrayList<Plan> getPlanesCarrito() {
+		ArrayList<Plan> aux = null;
+		String[] codes;
+		if(modelCarrito.getSize() > 0) {
+			aux = new ArrayList<Plan>();
+			for (int i = 0; i < modelCarrito.getSize(); i++) {
+				codes = modelCarrito.get(i).toString().split(" ");
+				aux.add(Altice.getInstance().buscarPlanByCode(codes[0]));
+			}
+		}
+		return aux;
+	}
+	public void realizarVenta(Cliente auxClient,ArrayList<Plan> planes) {
+		if(comercial != null) {
+			Altice.getInstance().insertarCliente(auxClient);
+			Factura fac = Altice.getInstance().realizarVenta(auxClient.getCedula(), comercial.getCedula(), planes);
+			if(fac!= null) {
+				
+				int option = JOptionPane.showConfirmDialog(null, "Venta realizada con Exito, desea ver su factura?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				if(option == 0) {
+					VerFactura ver = new VerFactura(fac);
+					ver.setVisible(true);
+				}
+				clean();
+			}
+			else {
+				JOptionPane.showConfirmDialog(null, "Algo salio mal con la factura.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "No hay registro de comercial.", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+
+	public void clean() {
+		txtCedula.setText("");
+		txtNombre.setText("");
+		txtApellidos.setText("");
+		txtDireccion.setText("");
+		txtSubtotal.setText("0.0");
+		txtTelefono.setText("");
+		rdbtnCable.setSelected(false);
+		rdbtnInternet.setSelected(false);
+		rdbtnTelefono.setSelected(false);
+		modelCarrito.clear();
+		
+	}
+
 }

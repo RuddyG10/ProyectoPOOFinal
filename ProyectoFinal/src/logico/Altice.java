@@ -1,6 +1,8 @@
 package logico;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class Altice {
@@ -13,7 +15,7 @@ public class Altice {
 	public static int genCodeFac = 1;
 	public static int genCodeVent = 1;
 	public static int genCodeServ = 1;
-	public static Altice altice = null;
+	private static Altice altice = null;
 	
 	private Altice() {
 		super();
@@ -23,7 +25,7 @@ public class Altice {
 		this.misPlanes = new ArrayList<Plan>();
 		this.servicios = new ArrayList<Servicio>();
 	}
-	public static Altice getInstace() {
+	public static Altice getInstance() {
 		if(altice == null) {
 			altice = new Altice();
 		}
@@ -69,6 +71,13 @@ public class Altice {
 	public void insertarServicio(Servicio serv) {
 		servicios.add(serv);
 		genCodeServ++;
+	}
+	public Date calcularFechaCorte(Date date) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.MONTH,1);
+		Date newDate = c.getTime();
+		return newDate;
 	}
 	public Trabajador buscarTrabajadorByCedula(String cedula) {
 		Trabajador auxTrab = null;
@@ -133,17 +142,16 @@ public class Altice {
 		}
 		return auxClient;
 	}
-	public Venta realizarVenta(String cedulaCliente,String cedulaTrabajador,ArrayList<Plan> planes) {
+	public Factura realizarVenta(String cedulaCliente,String cedulaTrabajador,ArrayList<Plan> planes) {
 		Venta auxVenta = null;
 		Trabajador auxTrab = buscarTrabajadorByCedula(cedulaTrabajador);
 		Cliente auxClient = buscarClientePorCedula(cedulaCliente);
+		Factura fac = null;
 		boolean habilitado = false;
-		int i = 0;
-		
 		if(auxTrab != null && auxClient != null && auxTrab instanceof Comercial) {
 			if(planesHabilitados(auxClient)) {
 				auxVenta = new Venta("V-"+genCodeVent, auxTrab, auxClient, planes);
-				Factura fac = realizarFactura(auxVenta);
+				fac = realizarFactura(auxVenta);
 				if(fac != null) {
 					((Comercial) auxTrab).getMisVentas().add(auxVenta);
 					genCodeVent++;
@@ -158,7 +166,7 @@ public class Altice {
 			
 		}
 		
-		return auxVenta;
+		return fac;
 		
 	}
 	public boolean planesHabilitados(Cliente auxClient) {
@@ -166,7 +174,7 @@ public class Altice {
 		ArrayList<Plan> planesCliente = auxClient.getPlanes();
 		int i = 0;
 		while(i< planesCliente.size() && habilitado) {
-			if(planesCliente.get(i).getEstado().equalsIgnoreCase("Inhabilitado")) {
+			if(!planesCliente.get(i).getEstado().equalsIgnoreCase("Habilitado")) {
 				habilitado = false;
 			}
 			i++;
@@ -185,7 +193,6 @@ public class Altice {
 		}
 		if(total > 0) {
 			auxFac = new Factura("F-"+genCodeFac, venta, total);
-			insertarFactura(auxFac);
 		}
 		return auxFac;
 	}
@@ -195,17 +202,19 @@ public class Altice {
 		int i = 0;
 		while(i< servicios.size() && !find) {
 			
-			if(string.equalsIgnoreCase("Telefono")) {
+			if(string.equalsIgnoreCase("Cable")) {
 				if(servicios.get(i) instanceof Cable) {
 					find = true;
+					
 				}
 			}
-			if(string.equalsIgnoreCase("Internet")) {
+			else if(string.equalsIgnoreCase("Internet")) {
 				if(servicios.get(i) instanceof Internet) {
 					find = true;
+					System.out.println(servicios.get(i).getCodigo());
 				}
 			}
-			if(string.equalsIgnoreCase("Telefono")) {
+			else if(string.equalsIgnoreCase("Telefono")) {
 				if(servicios.get(i) instanceof Telefono) {
 					find = true;
 				}
@@ -214,6 +223,20 @@ public class Altice {
 		}
 		return find;
 	}
+	public Plan buscarPlanByCode(String code) {
+		Plan auxPlan = null;
+		boolean found = false;
+		int i = 0;
+		while(i< misPlanes.size() && !found) {
+			if(misPlanes.get(i).getCodigo().equalsIgnoreCase(code)) {
+				auxPlan = misPlanes.get(i);
+				found = true;
+			}
+			i++;
+		}
+		return auxPlan;
+}
+
 	public float calcularPrecioServicio(float cantidad) {
 		float precioTotal = 0f;
 		float precioUnidad = 1.2f;

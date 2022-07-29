@@ -132,10 +132,10 @@ public class ListadoPlanes extends JDialog {
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
 		
-		for(int i = 0; i < Altice.getInstace().getmisPlanes().size(); i++) {
-			row[0] = Altice.getInstace().getmisPlanes().get(i).getCodigo();
-			row[1] = Altice.getInstace().getmisPlanes().get(i).getNombrePlan();
-			row[2] = Altice.getInstace().getmisPlanes().get(i).getTotalPrecio();
+		for(int i = 0; i < Altice.getInstance().getmisPlanes().size(); i++) {
+			row[0] = Altice.getInstance().getmisPlanes().get(i).getCodigo();
+			row[1] = Altice.getInstance().getmisPlanes().get(i).getNombrePlan();
+			row[2] = Altice.getInstance().getmisPlanes().get(i).getTotalPrecio();
 
 			model.addRow(row);
 
