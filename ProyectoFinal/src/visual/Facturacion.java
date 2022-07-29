@@ -202,6 +202,7 @@ public class Facturacion extends JDialog {
 		rdbtnCable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				llenarList();
+				
 			}
 		});
 		rdbtnCable.setBackground(new Color(253, 245, 230));
@@ -212,7 +213,7 @@ public class Facturacion extends JDialog {
 		rdbtnTelefono = new JRadioButton("Con Telefono");
 		rdbtnTelefono.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				llenarList();
+					llenarList();
 			}
 		});
 		rdbtnTelefono.setBackground(new Color(253, 245, 230));
@@ -402,45 +403,29 @@ public class Facturacion extends JDialog {
 		
 		modelVenta = new DefaultListModel();
 		for (Plan plan : planes) {
-			if(rdbtnCable.isSelected()) {
-				if(Altice.getInstance().planTieneServicio(plan,"Cable")) {
-					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
-				}
-			}
-			if(rdbtnInternet.isSelected()) {
-				if(Altice.getInstance().planTieneServicio(plan,"Internet")) {
-					System.out.println(Altice.getInstance().planTieneServicio(plan,"Internet"));
-					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
-				}
-			}
-			if(rdbtnTelefono.isSelected()) {
-				if(Altice.getInstance().planTieneServicio(plan,"Telefono")) {
-					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
-				}
-			}
-			if(rdbtnCable.isSelected() && rdbtnInternet.isSelected()) {
-				if(Altice.getInstance().planTieneServicio(plan,"Cable") && Altice.getInstance().planTieneServicio(plan,"Internet")) {
-					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
-				}
-			}
-			if(rdbtnCable.isSelected() && rdbtnTelefono.isSelected()) {
-				if(Altice.getInstance().planTieneServicio(plan,"Cable") && Altice.getInstance().planTieneServicio(plan,"Telefono")) {
-					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
-				}
-			}
-			if(rdbtnInternet.isSelected() && rdbtnTelefono.isSelected()) {
-				if(Altice.getInstance().planTieneServicio(plan,"Internet") && Altice.getInstance().planTieneServicio(plan,"Telefono")) {
-					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
-					System.out.println(Altice.getInstance().planTieneServicio(plan, "Cable"));
-				}
-			}
+			//ninguno selected
 			if(!rdbtnCable.isSelected()&&!rdbtnInternet.isSelected() && !rdbtnTelefono.isSelected()) {
 				modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
 			}
-			if(rdbtnCable.isSelected()&&rdbtnInternet.isSelected() && rdbtnTelefono.isSelected()) {
-				if(Altice.getInstance().planTieneServicio(plan, "Cable") && Altice.getInstance().planTieneServicio(plan, "Internet") && Altice.getInstance().planTieneServicio(plan, "Internet")) {
-					modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
-				}
+			//solo uno selected
+			if(rdbtnCable.isSelected()&&!rdbtnInternet.isSelected() && !rdbtnTelefono.isSelected() &&Altice.getInstance().planTieneServicio(plan, "Cable")) {
+				modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+			}
+			if(!rdbtnCable.isSelected()&&rdbtnInternet.isSelected() && !rdbtnTelefono.isSelected() && Altice.getInstance().planTieneServicio(plan, "Internet")) {
+				modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+			}
+			if(!rdbtnCable.isSelected()&&!rdbtnInternet.isSelected() && rdbtnTelefono.isSelected() && Altice.getInstance().planTieneServicio(plan, "Telefono")) {
+				modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+			}
+			//dose selected
+			if(rdbtnCable.isSelected()&&rdbtnInternet.isSelected() && !rdbtnTelefono.isSelected() &&Altice.getInstance().planTieneServicio(plan, "Cable") && Altice.getInstance().planTieneServicio(plan, "Internet")) {
+				modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+			}
+			if(rdbtnCable.isSelected()&&!rdbtnInternet.isSelected() && rdbtnTelefono.isSelected() && Altice.getInstance().planTieneServicio(plan, "Cable") && Altice.getInstance().planTieneServicio(plan, "Telefono")) {
+				modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
+			}
+			if(!rdbtnCable.isSelected()&&rdbtnInternet.isSelected() && rdbtnTelefono.isSelected() && Altice.getInstance().planTieneServicio(plan, "Telefono") && Altice.getInstance().planTieneServicio(plan, "Internet")) {
+				modelVenta.addElement(plan.getCodigo() + " "+ plan.getNombrePlan()+" - $"+plan.getTotalPrecio());
 			}
 			
 		}

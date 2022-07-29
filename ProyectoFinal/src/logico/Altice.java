@@ -195,7 +195,7 @@ public class Altice {
 		int i = 0;
 		while(i< servicios.size() && !find) {
 			
-			if(string.equalsIgnoreCase("Telefono")) {
+			if(string.equalsIgnoreCase("Cable")) {
 				if(servicios.get(i) instanceof Cable) {
 					find = true;
 					

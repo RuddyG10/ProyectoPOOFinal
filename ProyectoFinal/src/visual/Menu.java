@@ -47,8 +47,6 @@ public class Menu extends JFrame {
 	private JButton btnListClient;
 	private JButton btnRegPlan;
 	private JButton btnListPlan;
-	private JButton btnRegServ;
-	private JButton btnListServ;
 	private JButton btnVenta;
 	private JButton btnListFac;
 	private JButton btnRegPer;
@@ -311,20 +309,6 @@ public class Menu extends JFrame {
 		btnListPlan.setBounds(10, 153, 301, 64);
 		panelPlanes.add(btnListPlan);
 		
-		btnRegServ = new JButton("Registrar Servicio");
-		btnRegServ.setForeground(Color.DARK_GRAY);
-		btnRegServ.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		btnRegServ.setBackground(Color.LIGHT_GRAY);
-		btnRegServ.setBounds(10, 295, 301, 64);
-		panelPlanes.add(btnRegServ);
-		
-		btnListServ = new JButton("Lista de Servicios");
-		btnListServ.setForeground(Color.DARK_GRAY);
-		btnListServ.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		btnListServ.setBackground(Color.LIGHT_GRAY);
-		btnListServ.setBounds(10, 437, 301, 64);
-		panelPlanes.add(btnListServ);
-		
 		panelFactura = new JPanel();
 		panelFactura.setBackground(Color.DARK_GRAY);
 		panelFactura.setVisible(false);
@@ -333,6 +317,12 @@ public class Menu extends JFrame {
 		panelFactura.setLayout(null);
 		
 		btnVenta = new JButton("Realizar Venta");
+		btnVenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Facturacion facturacion = new Facturacion();
+				facturacion.setVisible(true);
+			}
+		});
 		btnVenta.setForeground(Color.DARK_GRAY);
 		btnVenta.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnVenta.setBackground(Color.LIGHT_GRAY);
