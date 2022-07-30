@@ -51,7 +51,7 @@ public class Menu extends JFrame {
 	private JButton btnVenta;
 	private JButton btnListFac;
 	private JButton btnRegPer;
-	private JButton btnNewButton;
+	private JButton btn;
 	
 	/**
 	 * Launch the application.
@@ -270,6 +270,12 @@ public class Menu extends JFrame {
 		panelClient.setLayout(null);
 		
 		btnListClient = new JButton("Listar Clientes");
+		btnListClient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ListarCliente listClient = new ListarCliente();
+				listClient.setVisible(true);
+			}
+		});
 		btnListClient.setForeground(Color.DARK_GRAY);
 		btnListClient.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnListClient.setBackground(Color.LIGHT_GRAY);
@@ -332,11 +338,21 @@ public class Menu extends JFrame {
 		panelFactura.add(btnVenta);
 		
 		btnListFac = new JButton("Lista de Facturas");
+		btnListFac.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListVent lista = new ListVent();
+				lista.setVisible(true);
+			}
+		});
 		btnListFac.setForeground(Color.DARK_GRAY);
 		btnListFac.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnListFac.setBackground(Color.LIGHT_GRAY);
 		btnListFac.setBounds(10, 153, 301, 64);
 		panelFactura.add(btnListFac);
+		
+		JButton btnPagar = new JButton("Pagar planes");
+		btnPagar.setBounds(10, 161, 301, 64);
+		panelFactura.add(btnPagar);
 		
 		panelPersonal = new JPanel();
 		panelPersonal.setBackground(Color.DARK_GRAY);
@@ -352,12 +368,12 @@ public class Menu extends JFrame {
 		btnRegPer.setBounds(10, 11, 301, 64);
 		panelPersonal.add(btnRegPer);
 		
-		btnNewButton = new JButton("New button");
-		btnNewButton.setForeground(Color.DARK_GRAY);
-		btnNewButton.setBackground(Color.LIGHT_GRAY);
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		btnNewButton.setBounds(10, 153, 301, 64);
-		panelPersonal.add(btnNewButton);
+		btn = new JButton("New button");
+		btn.setForeground(Color.DARK_GRAY);
+		btn.setBackground(Color.LIGHT_GRAY);
+		btn.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		btn.setBounds(10, 153, 301, 64);
+		panelPersonal.add(btn);
 		
 		panelConsultas = new JPanel();
 		panelConsultas.setBackground(Color.DARK_GRAY);

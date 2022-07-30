@@ -250,6 +250,19 @@ public class Altice {
 		}
 		return precioTotal;
 	}
+	public Factura buscarFacturaByCode(String codigo) {
+		Factura fac = null;
+		boolean found = false;
+		int i = 0;
+		while(i< facturas.size() && !found) {
+			if(facturas.get(i).getCodigo().equalsIgnoreCase(codigo)) {
+				fac = facturas.get(i);
+				found = true;
+			}
+			i++;
+		}
+		return fac;
+	}
 	
 	
 }
