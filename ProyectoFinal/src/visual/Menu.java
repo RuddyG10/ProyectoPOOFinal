@@ -272,8 +272,7 @@ public class Menu extends JFrame {
 		btnListClient = new JButton("Listar Clientes");
 		btnListClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ListarCliente listClient = new ListarCliente();
-				listClient.setVisible(true);
+				
 			}
 		});
 		btnListClient.setForeground(Color.DARK_GRAY);
