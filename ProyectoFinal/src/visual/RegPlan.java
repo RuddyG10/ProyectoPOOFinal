@@ -53,6 +53,9 @@ public class RegPlan extends JDialog {
 	private JSpinner spnMSubida;
 	private JSpinner spnCanales;
 	private JSpinner spnMinutos;
+	private JLabel lblObligatorio_3;
+	private JLabel lblObligatorio_1;
+	private JLabel lblObligatorio_2;
 
 	/**
 	 * Launch the application.
@@ -76,7 +79,7 @@ public class RegPlan extends JDialog {
 		setBackground(Color.BLACK);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegPlan.class.getResource("/imagenes/logo altice pf.PNG")));
 		setTitle("Altice");
-		setBounds(100, 100, 707, 568);
+		setBounds(100, 100, 707, 599);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.text);
@@ -99,11 +102,11 @@ public class RegPlan extends JDialog {
 
 		JLabel lblNewLabel_4 = new JLabel("Descripci\u00F3n: ");
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 15));
-		lblNewLabel_4.setBounds(24, 435, 168, 14);
+		lblNewLabel_4.setBounds(24, 455, 168, 14);
 		contentPanel.add(lblNewLabel_4);
 
 		txtDescripcion = new JTextField();
-		txtDescripcion.setBounds(122, 412, 548, 61);
+		txtDescripcion.setBounds(122, 432, 548, 61);
 		contentPanel.add(txtDescripcion);
 		txtDescripcion.setColumns(10);
 
@@ -136,6 +139,14 @@ public class RegPlan extends JDialog {
 		txtNombre.setBounds(438, 24, 197, 31);
 		panel_2.add(txtNombre);
 		txtNombre.setColumns(10);
+		
+		lblObligatorio_3 = new JLabel("Obligatorio *");
+		lblObligatorio_3.setVisible(false);
+		lblObligatorio_3.setForeground(new Color(204, 0, 0));
+		lblObligatorio_3.setFont(new Font("Arial", Font.PLAIN, 10));
+		lblObligatorio_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblObligatorio_3.setBounds(571, 56, 86, 14);
+		panel_2.add(lblObligatorio_3);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.controlLtHighlight);
@@ -157,7 +168,7 @@ public class RegPlan extends JDialog {
 		});
 		rdbTelefono.setBackground(SystemColor.text);
 		rdbTelefono.setFont(new Font("Arial", Font.BOLD, 15));
-		rdbTelefono.setBounds(44, 30, 109, 23);
+		rdbTelefono.setBounds(44, 36, 109, 23);
 		panel_1.add(rdbTelefono);
 
 		rdbInternet = new JRadioButton("Internet");
@@ -173,7 +184,7 @@ public class RegPlan extends JDialog {
 		});
 		rdbInternet.setBackground(SystemColor.text);
 		rdbInternet.setFont(new Font("Arial", Font.BOLD, 15));
-		rdbInternet.setBounds(510, 30, 109, 23);
+		rdbInternet.setBounds(510, 36, 109, 23);
 		panel_1.add(rdbInternet);
 
 		rdbCable = new JRadioButton("Cable");
@@ -189,13 +200,13 @@ public class RegPlan extends JDialog {
 		});
 		rdbCable.setBackground(SystemColor.text);
 		rdbCable.setFont(new Font("Arial", Font.BOLD, 15));
-		rdbCable.setBounds(274, 30, 109, 23);
+		rdbCable.setBounds(274, 36, 109, 23);
 		panel_1.add(rdbCable);
 
 		panel_Telefono = new JPanel();
 		panel_Telefono.setVisible(false);
-		panel_Telefono.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Detalles del telefono", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_Telefono.setBounds(10, 261, 196, 140);
+		panel_Telefono.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Detalles del telefono", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 102)));
+		panel_Telefono.setBounds(10, 281, 196, 140);
 		contentPanel.add(panel_Telefono);
 		panel_Telefono.setLayout(null);
 
@@ -212,8 +223,8 @@ public class RegPlan extends JDialog {
 
 		panel_Cable = new JPanel();
 		panel_Cable.setVisible(false);
-		panel_Cable.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Detalles del cable", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_Cable.setBounds(240, 261, 196, 140);
+		panel_Cable.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Detalles del cable", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 102)));
+		panel_Cable.setBounds(240, 281, 196, 140);
 		contentPanel.add(panel_Cable);
 		panel_Cable.setLayout(null);
 
@@ -230,8 +241,8 @@ public class RegPlan extends JDialog {
 
 		panel_Internet = new JPanel();
 		panel_Internet.setVisible(false);
-		panel_Internet.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Detalles del internet", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_Internet.setBounds(476, 261, 196, 140);
+		panel_Internet.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Detalles del internet", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 102)));
+		panel_Internet.setBounds(476, 281, 196, 140);
 		contentPanel.add(panel_Internet);
 		panel_Internet.setLayout(null);
 
@@ -254,6 +265,22 @@ public class RegPlan extends JDialog {
 		spnMBajada = new JSpinner();
 		spnMBajada.setBounds(126, 84, 60, 20);
 		panel_Internet.add(spnMBajada);
+		
+		lblObligatorio_2 = new JLabel("Obligatorio *");
+		lblObligatorio_2.setVisible(false);
+		lblObligatorio_2.setForeground(new Color(204, 0, 0));
+		lblObligatorio_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblObligatorio_2.setFont(new Font("Arial", Font.PLAIN, 10));
+		lblObligatorio_2.setBounds(581, 497, 86, 14);
+		contentPanel.add(lblObligatorio_2);
+		
+		lblObligatorio_1 = new JLabel("Obligatorio *");
+		lblObligatorio_1.setBounds(581, 256, 86, 14);
+		contentPanel.add(lblObligatorio_1);
+		lblObligatorio_1.setVisible(false);
+		lblObligatorio_1.setForeground(new Color(204, 0, 0));
+		lblObligatorio_1.setFont(new Font("Arial", Font.PLAIN, 10));
+		lblObligatorio_1.setHorizontalAlignment(SwingConstants.CENTER);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(SystemColor.controlLtHighlight);
@@ -262,6 +289,17 @@ public class RegPlan extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnRegistrar = new JButton("Registrar");
+				btnRegistrar.setFont(new Font("Arial", Font.PLAIN, 15));
+				btnRegistrar.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						btnRegistrar.setBackground(Color.green);
+					}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						btnRegistrar.setBackground(UIManager.getColor("control"));
+					}
+				});
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {						
 						if (verificarCampos()) {
@@ -289,6 +327,9 @@ public class RegPlan extends JDialog {
 							JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 							clean();
 						}else {
+							lblObligatorio_1.setVisible(true);
+							lblObligatorio_2.setVisible(true);
+							lblObligatorio_3.setVisible(true);
 							JOptionPane.showMessageDialog(null, "Faltan datos para completar el registro", "Error", JOptionPane.WARNING_MESSAGE);
 						}
 					}
@@ -301,6 +342,17 @@ public class RegPlan extends JDialog {
 			}
 			{
 				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						btnCancelar.setBackground(Color.red);
+					}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						btnCancelar.setBackground(UIManager.getColor("control"));
+					}
+				});
+				btnCancelar.setFont(new Font("Arial", Font.PLAIN, 15));
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
@@ -330,6 +382,9 @@ public class RegPlan extends JDialog {
 		return registrar;
 	}
 	private void clean () {
+		lblObligatorio_1.setVisible(false);
+		lblObligatorio_2.setVisible(false);
+		lblObligatorio_3.setVisible(false);
 		txtNombre.setText("");
 		txtDescripcion.setText("");
 		rdbTelefono.setSelected(false);

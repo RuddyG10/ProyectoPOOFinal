@@ -24,6 +24,7 @@ import javax.swing.JToggleButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JLabel;
+import java.awt.Toolkit;
 
 public class Menu extends JFrame {
 
@@ -72,7 +73,8 @@ public class Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu() {
-		setTitle("Menu Principal");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/imagenes/logo altice pf.PNG")));
+		setTitle("Altice - Menu Principal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		dim = getToolkit().getScreenSize();

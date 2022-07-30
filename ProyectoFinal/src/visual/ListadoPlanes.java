@@ -118,6 +118,16 @@ public class ListadoPlanes extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			
 			btnDetalles = new JButton("Ver detalles");
+			btnDetalles.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					btnDetalles.setBackground(Color.blue);
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					btnDetalles.setBackground(UIManager.getColor("control"));
+				}
+			});
 			btnDetalles.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					DetallesPlan detalles = new DetallesPlan();
@@ -134,6 +144,16 @@ public class ListadoPlanes extends JDialog {
 			buttonPane.add(btnDetalles);
 			{
 				JButton btnSalir = new JButton("Salir");
+				btnSalir.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						btnSalir.setBackground(Color.red);
+					}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						btnSalir.setBackground(UIManager.getColor("control"));
+					}
+				});
 				btnSalir.setFont(new Font("Arial", Font.PLAIN, 15));
 				btnSalir.setIcon(new ImageIcon(ListadoPlanes.class.getResource("/imagenes/icono cancelar.png")));
 				btnSalir.addActionListener(new ActionListener() {
