@@ -37,8 +37,6 @@ public class VerFactura extends JDialog {
 	private JTextField txtCeduClient;
 	private JTextField txtDirClient;
 	private JTextField txtNomEm;
-	private JTextField txtCedEm;
-	private JTextField txtDirecEm;
 	private JTextField txtFecha;
 	private JTable table;
 	private String[] headers = {"Codigo","Nombre","Fecha de pago","Precio"};
@@ -64,6 +62,7 @@ public class VerFactura extends JDialog {
 	 * Create the dialog.
 	 */
 	public VerFactura(Venta aux) {
+		setTitle("Factura");
 		factura = aux;
 		setBounds(100, 100, 682, 463);
 		getContentPane().setLayout(new BorderLayout());
@@ -137,31 +136,11 @@ public class VerFactura extends JDialog {
 		lblNewLabel_4.setBounds(259, 12, 116, 14);
 		panelCliente.add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_5 = new JLabel("Cedula Emisor:");
-		lblNewLabel_5.setBounds(259, 38, 116, 14);
-		panelCliente.add(lblNewLabel_5);
-		
-		JLabel lblNewLabel_6 = new JLabel("Direccion Emisor:");
-		lblNewLabel_6.setBounds(259, 64, 126, 14);
-		panelCliente.add(lblNewLabel_6);
-		
 		txtNomEm = new JTextField();
 		txtNomEm.setEditable(false);
 		txtNomEm.setColumns(10);
 		txtNomEm.setBounds(381, 9, 133, 20);
 		panelCliente.add(txtNomEm);
-		
-		txtCedEm = new JTextField();
-		txtCedEm.setEditable(false);
-		txtCedEm.setColumns(10);
-		txtCedEm.setBounds(381, 35, 133, 20);
-		panelCliente.add(txtCedEm);
-		
-		txtDirecEm = new JTextField();
-		txtDirecEm.setEditable(false);
-		txtDirecEm.setColumns(10);
-		txtDirecEm.setBounds(381, 61, 133, 20);
-		panelCliente.add(txtDirecEm);
 		
 		JPanel panelFechas = new JPanel();
 		panelFechas.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -217,15 +196,9 @@ public class VerFactura extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				JButton btnCancelar = new JButton("Cerrar");
+				btnCancelar.setActionCommand("Cancel");
+				buttonPane.add(btnCancelar);
 			}
 		}
 		load();
@@ -251,8 +224,6 @@ public class VerFactura extends JDialog {
 			txtCeduClient.setText(client.getCedula());
 			txtDirClient.setText(client.getDireccion());
 			txtNomEm.setText(comercial.getNombre()+" "+comercial.getApellidos());
-			txtCedEm.setText(comercial.getCedula());
-			txtDirecEm.setText("Local Altice");
 			txtFecha.setText(formater.format(factura.getFecha()));
 			txtPago.setText(String.valueOf(total));
 			
