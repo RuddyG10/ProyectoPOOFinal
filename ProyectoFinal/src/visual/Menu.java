@@ -364,6 +364,12 @@ public class Menu extends JFrame {
 		panelPersonal.setLayout(null);
 		
 		btnRegPer = new JButton("Registrar Personal");
+		btnRegPer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RegistroUsuario2 regUsuario = new RegistroUsuario2();
+				regUsuario.setVisible(true);
+			}
+		});
 		btnRegPer.setForeground(Color.DARK_GRAY);
 		btnRegPer.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnRegPer.setBackground(Color.LIGHT_GRAY);
