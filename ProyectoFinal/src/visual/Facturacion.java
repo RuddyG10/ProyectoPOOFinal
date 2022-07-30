@@ -472,12 +472,12 @@ public class Facturacion extends JDialog {
 	public void realizarVenta(Cliente auxClient,ArrayList<Plan> planes) {
 		if(comercial != null) {
 			Altice.getInstance().insertarCliente(auxClient);
-			Factura fac = Altice.getInstance().realizarVenta(auxClient.getCedula(), comercial.getCedula(), planes);
-			if(fac!= null) {
+			Venta vent = Altice.getInstance().realizarVenta(auxClient.getCedula(), comercial.getCedula(), planes);
+			if(vent!= null) {
 				
 				int option = JOptionPane.showConfirmDialog(null, "Venta realizada con Exito, desea ver su factura?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 				if(option == 0) {
-					VerFactura ver = new VerFactura(fac);
+					VerFactura ver = new VerFactura(vent);
 					ver.setVisible(true);
 				}
 				clean();

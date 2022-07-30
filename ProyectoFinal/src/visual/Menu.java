@@ -314,7 +314,7 @@ public class Menu extends JFrame {
 		btnListPlan.setForeground(Color.DARK_GRAY);
 		btnListPlan.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnListPlan.setBackground(Color.LIGHT_GRAY);
-		btnListPlan.setBounds(10, 153, 301, 64);
+		btnListPlan.setBounds(10, 86, 301, 64);
 		panelPlanes.add(btnListPlan);
 		
 		panelFactura = new JPanel();
@@ -347,10 +347,13 @@ public class Menu extends JFrame {
 		btnListFac.setForeground(Color.DARK_GRAY);
 		btnListFac.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnListFac.setBackground(Color.LIGHT_GRAY);
-		btnListFac.setBounds(10, 153, 301, 64);
+		btnListFac.setBounds(10, 86, 301, 64);
 		panelFactura.add(btnListFac);
 		
 		JButton btnPagar = new JButton("Pagar planes");
+		btnPagar.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		btnPagar.setForeground(Color.DARK_GRAY);
+		btnPagar.setBackground(Color.LIGHT_GRAY);
 		btnPagar.setBounds(10, 161, 301, 64);
 		panelFactura.add(btnPagar);
 		

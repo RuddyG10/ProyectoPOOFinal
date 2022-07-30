@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
 
 import logico.Altice;
 import logico.Factura;
+import logico.Plan;
+import logico.Venta;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -38,7 +40,7 @@ public class ListVent extends JDialog {
 	private DefaultTableModel model;
 	private Object[] row;
 	private JButton btnCerrar;
-	private Factura selected;
+	private Venta selected = null;
 	private JButton btnVer;
 	/**
 	 * Launch the application.
@@ -94,7 +96,7 @@ public class ListVent extends JDialog {
 			public void mouseClicked(MouseEvent arg0) {
 				int index = table.getSelectedRow();
 				String codigo = table.getValueAt(index, 0).toString();
-				selected = Altice.getInstance().buscarFacturaByCode(codigo);
+				selected = Altice.getInstance().buscarFacturaByVenta(codigo);
 				btnVer.setEnabled(true);
 			}
 		});
@@ -146,12 +148,19 @@ public class ListVent extends JDialog {
 		SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
-		ArrayList<Factura> facturas = Altice.getInstance().getFacturas();
-		for (Factura factura : facturas) {
-			row[0] = factura.getCodigo();
-			row[1] = factura.getVenta().getPlanes().size();
-			row[2] = factura.getTotal();
-			row[3] = formater.format(factura.getFecha());
+		ArrayList<Venta> ventas = Altice.getInstance().getVentas();
+		ArrayList<Plan> planes = null;
+		
+		for (Venta vent : ventas) {
+			float precioTotal = 0;
+			row[0] = vent.getNumIdent();
+			row[1] = vent.getPlanes().size();
+			planes = vent.getPlanes();
+			for (Plan plan : planes) {
+				precioTotal += plan.getTotalPrecio();
+			}
+			row[2] = precioTotal;
+			row[3] = formater.format(vent.getFecha());
 			
 		}
 		

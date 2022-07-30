@@ -43,7 +43,7 @@ public class VerFactura extends JDialog {
 	private JTable table;
 	private String[] headers = {"Codigo","Nombre","Fecha de pago","Precio"};
 	private DefaultTableModel model;
-	private Factura factura = null;
+	private Venta factura = null;
 	private Object[] row;
 	private SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
 	private JTextField txtPago;
@@ -63,7 +63,7 @@ public class VerFactura extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public VerFactura(Factura aux) {
+	public VerFactura(Venta aux) {
 		factura = aux;
 		setBounds(100, 100, 682, 463);
 		getContentPane().setLayout(new BorderLayout());
@@ -233,10 +233,10 @@ public class VerFactura extends JDialog {
 
 	public void load() {
 		if(factura != null) {
-			Venta venta = factura.getVenta();
-			ArrayList<Plan> planes = venta.getPlanes();
-			Cliente client = venta.getCliente();
-			Trabajador comercial = venta.getVendedor();
+			float total = 0;
+			ArrayList<Plan> planes = factura.getPlanes();
+			Cliente client = factura.getCliente();
+			Trabajador comercial = factura.getVendedor();
 			model.setRowCount(0);
 			row = new Object[model.getColumnCount()];
 			for (Plan plan : planes) {
@@ -244,6 +244,7 @@ public class VerFactura extends JDialog {
 				row[1] = plan.getNombrePlan();
 				row[2] = plan.getFechaPago();
 				row[3] = plan.getTotalPrecio();
+				total+=plan.getTotalPrecio();
 				model.addRow(row);
 			}
 			txtNomClient.setText(client.getNombre()+" "+client.getApellido());
@@ -253,7 +254,7 @@ public class VerFactura extends JDialog {
 			txtCedEm.setText(comercial.getCedula());
 			txtDirecEm.setText("Local Altice");
 			txtFecha.setText(formater.format(factura.getFecha()));
-			txtPago.setText(String.valueOf(factura.getTotal()));
+			txtPago.setText(String.valueOf(total));
 			
 		}
 		

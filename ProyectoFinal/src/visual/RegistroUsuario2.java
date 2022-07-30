@@ -117,9 +117,9 @@ public class RegistroUsuario2 extends JFrame {
 		btnAtras.setBounds(10, 388, 89, 23);
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				login prueba = new login();
+				/*login prueba = new login();
 				prueba.setVisible(true);
-				dispose();
+				dispose();*/
 			}
 		});
 		contentPane.add(btnAtras);
