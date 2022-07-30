@@ -268,24 +268,24 @@ public class RegPlan extends JDialog {
 							ArrayList<Servicio> aux = new ArrayList<>();
 							if (rdbTelefono.isSelected()) {
 								float cantMinutos = Float.parseFloat(spnMinutos.getValue().toString());
-								Servicio tel = new Telefono("tel-"+Altice.genCodeServ, "Telefono", Altice.getInstace().calcularPrecioServicio(cantMinutos), cantMinutos);
-								Altice.getInstace().insertarServicio(tel);
+								Servicio tel = new Telefono("tel-"+Altice.genCodeServ, "Telefono", Altice.getInstance().calcularPrecioServicio(cantMinutos), cantMinutos);
+								Altice.getInstance().insertarServicio(tel);
 								aux.add(tel);
 							}
 							if (rdbCable.isSelected()) {
 								int cantCanales = Integer.parseInt(spnCanales.getValue().toString());
-								Servicio cab = new Cable("cab-"+Altice.genCodeServ, "Cable", Altice.getInstace().calcularPrecioServicio(cantCanales), cantCanales);
-								Altice.getInstace().insertarServicio(cab);
+								Servicio cab = new Cable("cab-"+Altice.genCodeServ, "Cable", Altice.getInstance().calcularPrecioServicio(cantCanales), cantCanales);
+								Altice.getInstance().insertarServicio(cab);
 								aux.add(cab);
 							}
 							if (rdbInternet.isSelected()) {
 								float subida = Float.parseFloat(spnMSubida.getValue().toString());
 								float bajada = Float.parseFloat(spnMBajada.getValue().toString());
-								Servicio net= new Internet("net-"+Altice.genCodeServ, "Internet", Altice.getInstace().calcularPrecioServicio(subida+bajada), subida, bajada);
+								Servicio net= new Internet("net-"+Altice.genCodeServ, "Internet", Altice.getInstance().calcularPrecioServicio(subida+bajada), subida, bajada);
 								aux.add(net);
 							}
-							Plan auxiliar = new Plan("P-"+Altice.genCodePlan, txtNombre.getText(), txtDescripcion.getText(), aux, Altice.getInstace().calcularPrecioPlan(aux));
-							Altice.getInstace().insertarPlan(auxiliar);
+							Plan auxiliar = new Plan("P-"+Altice.genCodePlan, txtNombre.getText(), txtDescripcion.getText(), aux, Altice.getInstance().calcularPrecioPlan(aux));
+							Altice.getInstance().insertarPlan(auxiliar);
 							JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 							clean();
 						}else {

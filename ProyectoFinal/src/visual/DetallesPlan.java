@@ -20,6 +20,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
+
+import logico.Cable;
+import logico.Internet;
+import logico.Plan;
+import logico.Servicio;
+import logico.Telefono;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -31,10 +38,12 @@ public class DetallesPlan extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtCodigo;
 	private JTextField txtNombre;
-	private JTextField txtDescripcion;
+	private JTextField txtEstado;
 	private JTable table;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtDescripcion;
+	private JTextField txtPrecioTotal;
+	private DefaultTableModel model;
+	private Object [] row;
 
 	/**
 	 * Launch the application.
@@ -122,11 +131,11 @@ public class DetallesPlan extends JDialog {
 				txtNombre.setColumns(10);
 			}
 			{
-				txtDescripcion = new JTextField();
-				txtDescripcion.setEditable(false);
-				txtDescripcion.setBounds(115, 79, 199, 25);
-				panel.add(txtDescripcion);
-				txtDescripcion.setColumns(10);
+				txtEstado = new JTextField();
+				txtEstado.setEditable(false);
+				txtEstado.setBounds(115, 80, 199, 25);
+				panel.add(txtEstado);
+				txtEstado.setColumns(10);
 			}
 		}
 		{
@@ -142,15 +151,10 @@ public class DetallesPlan extends JDialog {
 			panel.add(scrollPane, BorderLayout.CENTER);
 			
 			table = new JTable();
-			table.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			table.setBackground(SystemColor.info);
-			table.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Servicios", "Cantidad", "Subtotal"
-				}
-			));
+			model = new DefaultTableModel();
+			String [] headers = {"Servicios","Cantidad","Subtotal"};
+			model.setColumnIdentifiers(headers);
+			table.setModel(model);
 			scrollPane.setViewportView(table);
 		}
 		{
@@ -168,10 +172,11 @@ public class DetallesPlan extends JDialog {
 				panel.add(lblNewLabel_4);
 			}
 			{
-				textField = new JTextField();
-				textField.setBounds(118, 12, 514, 38);
-				panel.add(textField);
-				textField.setColumns(10);
+				txtDescripcion = new JTextField();
+				txtDescripcion.setEditable(false);
+				txtDescripcion.setBounds(118, 12, 514, 38);
+				panel.add(txtDescripcion);
+				txtDescripcion.setColumns(10);
 			}
 			{
 				JLabel lblNewLabel_5 = new JLabel("Precio total:");
@@ -181,10 +186,11 @@ public class DetallesPlan extends JDialog {
 				panel.add(lblNewLabel_5);
 			}
 			{
-				textField_1 = new JTextField();
-				textField_1.setBounds(118, 62, 514, 20);
-				panel.add(textField_1);
-				textField_1.setColumns(10);
+				txtPrecioTotal = new JTextField();
+				txtPrecioTotal.setEditable(false);
+				txtPrecioTotal.setBounds(118, 62, 514, 20);
+				panel.add(txtPrecioTotal);
+				txtPrecioTotal.setColumns(10);
 			}
 		}
 		{
@@ -195,22 +201,51 @@ public class DetallesPlan extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnSalir = new JButton("Salir");
-				btnSalir.setFont(new Font("Arial", Font.BOLD, 12));
-				btnSalir.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseEntered(MouseEvent e) {
-						btnSalir.setBackground(new Color (2,21,58));
-					}
-				});
+				btnSalir.setFont(new Font("Arial", Font.PLAIN, 15));
+	
 				btnSalir.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
+				{
+					JButton btnNewButton = new JButton("Modificar");
+					btnNewButton.setFont(new Font("Arial", Font.PLAIN, 15));
+					btnNewButton.setIcon(new ImageIcon(DetallesPlan.class.getResource("/imagenes/icono editar.png")));
+					buttonPane.add(btnNewButton);
+				}
 				btnSalir.setIcon(new ImageIcon(DetallesPlan.class.getResource("/imagenes/icono cancelar.png")));
 				btnSalir.setActionCommand("Cancel");
 				buttonPane.add(btnSalir);
 			}
 		}
+	}
+
+	public void cargarInfo(Plan selected) {
+		txtCodigo.setText(selected.getCodigo());
+		txtNombre.setText(selected.getNombrePlan());
+		txtEstado.setText(selected.getEstado());
+		txtDescripcion.setText(selected.getDescripcion());
+		txtPrecioTotal.setText(""+selected.getTotalPrecio());
+		
+		model.setRowCount(0);
+		row= new Object[model.getColumnCount()];
+		for (int i = 0; i < selected.getServicios().size(); i++) {
+			Servicio aux = selected.getServicios().get(i);
+			row[0]= aux.getNombre();
+			if (aux instanceof Telefono) {
+				row[1]= ((Telefono) aux).getCantMinutos();
+			}
+			if (aux instanceof Cable) {
+				row[1]= ((Cable) aux).getCantCanales();
+			}
+			if(aux instanceof Internet) {
+				row[1]= "Subida: "+((Internet) aux).getCantMegasSubida()+" Bajada: "+ ((Internet) aux).getCantMegasBajada() ;
+			}
+			row[2]= aux.getPrecio();
+			model.addRow(row);
+		}
+		
+		
 	}
 }

@@ -17,6 +17,7 @@ import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 
 import logico.Altice;
+import logico.Plan;
 
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -24,6 +25,8 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.SystemColor;
 import javax.swing.UIManager;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListadoPlanes extends JDialog {
 
@@ -31,6 +34,8 @@ public class ListadoPlanes extends JDialog {
 	private JTable table;
 	private static DefaultTableModel model;
 	private static Object row[];
+	private JButton btnDetalles;
+	private Plan selected = null;
 
 	/**
 	 * Launch the application.
@@ -90,6 +95,18 @@ public class ListadoPlanes extends JDialog {
 			model.setColumnIdentifiers(headers);
 			table = new JTable();
 			
+			table.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					int index = table.getSelectedRow();
+					if (index >= 0) {
+						String codPlan = table.getValueAt(index, 0).toString();
+						selected = Altice.getInstance().buscarPlanByCode(codPlan);
+						btnDetalles.setEnabled(true);
+					}
+				}
+			});
+			
 			table.setModel(model);
 			scrollPane.setViewportView(table);
 		}
@@ -100,18 +117,21 @@ public class ListadoPlanes extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			
-			JButton btnNewButton = new JButton("Ver detalles");
-			btnNewButton.setFont(new Font("Arial", Font.PLAIN, 15));
-			btnNewButton.setIcon(new ImageIcon(ListadoPlanes.class.getResource("/imagenes/masDetalles icono.png")));
-			buttonPane.add(btnNewButton);
-			{
-				JButton btnModificar = new JButton("Modificar");
-				btnModificar.setFont(new Font("Arial", Font.PLAIN, 15));
-				btnModificar.setIcon(new ImageIcon(ListadoPlanes.class.getResource("/imagenes/icono editar.png")));
-				btnModificar.setActionCommand("OK");
-				buttonPane.add(btnModificar);
-				getRootPane().setDefaultButton(btnModificar);
-			}
+			btnDetalles = new JButton("Ver detalles");
+			btnDetalles.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					DetallesPlan detalles = new DetallesPlan();
+					detalles.cargarInfo(selected);
+					detalles.setModal(true);
+					detalles.setVisible(true);
+					
+					
+				}
+			});
+			btnDetalles.setEnabled(false);
+			btnDetalles.setFont(new Font("Arial", Font.PLAIN, 15));
+			btnDetalles.setIcon(new ImageIcon(ListadoPlanes.class.getResource("/imagenes/masDetalles icono.png")));
+			buttonPane.add(btnDetalles);
 			{
 				JButton btnSalir = new JButton("Salir");
 				btnSalir.setFont(new Font("Arial", Font.PLAIN, 15));
