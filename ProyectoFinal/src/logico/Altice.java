@@ -11,7 +11,12 @@ public class Altice {
 	private ArrayList<Cliente> misClientes;
 	private ArrayList<Factura> facturas;
 	private ArrayList<Servicio> servicios;
+<<<<<<< HEAD
 	public static int genCodePlan = 1;
+=======
+	private ArrayList<Venta> ventas;
+	public static int genCodePlan=1;
+>>>>>>> branch 'master' of https://github.com/RuddyG31/ProyectoPOOFinal.git
 	public static int genCodeFac = 1;
 	public static int genCodeVent = 1;
 	public static int genCodeServ = 1;
@@ -24,12 +29,17 @@ public class Altice {
 		this.misTrabajadores = new ArrayList<Trabajador>();
 		this.misPlanes = new ArrayList<Plan>();
 		this.servicios = new ArrayList<Servicio>();
+		this.ventas= new ArrayList<Venta>();
 	}
 	public static Altice getInstance() {
 		if(altice == null) {
 			altice = new Altice();
 		}
 		return altice;
+	}
+	
+	public ArrayList<Venta> getVentas() {
+		return ventas;
 	}
 	public ArrayList<Servicio> getServicios() {
 		return servicios;
@@ -60,6 +70,10 @@ public class Altice {
 		}
 
 		return reg;
+	}
+	public void insertarVenta(Venta vent) {
+		ventas.add(vent);
+		genCodeVent++;
 	}
 	public void insertarFactura(Factura fac) {
 		facturas.add(fac);
@@ -143,33 +157,36 @@ public class Altice {
 		}
 		return auxClient;
 	}
-	public Factura realizarVenta(String cedulaCliente,String cedulaTrabajador,ArrayList<Plan> planes) {
+	public Venta realizarVenta(String cedulaCliente,String cedulaTrabajador,ArrayList<Plan> planes) {
 		Venta auxVenta = null;
 		Trabajador auxTrab = buscarTrabajadorByCedula(cedulaTrabajador);
 		Cliente auxClient = buscarClientePorCedula(cedulaCliente);
-		Factura fac = null;
-		boolean habilitado = false;
 		if(auxTrab != null && auxClient != null && auxTrab instanceof Comercial) {
 			if(planesHabilitados(auxClient)) {
 				auxVenta = new Venta("V-"+genCodeVent, auxTrab, auxClient, planes);
-				fac = realizarFactura(auxVenta);
-				if(fac != null) {
-					((Comercial) auxTrab).getMisVentas().add(auxVenta);
-					genCodeVent++;
-					auxClient.getMisFacturas().add(fac);
-					insertarFactura(fac);
-					for (Plan plan : planes) {
-						misPlanes.remove(plan);
-					}
+				realizarFactura(auxVenta);
+				((Comercial) auxTrab).getMisVentas().add(auxVenta);
+				insertarVenta(auxVenta);
 				}
 			}
+<<<<<<< HEAD
 
 
+=======
+			
+		return auxVenta;
+>>>>>>> branch 'master' of https://github.com/RuddyG31/ProyectoPOOFinal.git
 		}
+<<<<<<< HEAD
 
 		return fac;
 
 	}
+=======
+		
+		
+		
+>>>>>>> branch 'master' of https://github.com/RuddyG31/ProyectoPOOFinal.git
 	public boolean planesHabilitados(Cliente auxClient) {
 		boolean habilitado = true;
 		ArrayList<Plan> planesCliente = auxClient.getPlanes();
@@ -183,19 +200,17 @@ public class Altice {
 		return habilitado;
 	}
 
-	public Factura realizarFactura(Venta venta) {
-		float total = 0;
+	public void realizarFactura(Venta venta) {
 		Factura auxFac = null;
 		if(venta != null) {
 			ArrayList<Plan> planes = venta.getPlanes();
 			for (Plan plan : planes) {
-				total+=plan.getTotalPrecio();
+				auxFac = new Factura("F-"+genCodeFac, venta.getCliente(),plan , plan.getTotalPrecio());
+				venta.getCliente().getMisFacturas().add(auxFac);
+				insertarFactura(auxFac);
+				genCodeFac++;
 			}
 		}
-		if(total > 0) {
-			auxFac = new Factura("F-"+genCodeFac, venta, total);
-		}
-		return auxFac;
 	}
 	public boolean planTieneServicio(Plan plan, String string) {
 		ArrayList<Servicio> servicios = plan.getServicios();
@@ -252,6 +267,7 @@ public class Altice {
 		}
 		return precioTotal;
 	}
+<<<<<<< HEAD
 
 	public void eliminarPlan(Plan selected) {
 		int index = -1;
@@ -274,4 +290,61 @@ public class Altice {
 	}
 
 
+=======
+	public Factura buscarFacturaByCode(String codigo) {
+		Factura fac = null;
+		boolean found = false;
+		int i = 0;
+		while(i< facturas.size() && !found) {
+			if(facturas.get(i).getCodigo().equalsIgnoreCase(codigo)) {
+				fac = facturas.get(i);
+				found = true;
+			}
+			i++;
+		}
+		return fac;
+	}
+	public Plan planMasVendido() {
+		Plan planVendido = null;
+		int cantVenta = 0;
+		for (Venta venta : ventas) {
+			ArrayList<Plan> planesVenta = venta.getPlanes();
+			for (Plan plan : planesVenta) {
+				if(cantVenta<cantidadPlanVendido(planesVenta,plan)) {
+					cantVenta = cantidadPlanVendido(planesVenta,plan);
+					planVendido = plan;
+				}
+			}
+		}
+		return planVendido;
+	}
+	public int cantidadPlanVendido(ArrayList<Plan> planesVenta, Plan plan) {
+		int cantidad = 0;
+		if(plan != null && planesVenta != null) {
+			if(planesVenta.contains(plan)) {
+				for (Plan plan2 : planesVenta) {
+					if(plan2 == plan) {
+						cantidad++;
+					}
+				}
+			}
+		}
+		return cantidad;
+	}
+	public Venta buscarFacturaByVenta(String codigo) {
+		Venta vent = null;
+		boolean found = false;
+		int i = 0;
+		while(i< ventas.size() && !found) {
+			if(ventas.get(i).getNumIdent().equalsIgnoreCase(codigo)) {
+				vent = ventas.get(i);
+				found = true;
+			}
+			i++;
+		}
+		return vent;
+	}
+	
+	
+>>>>>>> branch 'master' of https://github.com/RuddyG31/ProyectoPOOFinal.git
 }
