@@ -269,6 +269,9 @@ public class ListadoPlanes extends JDialog {
 		loadTable();
 	}
 	private void loadTable() {
+		//Esto no va a funcionar por ahora
+		//txtCodigo.setText(Altice.getInstance().planMasVendido().getCodigo());
+		//txtNombre.setText(Altice.getInstance().planMasVendido().getNombrePlan());
 		
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];

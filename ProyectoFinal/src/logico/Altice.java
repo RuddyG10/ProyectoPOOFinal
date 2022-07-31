@@ -11,12 +11,8 @@ public class Altice {
 	private ArrayList<Cliente> misClientes;
 	private ArrayList<Factura> facturas;
 	private ArrayList<Servicio> servicios;
-<<<<<<< HEAD
-	public static int genCodePlan = 1;
-=======
 	private ArrayList<Venta> ventas;
 	public static int genCodePlan=1;
->>>>>>> branch 'master' of https://github.com/RuddyG31/ProyectoPOOFinal.git
 	public static int genCodeFac = 1;
 	public static int genCodeVent = 1;
 	public static int genCodeServ = 1;
@@ -169,24 +165,12 @@ public class Altice {
 				insertarVenta(auxVenta);
 				}
 			}
-<<<<<<< HEAD
-
-
-=======
 			
 		return auxVenta;
->>>>>>> branch 'master' of https://github.com/RuddyG31/ProyectoPOOFinal.git
-		}
-<<<<<<< HEAD
 
-		return fac;
 
 	}
-=======
-		
-		
-		
->>>>>>> branch 'master' of https://github.com/RuddyG31/ProyectoPOOFinal.git
+
 	public boolean planesHabilitados(Cliente auxClient) {
 		boolean habilitado = true;
 		ArrayList<Plan> planesCliente = auxClient.getPlanes();
@@ -267,7 +251,7 @@ public class Altice {
 		}
 		return precioTotal;
 	}
-<<<<<<< HEAD
+
 
 	public void eliminarPlan(Plan selected) {
 		int index = -1;
@@ -290,7 +274,7 @@ public class Altice {
 	}
 
 
-=======
+
 	public Factura buscarFacturaByCode(String codigo) {
 		Factura fac = null;
 		boolean found = false;
@@ -345,6 +329,4 @@ public class Altice {
 		return vent;
 	}
 	
-	
->>>>>>> branch 'master' of https://github.com/RuddyG31/ProyectoPOOFinal.git
 }
