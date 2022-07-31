@@ -77,7 +77,7 @@ public class DetallesPlan extends JDialog {
 		{
 			JPanel panel = new JPanel();
 			panel.setBackground(SystemColor.activeCaptionText);
-			panel.setBounds(0, 7, 672, 75);
+			panel.setBounds(0, 0, 672, 75);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
@@ -92,7 +92,7 @@ public class DetallesPlan extends JDialog {
 		{
 			JPanel panel = new JPanel();
 			panel.setBackground(SystemColor.controlLtHighlight);
-			panel.setBorder(new TitledBorder(null, "Informacion", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informacion", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 51)));
 			panel.setBounds(10, 89, 642, 114);
 			contentPanel.add(panel);
 			panel.setLayout(null);
@@ -143,7 +143,7 @@ public class DetallesPlan extends JDialog {
 		{
 			JPanel panel = new JPanel();
 			panel.setBackground(SystemColor.controlLtHighlight);
-			panel.setBorder(new TitledBorder(null, "Servicios incluidos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Servicios incluidos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 51)));
 			panel.setBounds(10, 210, 642, 219);
 			contentPanel.add(panel);
 			panel.setLayout(new BorderLayout(0, 0));
@@ -190,9 +190,16 @@ public class DetallesPlan extends JDialog {
 			{
 				txtPrecioTotal = new JTextField();
 				txtPrecioTotal.setEditable(false);
-				txtPrecioTotal.setBounds(118, 62, 514, 20);
+				txtPrecioTotal.setBounds(180, 60, 192, 25);
 				panel.add(txtPrecioTotal);
 				txtPrecioTotal.setColumns(10);
+			}
+			{
+				JLabel lblNewLabel_6 = new JLabel("RD $");
+				lblNewLabel_6.setFont(new Font("Arial", Font.BOLD, 15));
+				lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
+				lblNewLabel_6.setBounds(118, 62, 46, 20);
+				panel.add(lblNewLabel_6);
 			}
 		}
 		{

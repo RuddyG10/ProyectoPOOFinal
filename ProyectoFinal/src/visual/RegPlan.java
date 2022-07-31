@@ -111,7 +111,7 @@ public class RegPlan extends JDialog {
 		txtDescripcion.setColumns(10);
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new TitledBorder(null, "Informacion del plan", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informacion del plan", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 51)));
 		panel_2.setBackground(SystemColor.controlLtHighlight);
 		panel_2.setBounds(10, 88, 657, 81);
 		contentPanel.add(panel_2);
@@ -150,7 +150,7 @@ public class RegPlan extends JDialog {
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.controlLtHighlight);
-		panel_1.setBorder(new TitledBorder(null, "Seleccione los servicios incluidos", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Seleccione los servicios incluidos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 51)));
 		panel_1.setBounds(10, 174, 657, 81);
 		contentPanel.add(panel_1);
 		panel_1.setLayout(null);
@@ -322,7 +322,7 @@ public class RegPlan extends JDialog {
 								Servicio net= new Internet("net-"+Altice.genCodeServ, "Internet", Altice.getInstance().calcularPrecioServicio(subida+bajada), subida, bajada);
 								aux.add(net);
 							}
-							Plan auxiliar = new Plan("P-"+Altice.genCodePlan, txtNombre.getText(), txtDescripcion.getText(), aux, Altice.getInstance().calcularPrecioPlan(aux));
+							Plan auxiliar = new Plan("Altice-"+Altice.genCodePlan, txtNombre.getText(), txtDescripcion.getText(), aux, Altice.getInstance().calcularPrecioPlan(aux));
 							Altice.getInstance().insertarPlan(auxiliar);
 							JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 							clean();

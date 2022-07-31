@@ -11,12 +11,12 @@ public class Altice {
 	private ArrayList<Cliente> misClientes;
 	private ArrayList<Factura> facturas;
 	private ArrayList<Servicio> servicios;
-	public static int genCodePlan=1;
+	public static int genCodePlan = 1;
 	public static int genCodeFac = 1;
 	public static int genCodeVent = 1;
 	public static int genCodeServ = 1;
 	private static Altice altice = null;
-	
+
 	private Altice() {
 		super();
 		this.facturas = new ArrayList<Factura>();
@@ -47,6 +47,7 @@ public class Altice {
 	public ArrayList<Factura> getFacturas() {
 		return facturas;
 	}
+
 	public void insertarTrabajador(Trabajador empleado) {
 		misTrabajadores.add(empleado);
 	}
@@ -57,7 +58,7 @@ public class Altice {
 			reg = true;
 			misClientes.add(auxClient);
 		}
-		
+
 		return reg;
 	}
 	public void insertarFactura(Factura fac) {
@@ -103,7 +104,7 @@ public class Altice {
 				}
 			}
 		}
-		
+
 		return mejorComercial;
 	}
 	public Trabajador buscarTrabajadorPorUserOEmail(String user) {
@@ -113,7 +114,7 @@ public class Altice {
 		while(i< misTrabajadores.size() && !found) {
 			if(misTrabajadores.get(i).getUserName().equalsIgnoreCase(user) ||
 					misTrabajadores.get(i).getEmail().equalsIgnoreCase(user)) {
-				
+
 				aux = misTrabajadores.get(i);
 				found = true;
 			}
@@ -121,12 +122,12 @@ public class Altice {
 		}
 		return aux;
 	}
-	
+
 	public boolean login(String userName, String password) {
 		boolean log = false;
 		Trabajador admin = buscarTrabajadorPorUserOEmail(userName);
-		
-		
+
+
 		return log;
 	}
 	public Cliente buscarClientePorCedula(String cedula) {
@@ -162,12 +163,12 @@ public class Altice {
 					}
 				}
 			}
-			
-			
+
+
 		}
-		
+
 		return fac;
-		
+
 	}
 	public boolean planesHabilitados(Cliente auxClient) {
 		boolean habilitado = true;
@@ -201,11 +202,11 @@ public class Altice {
 		boolean find = false;
 		int i = 0;
 		while(i< servicios.size() && !find) {
-			
+
 			if(string.equalsIgnoreCase("Cable")) {
 				if(servicios.get(i) instanceof Cable) {
 					find = true;
-					
+
 				}
 			}
 			else if(string.equalsIgnoreCase("Internet")) {
@@ -235,21 +236,42 @@ public class Altice {
 			i++;
 		}
 		return auxPlan;
-}
+	}
 
 	public float calcularPrecioServicio(float cantidad) {
 		float precioTotal = 0f;
-		float precioUnidad = 1.2f;
+		float precioUnidad = 5.6f;
 		precioTotal+= precioUnidad *cantidad;
 		return precioTotal;
 	}
+
 	public float calcularPrecioPlan(ArrayList<Servicio> ServiciosDelPlan) {
 		float precioTotal = 0f;
 		for (Servicio servicio : ServiciosDelPlan) {
-		  precioTotal += servicio.getPrecio();
+			precioTotal += servicio.getPrecio();
 		}
 		return precioTotal;
 	}
-	
-	
+
+	public void eliminarPlan(Plan selected) {
+		int index = -1;
+		index = buscarIndexByPlan (selected.getCodigo());
+		misPlanes.remove(index);
+
+	}
+	private int buscarIndexByPlan(String codigo) {
+		int aux = -1;
+		int i =0;
+		boolean encontrado = false;
+		while (i < misPlanes.size() && !encontrado) {
+			if (misPlanes.get(i).getCodigo().equalsIgnoreCase(codigo)) {
+				aux = i;
+				encontrado = true;
+			}
+			i++;
+		}
+		return aux;
+	}
+
+
 }
