@@ -136,7 +136,9 @@ public class Altice {
 	public boolean login(String userName, String password) {
 		boolean log = false;
 		Trabajador admin = buscarTrabajadorPorUserOEmail(userName);
-
+		if(admin != null) {
+			log = true;
+		}
 
 		return log;
 	}
