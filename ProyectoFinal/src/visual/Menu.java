@@ -52,6 +52,7 @@ public class Menu extends JFrame {
 	private JButton btnListFac;
 	private JButton btnRegPer;
 	private JButton btn;
+	private Trabajador admin = null;
 	
 	/**
 	 * Launch the application.
@@ -60,7 +61,7 @@ public class Menu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Menu frame = new Menu();
+					Menu frame = new Menu(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -72,7 +73,8 @@ public class Menu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Menu() {
+	public Menu(Trabajador aux) {
+		admin = aux;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/imagenes/logo altice pf.PNG")));
 		setTitle("Altice - Menu Principal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -184,17 +186,23 @@ public class Menu extends JFrame {
 		btnFacturacion = new JButton("Facturacion");
 		btnFacturacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				revision(true);
-				if(!panelFactura.isVisible()) {
-					panelFactura.setVisible(true);
-					btnFacturacion.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/FacturaDark.png")));
-					revision(false);
+				if(admin != null) {
+					revision(true);
+					if(!panelFactura.isVisible()) {
+						panelFactura.setVisible(true);
+						btnFacturacion.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/FacturaDark.png")));
+						revision(false);
+					}
+					else {
+						panelFactura.setVisible(false);
+						btnPlanes.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/FacturaGris.png")));
+						revision(false);
+					}
 				}
 				else {
-					panelFactura.setVisible(false);
-					btnPlanes.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/FacturaGris.png")));
-					revision(false);
+					JOptionPane.showMessageDialog(null, "No puede facturar mediando el usuario administrador por defecto.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
+				
 			}
 		});
 		btnFacturacion.setRolloverIcon(new ImageIcon(Menu.class.getResource("/imagenes/FacturaDark.png")));

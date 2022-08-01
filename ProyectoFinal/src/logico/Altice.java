@@ -133,14 +133,14 @@ public class Altice {
 		return aux;
 	}
 
-	public boolean login(String userName, String password) {
-		boolean log = false;
-		Trabajador admin = buscarTrabajadorPorUserOEmail(userName);
-		if(admin != null) {
-			log = true;
+	public Trabajador login(String userName, String password) {
+		Trabajador admin = null;
+		if(buscarTrabajadorPorUserOEmail(userName) != null && buscarTrabajadorPorUserOEmail(userName).getPassword().equalsIgnoreCase(password)) {
+			admin = buscarTrabajadorPorUserOEmail(userName);
+			
 		}
-
-		return log;
+		
+		return admin;
 	}
 	public Cliente buscarClientePorCedula(String cedula) {
 		Cliente auxClient = null;
