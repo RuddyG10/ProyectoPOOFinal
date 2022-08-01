@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 import logico.Altice;
 import logico.Plan;
+import logico.Servicio;
 
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -28,6 +29,8 @@ import java.awt.SystemColor;
 import javax.swing.UIManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 
@@ -46,6 +49,7 @@ public class ListadoPlanes extends JDialog {
 	private JRadioButton rdbTelefono;
 	private JRadioButton rdbCable;
 	private JRadioButton rdbInternet;
+
 
 	/**
 	 * Launch the application.
@@ -75,14 +79,14 @@ public class ListadoPlanes extends JDialog {
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 686, 74);
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBackground(Color.BLACK);
 		contentPanel.add(panel);
 		panel.setLayout(null);
-		
+
 		JLabel lblNewLabel = new JLabel("  Listado de planes");
 		lblNewLabel.setIcon(new ImageIcon(ListadoPlanes.class.getResource("/imagenes/listado icono.png")));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -97,10 +101,10 @@ public class ListadoPlanes extends JDialog {
 			panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Planes con los servicios seleccionados", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 102)));
 			contentPanel.add(panel_1);
 			panel_1.setLayout(new BorderLayout(0, 0));
-			
+
 			JScrollPane scrollPane = new JScrollPane();
 			panel_1.add(scrollPane, BorderLayout.CENTER);
-			
+
 			String headers [] = {"Codigo","Nombre","Precio"};
 			model = new DefaultTableModel();
 			model.setColumnIdentifiers(headers);
@@ -108,7 +112,7 @@ public class ListadoPlanes extends JDialog {
 			table.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			table.setSelectionBackground(new Color(0, 120, 215));
 			table.setSelectionForeground(new Color(0, 0, 153));
-			
+
 			table.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -121,51 +125,51 @@ public class ListadoPlanes extends JDialog {
 					}
 				}
 			});
-			
+
 			table.setModel(model);
 			scrollPane.setViewportView(table);
 		}
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Plan mejor vendido", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 102)));
 		panel_1.setBackground(SystemColor.controlLtHighlight);
 		panel_1.setBounds(10, 79, 653, 98);
 		contentPanel.add(panel_1);
 		panel_1.setLayout(null);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("Codigo:");
 		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(36, 19, 86, 24);
 		panel_1.add(lblNewLabel_2);
-		
+
 		JLabel lblNewLabel_3 = new JLabel("Nombre:");
 		lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setBounds(348, 19, 86, 24);
 		panel_1.add(lblNewLabel_3);
-		
+
 		txtCodigo = new JTextField();
 		txtCodigo.setHorizontalAlignment(SwingConstants.CENTER);
 		txtCodigo.setEditable(false);
 		txtCodigo.setBounds(127, 19, 189, 24);
 		panel_1.add(txtCodigo);
 		txtCodigo.setColumns(10);
-		
+
 		txtNombre = new JTextField();
 		txtNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		txtNombre.setEditable(false);
 		txtNombre.setBounds(441, 19, 184, 24);
 		panel_1.add(txtNombre);
 		txtNombre.setColumns(10);
-		
+
 		rdbDestacar = new JRadioButton("Destacar en el listado de planes");
 		rdbDestacar.setBounds(36, 50, 280, 35);
 		panel_1.add(rdbDestacar);
 		rdbDestacar.setBackground(SystemColor.controlLtHighlight);
 		rdbDestacar.setFont(new Font("Arial", Font.PLAIN, 15));
 		rdbDestacar.setHorizontalAlignment(SwingConstants.CENTER);
-		
+
 		JPanel panel_2 = new JPanel();
 		panel_2.setForeground(new Color(0, 0, 51));
 		panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Seleccione", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 102)));
@@ -173,22 +177,40 @@ public class ListadoPlanes extends JDialog {
 		panel_2.setBounds(10, 181, 653, 74);
 		contentPanel.add(panel_2);
 		panel_2.setLayout(null);
-		
+
 		rdbTelefono = new JRadioButton("Con telefono");
+		rdbTelefono.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				loadTable();
+			}
+		});
+
 		rdbTelefono.setHorizontalAlignment(SwingConstants.CENTER);
 		rdbTelefono.setBackground(SystemColor.controlLtHighlight);
 		rdbTelefono.setFont(new Font("Arial", Font.BOLD, 15));
 		rdbTelefono.setBounds(27, 29, 173, 23);
 		panel_2.add(rdbTelefono);
-		
+
 		rdbCable = new JRadioButton("Con cable");
+		rdbCable.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				loadTable();
+			}
+		});
+
 		rdbCable.setHorizontalAlignment(SwingConstants.CENTER);
 		rdbCable.setBackground(SystemColor.controlLtHighlight);
 		rdbCable.setFont(new Font("Arial", Font.BOLD, 15));
 		rdbCable.setBounds(240, 29, 173, 23);
 		panel_2.add(rdbCable);
-		
+
 		rdbInternet = new JRadioButton("Con internet");
+		rdbInternet.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				loadTable();
+			}
+		});
+
 		rdbInternet.setHorizontalAlignment(SwingConstants.CENTER);
 		rdbInternet.setBackground(SystemColor.controlLtHighlight);
 		rdbInternet.setFont(new Font("Arial", Font.BOLD, 15));
@@ -200,7 +222,7 @@ public class ListadoPlanes extends JDialog {
 			buttonPane.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			
+
 			btnDetalles = new JButton("Ver detalles");
 			btnDetalles.addMouseListener(new MouseAdapter() {
 				@Override
@@ -218,11 +240,21 @@ public class ListadoPlanes extends JDialog {
 					detalles.cargarInfo(selected);
 					detalles.setModal(true);
 					detalles.setVisible(true);
-					
+
 				}
 			});
-			
+
 			btnEliminar = new JButton("Eliminar plan");
+			btnEliminar.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					btnEliminar.setBackground(Color.red);
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					btnEliminar.setBackground(UIManager.getColor("control"));
+				}
+			});
 			btnEliminar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int option = JOptionPane.showConfirmDialog(null, "Seguro de que desea eliminar el plan: "+selected.getCodigo() + " | "+selected.getNombrePlan(), "Confirmacion", JOptionPane.WARNING_MESSAGE);
@@ -260,7 +292,7 @@ public class ListadoPlanes extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						dispose ();
 					}
-					
+
 				});
 				btnSalir.setActionCommand("Cancel");
 				buttonPane.add(btnSalir);
@@ -272,14 +304,46 @@ public class ListadoPlanes extends JDialog {
 		//Esto no va a funcionar por ahora
 		//txtCodigo.setText(Altice.getInstance().planMasVendido().getCodigo());
 		//txtNombre.setText(Altice.getInstance().planMasVendido().getNombrePlan());
-		
+
+		ArrayList<Plan> auxiliar = new ArrayList<>();
+		int cantPlanes = Altice.getInstance().getmisPlanes().size();
+
+		if (rdbTelefono.isSelected() | rdbCable.isSelected() | rdbInternet.isSelected()) {
+			if (rdbTelefono.isSelected()) {
+				for (int i = 0; i < cantPlanes; i++) {
+					Plan aux = Altice.getInstance().getmisPlanes().get(i);
+					if (Altice.getInstance().planTieneServicio(aux, "Telefono") == true) {
+						auxiliar.add(aux);	
+					}
+
+				}
+			}
+			if (rdbCable.isSelected()) {
+				for (int i = 0; i < cantPlanes; i++) {
+					Plan aux = Altice.getInstance().getmisPlanes().get(i);
+					if (Altice.getInstance().planTieneServicio(aux, "Cable") == true) {
+						auxiliar.add(aux);	
+					}
+				}
+			}
+			if (rdbInternet.isSelected()) {
+				for (int i = 0; i < cantPlanes; i++) {
+					Plan aux = Altice.getInstance().getmisPlanes().get(i);
+					if (Altice.getInstance().planTieneServicio(aux, "Internet") == true) {
+						auxiliar.add(aux);	
+					}
+				}
+			}
+		}
+		else {
+			auxiliar = Altice.getInstance().getmisPlanes();
+		}	
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
-		
-		for(int i = 0; i < Altice.getInstance().getmisPlanes().size(); i++) {
-			row[0] = Altice.getInstance().getmisPlanes().get(i).getCodigo();
-			row[1] = Altice.getInstance().getmisPlanes().get(i).getNombrePlan();
-			row[2] = Altice.getInstance().getmisPlanes().get(i).getTotalPrecio();
+		for(int i = 0; i < auxiliar.size(); i++) {
+			row[0] = auxiliar.get(i).getCodigo();
+			row[1] = auxiliar.get(i).getNombrePlan();
+			row[2] = auxiliar.get(i).getTotalPrecio();
 
 			model.addRow(row);
 
