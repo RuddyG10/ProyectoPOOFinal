@@ -1,9 +1,10 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Plan {
+public class Plan implements Serializable{
 	private String codigo;
 	private String nombrePlan;
 	private String descripcion;
@@ -21,7 +22,7 @@ public class Plan {
 		this.servicios = servicios;
 		this.totalPrecio = totalPrecio;
 		this.fechaInicio = new Date();
-		this.fechaPago = new Date();
+		this.fechaPago = Altice.getInstance().calcularFechaCorte(fechaInicio);
 		this.estado = "Habilitado";
 	}
 	

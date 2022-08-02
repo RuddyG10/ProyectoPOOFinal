@@ -7,7 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import logico.ListaUsuario;
+import logico.Administrador;
+import logico.Altice;
+import logico.Comercial;
 import logico.Trabajador;
 
 import javax.swing.JLabel;
@@ -24,18 +26,25 @@ import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JPasswordField;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class RegistroUsuario2 extends JDialog {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
-	private JTextField txtContraseña;
 	private JButton btnAtras;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField txtApellido;
+	private JTextField txtNombre;
+	private JTextField txtCedula;
+	private JTextField txtCorreo;
+	private JTextField txtTelefono;
+	private JPasswordField password;
+	private JPasswordField confiPassword;
+	private JRadioButton rdbtnAdmin;
+	private JRadioButton rdbtnComercial;
+	private JSpinner spnExp;
 
 	/**
 	 * Launch the application.
@@ -58,7 +67,6 @@ public class RegistroUsuario2 extends JDialog {
 	 */
 	public RegistroUsuario2() {
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 670, 471);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -81,26 +89,72 @@ public class RegistroUsuario2 extends JDialog {
 				btnGuardar.setBackground(new Color(27, 243, 34));
 			}
 		});
-		btnGuardar.setBounds(545, 388, 89, 23);
+		btnGuardar.setBounds(545, 408, 89, 23);
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				/*String usuario = txtUsuario.getText();
-				String contrasena = txtContraseña.getText();
-				String rango = txtRango.getText();
-				Trabajador obj = new Trabajador();
-				if(Trabajador.verificarUserNuevo(usuario)==-1) {
+				if(revision()) {
+					String nombre = txtNombre.getText();
+					String apellido = txtApellido.getText();
+					String cedula = txtCedula.getText();
+					String correo = txtCorreo.getText();
+					String telefono = txtTelefono.getText();
+					String user = txtUsuario.getText();
+					String pw = String.valueOf(password.getPassword());
+					String cfPw = String.valueOf(confiPassword.getPassword());
+					int exp = Integer.parseInt(spnExp.getValue().toString());
 					
+					if(Altice.getInstance().buscarTrabajadorByCedula(cedula) == null) {
+							if(pw.length() > 6) {
+								if(pw.equalsIgnoreCase(cfPw)) {
+									if(rdbtnAdmin.isSelected()) {
+										if(exp>=0) {
+											Trabajador admin = new Administrador(nombre, apellido, cedula, telefono, correo, user, pw, exp);
+											
+										    int option = JOptionPane.showConfirmDialog(null, "Desea guardar la informacion?", "Informacion", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+										    if(option == 0) {
+										    	Altice.getInstance().insertarTrabajador(admin);
+										    	JOptionPane.showMessageDialog(null, "Registro exitoso.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+										    }
+										}
+										
+									}
+									else if(rdbtnComercial.isSelected()) {
+		
+										Trabajador admin = new Comercial(nombre, apellido, cedula, telefono, correo, user, pw);
+										
+									    int option = JOptionPane.showConfirmDialog(null, "Desea guardar la informacion?", "Informacion", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+									    if(option == 0) {
+									    	Altice.getInstance().insertarTrabajador(admin);
+									    	JOptionPane.showMessageDialog(null, "Registro exitoso.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+									    	clear();
+									    }
+									}
+									else {
+										JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de ususario.", "Error", JOptionPane.ERROR_MESSAGE);
+									    
+									}
+								}
+								else {
+									JOptionPane.showMessageDialog(null, "Contraseña no es igual a la confirmacion de la contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
+								}
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "Contraseña debe tener por lo menos 6 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+							}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "La cedula escrita ya esta registrada.", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					
+				}
 				
-				
-				obj.setUserName(usuario);
-				obj.setPassword(contrasena);
-				//agregar rango luego
-				ListaUsuario.agregar(obj);
-				JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente!", "Error", JOptionPane.INFORMATION_MESSAGE);
-				}else {
-					JOptionPane.showMessageDialog(null, "Este nombre de usuario ya esta siendo usado", "Error", JOptionPane.ERROR_MESSAGE);
-				}*/
 			}
+
+			
+
+			
+
+			
 		});
 		contentPane.add(btnGuardar);
 		
@@ -116,12 +170,10 @@ public class RegistroUsuario2 extends JDialog {
 			}
 		});
 		btnAtras.setBackground(new Color(255, 153, 0));
-		btnAtras.setBounds(10, 388, 89, 23);
+		btnAtras.setBounds(10, 408, 89, 23);
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				/*login prueba = new login();
-				prueba.setVisible(true);
-				dispose();*/
+				dispose();
 			}
 		});
 		contentPane.add(btnAtras);
@@ -144,30 +196,30 @@ public class RegistroUsuario2 extends JDialog {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(422, 36, 180, 20);
-		panel_1.add(textField);
-		textField.setColumns(10);
+		txtApellido = new JTextField();
+		txtApellido.setBounds(414, 36, 180, 20);
+		panel_1.add(txtApellido);
+		txtApellido.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(422, 67, 180, 20);
-		panel_1.add(textField_3);
-		textField_3.setColumns(10);
+		txtCorreo = new JTextField();
+		txtCorreo.setBounds(414, 67, 180, 20);
+		panel_1.add(txtCorreo);
+		txtCorreo.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(133, 36, 185, 20);
-		panel_1.add(textField_1);
-		textField_1.setColumns(10);
+		txtNombre = new JTextField();
+		txtNombre.setBounds(104, 36, 185, 20);
+		panel_1.add(txtNombre);
+		txtNombre.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(133, 67, 185, 20);
-		panel_1.add(textField_2);
-		textField_2.setColumns(10);
+		txtCedula = new JTextField();
+		txtCedula.setBounds(104, 67, 185, 20);
+		panel_1.add(txtCedula);
+		txtCedula.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(133, 98, 185, 20);
-		panel_1.add(textField_4);
-		textField_4.setColumns(10);
+		txtTelefono = new JTextField();
+		txtTelefono.setBounds(104, 98, 185, 20);
+		panel_1.add(txtTelefono);
+		txtTelefono.setColumns(10);
 		
 		JLabel lblNewLabel_8 = new JLabel("Telefono:");
 		lblNewLabel_8.setBounds(27, 101, 67, 14);
@@ -182,21 +234,30 @@ public class RegistroUsuario2 extends JDialog {
 		panel_1.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_7 = new JLabel("Correo:");
-		lblNewLabel_7.setBounds(339, 73, 73, 14);
+		lblNewLabel_7.setBounds(299, 70, 73, 14);
 		panel_1.add(lblNewLabel_7);
 		
 		JLabel lblNewLabel_5 = new JLabel("Apellido:");
-		lblNewLabel_5.setBounds(339, 42, 73, 14);
+		lblNewLabel_5.setBounds(299, 39, 73, 14);
 		panel_1.add(lblNewLabel_5);
+		
+		JLabel lblAosDeExperiencia = new JLabel("Experiencia (a\u00F1os):\r\n");
+		lblAosDeExperiencia.setBounds(299, 101, 116, 14);
+		panel_1.add(lblAosDeExperiencia);
+		
+		spnExp = new JSpinner();
+		spnExp.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		spnExp.setBounds(414, 98, 180, 20);
+		panel_1.add(spnExp);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "Informacion del usuario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_2.setBounds(10, 235, 624, 62);
+		panel_2.setBounds(10, 235, 624, 95);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(99, 26, 185, 20);
+		txtUsuario.setBounds(99, 26, 180, 20);
 		panel_2.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
@@ -205,26 +266,74 @@ public class RegistroUsuario2 extends JDialog {
 		panel_2.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Contrase\u00F1a:");
-		lblNewLabel_1.setBounds(313, 29, 86, 14);
+		lblNewLabel_1.setBounds(25, 70, 86, 14);
 		panel_2.add(lblNewLabel_1);
 		
-		txtContraseña = new JTextField();
-		txtContraseña.setBounds(409, 26, 180, 20);
-		panel_2.add(txtContraseña);
-		txtContraseña.setColumns(10);
+		JLabel lblConfirmContr = new JLabel("Confirm. Contr.:\r\n");
+		lblConfirmContr.setBounds(289, 70, 101, 14);
+		panel_2.add(lblConfirmContr);
+		
+		password = new JPasswordField();
+		password.setBounds(99, 67, 180, 20);
+		panel_2.add(password);
+		
+		confiPassword = new JPasswordField();
+		confiPassword.setBounds(400, 67, 180, 20);
+		panel_2.add(confiPassword);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new TitledBorder(null, "Informacion del usuario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_3.setBounds(10, 303, 624, 62);
+		panel_3.setBorder(new TitledBorder(null, "Tipo de usuario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setBounds(10, 335, 624, 62);
 		contentPane.add(panel_3);
 		panel_3.setLayout(null);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Comercial");
-		rdbtnNewRadioButton_1.setBounds(373, 19, 109, 23);
-		panel_3.add(rdbtnNewRadioButton_1);
+		rdbtnComercial = new JRadioButton("Comercial");
+		rdbtnComercial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(rdbtnComercial.isSelected()) {
+					rdbtnAdmin.setSelected(false);
+				}
+			}
+		});
+		rdbtnComercial.setBounds(373, 19, 109, 23);
+		panel_3.add(rdbtnComercial);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Administrador");
-		rdbtnNewRadioButton.setBounds(95, 19, 109, 23);
-		panel_3.add(rdbtnNewRadioButton);
+		rdbtnAdmin = new JRadioButton("Administrador");
+		rdbtnAdmin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(rdbtnAdmin.isSelected()) {
+					rdbtnComercial.setSelected(false);
+				}
+			}
+		});
+		rdbtnAdmin.setBounds(95, 19, 109, 23);
+		panel_3.add(rdbtnAdmin);
+	}
+	public void clear() {
+		txtNombre.setText("");
+		txtApellido.setText("");
+		txtCedula.setText("");
+		txtCorreo.setText("");
+		txtNombre.setText("");
+		txtTelefono.setText("");
+		txtUsuario.setText("");
+		spnExp.setValue(0);
+		rdbtnAdmin.setSelected(false);
+		rdbtnComercial.setSelected(false);
+		password.setText("");
+		confiPassword.setText("");
+	}
+	public boolean revision() {
+		boolean reg = false;
+		if(!txtNombre.getText().isEmpty() && !txtApellido.getText().isEmpty() && !txtCedula.getText().isEmpty() &&
+				!txtCorreo.getText().isEmpty() && !txtTelefono.getText().isEmpty() && !txtUsuario.getText().isEmpty()) {
+			if(password.getPassword().length>0 && confiPassword.getPassword().length>0) {
+				if(rdbtnAdmin.isSelected() || rdbtnComercial.isSelected()) {
+					reg = true;
+				}
+			}
+			
+		}
+		return reg;
 	}
 }

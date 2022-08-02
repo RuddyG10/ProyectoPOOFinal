@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.border.TitledBorder;
 
+import com.sun.javafx.event.EventQueue;
+
 import logico.Administrador;
 import logico.Altice;
 import logico.Trabajador;
@@ -27,6 +29,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class Login extends JDialog {
 
@@ -39,13 +47,51 @@ public class Login extends JDialog {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
-			Login dialog = new Login();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				FileInputStream altice;
+				FileOutputStream altice2;
+				ObjectInputStream reader;
+				ObjectOutputStream alticeWrite;
+				try {
+					altice = new FileInputStream("altice.dat");
+					reader = new ObjectInputStream(altice);
+					Altice temp = (Altice)reader.readObject();
+					Altice.setAltice(temp);
+					altice.close();
+					reader.close();
+					
+				} catch (FileNotFoundException e) {
+					try {
+						altice2 = new FileOutputStream("altice.dat");
+						alticeWrite = new ObjectOutputStream(altice2);
+						Trabajador admin = new Administrador("admin", "admin", "000", "0000", "administrador", "admin", "admin", 0);
+						Altice.getInstance().insertarTrabajador(admin);
+						
+						alticeWrite.writeObject(Altice.getInstance());
+						
+						altice2.close();
+						alticeWrite.close();
+					} catch (Exception e2) {
+						// TODO: handle exception
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					Login frame = new Login();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		
 	}
 
 	/**
@@ -116,12 +162,7 @@ public class Login extends JDialog {
 				
 				if(!txtUser.getText().isEmpty() && password.getPassword().length>0) {
 					String pass = String.valueOf(password.getPassword());
-					if(txtUser.getText().equalsIgnoreCase("admin") && pass.equalsIgnoreCase("admin")) {
-						Menu menu = new Menu(null);
-						menu.setVisible(true);
-						dispose();
-					}
-					else if(Altice.getInstance().login(txtUser.getText(), pass) != null) {
+					if(Altice.getInstance().login(txtUser.getText(), pass) != null) {
 						Trabajador admin = Altice.getInstance().login(txtUser.getText(), pass);
 						Menu menu = new Menu(admin);
 						menu.setVisible(true);

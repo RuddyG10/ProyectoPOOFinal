@@ -1,9 +1,10 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Venta {
+public class Venta implements Serializable{
 	private String numIdent;
 	private Trabajador vendedor;
 	private Cliente cliente;

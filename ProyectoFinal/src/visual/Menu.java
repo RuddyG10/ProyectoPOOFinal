@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import logico.Altice;
+import logico.Comercial;
 import logico.Trabajador;
 
 import javax.swing.UIManager;
@@ -25,6 +27,14 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JLabel;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 
 public class Menu extends JFrame {
 
@@ -74,6 +84,28 @@ public class Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu(Trabajador aux) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				
+				FileOutputStream altice2;
+				ObjectOutputStream alticeWrite;
+				try {
+					altice2 = new FileOutputStream("altice.dat");
+					alticeWrite = new ObjectOutputStream(altice2);
+					alticeWrite.writeObject(Altice.getInstance());
+				} catch (FileNotFoundException e2) {
+					// TODO: handle exception
+					e2.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				Login log = new Login();
+				log.setVisible(true);
+			}
+		});
+		
 		admin = aux;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/imagenes/logo altice pf.PNG")));
 		setTitle("Altice - Menu Principal");
@@ -257,7 +289,22 @@ public class Menu extends JFrame {
 				revision(true);
 				int option = JOptionPane.showConfirmDialog(null, "Desea cerrar la sesion?", "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if(option == 0) {
+					FileOutputStream altice2;
+					ObjectOutputStream alticeWrite;
+					try {
+						altice2 = new FileOutputStream("altice.dat");
+						alticeWrite = new ObjectOutputStream(altice2);
+						alticeWrite.writeObject(Altice.getInstance());
+					} catch (FileNotFoundException e2) {
+						// TODO: handle exception
+						e2.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					dispose();
+					Login log = new Login();
+					log.setVisible(true);
 				}
 			}
 		});
@@ -334,7 +381,7 @@ public class Menu extends JFrame {
 		btnVenta = new JButton("Realizar Venta");
 		btnVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Facturacion facturacion = new Facturacion(null);
+				Facturacion facturacion = new Facturacion(admin);
 				facturacion.setVisible(true);
 			}
 		});
@@ -401,7 +448,17 @@ public class Menu extends JFrame {
 		lblLogo.setBounds(208, 342, 1241, 201);
 		contentPane.add(lblLogo);
 		lblLogo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 74));
+		revisarTrabajador();
 	}
+	public void revisarTrabajador() {
+		if(admin instanceof Comercial) {
+			btnConsultas.setVisible(false);
+			btnRevision.setVisible(false);
+			btnPersonal.setVisible(false);
+		}
+		
+	}
+
 	public void revision(boolean cerrarTodas) {
 		if(panelClient.isVisible()){
 			panelPlanes.setVisible(false);

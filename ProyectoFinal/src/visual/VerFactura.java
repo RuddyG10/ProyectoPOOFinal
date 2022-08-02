@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VerFactura extends JDialog {
 
@@ -62,6 +64,7 @@ public class VerFactura extends JDialog {
 	 * Create the dialog.
 	 */
 	public VerFactura(Venta aux) {
+		setModal(true);
 		setTitle("Factura");
 		factura = aux;
 		setBounds(100, 100, 682, 463);
@@ -197,6 +200,11 @@ public class VerFactura extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnCancelar = new JButton("Cerrar");
+				btnCancelar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						dispose();
+					}
+				});
 				btnCancelar.setActionCommand("Cancel");
 				buttonPane.add(btnCancelar);
 			}

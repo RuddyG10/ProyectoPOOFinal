@@ -1,9 +1,10 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Cliente {
+public class Cliente implements Serializable{
 	
 	private String cedula;
 	private String nombre;

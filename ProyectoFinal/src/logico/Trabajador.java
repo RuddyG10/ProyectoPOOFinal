@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.Vector;
 
-public class Trabajador {
+public class Trabajador implements Serializable {
 	protected String nombre;
 	protected String apellidos;
 	protected String Cedula;
