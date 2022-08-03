@@ -302,8 +302,8 @@ public class ListadoPlanes extends JDialog {
 	}
 	private void loadTable() {
 	
-		txtCodigo.setText(Altice.getInstance().planMasVendido().getCodigo());
-		txtNombre.setText(Altice.getInstance().planMasVendido().getNombrePlan());
+		//txtCodigo.setText(Altice.getInstance().planMasVendido().getCodigo());
+		//txtNombre.setText(Altice.getInstance().planMasVendido().getNombrePlan());
 
 		ArrayList<Plan> auxiliar = new ArrayList<>();
 		int cantPlanes = Altice.getInstance().getmisPlanes().size();

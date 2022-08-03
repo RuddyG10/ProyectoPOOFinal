@@ -440,6 +440,13 @@ public class Menu extends JFrame {
 		panelPersonal.add(btnRegPer);
 		
 		btnListPer = new JButton("Lista de Usuarios");
+		btnListPer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListadoUsuarios aux = new ListadoUsuarios();
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
 		btnListPer.setForeground(Color.DARK_GRAY);
 		btnListPer.setBackground(Color.LIGHT_GRAY);
 		btnListPer.setFont(new Font("Tahoma", Font.PLAIN, 19));
