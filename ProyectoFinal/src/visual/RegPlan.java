@@ -95,7 +95,7 @@ public class RegPlan extends JDialog {
 
 		JLabel lblNewLabel = new JLabel("   Registrar plan");
 		lblNewLabel.setIcon(new ImageIcon(RegPlan.class.getResource("/imagenes/wifi icon.png")));
-		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 30));
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setBounds(44, 11, 497, 42);
 		panel.add(lblNewLabel);

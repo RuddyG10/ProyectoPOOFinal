@@ -301,37 +301,38 @@ public class ListadoPlanes extends JDialog {
 		loadTable();
 	}
 	private void loadTable() {
-		//Esto no va a funcionar por ahora
-		//txtCodigo.setText(Altice.getInstance().planMasVendido().getCodigo());
-		//txtNombre.setText(Altice.getInstance().planMasVendido().getNombrePlan());
+
+		txtCodigo.setText(Altice.getInstance().planMasVendido().getCodigo());
+		txtNombre.setText(Altice.getInstance().planMasVendido().getNombrePlan());
 
 		ArrayList<Plan> auxiliar = new ArrayList<>();
 		int cantPlanes = Altice.getInstance().getmisPlanes().size();
 
 		if (rdbTelefono.isSelected() | rdbCable.isSelected() | rdbInternet.isSelected()) {
-			if (rdbTelefono.isSelected()) {
-				for (int i = 0; i < cantPlanes; i++) {
-					Plan aux = Altice.getInstance().getmisPlanes().get(i);
-					if (Altice.getInstance().planTieneServicio(aux, "Telefono") == true) {
-						auxiliar.add(aux);	
-					}
-
+			for (int i = 0; i < cantPlanes; i++) {
+				Plan aux = Altice.getInstance().getmisPlanes().get(i);
+				if(rdbTelefono.isSelected()&&!rdbCable.isSelected() && !rdbInternet.isSelected() &&Altice.getInstance().planTieneServicio(aux, "Telefono")) {
+					auxiliar.add(aux);
 				}
+				if(!rdbTelefono.isSelected()&&rdbCable.isSelected() && !rdbInternet.isSelected() && Altice.getInstance().planTieneServicio(aux, "Cable")) {
+					auxiliar.add(aux);
 			}
-			if (rdbCable.isSelected()) {
-				for (int i = 0; i < cantPlanes; i++) {
-					Plan aux = Altice.getInstance().getmisPlanes().get(i);
-					if (Altice.getInstance().planTieneServicio(aux, "Cable") == true) {
-						auxiliar.add(aux);	
-					}
+				if(!rdbTelefono.isSelected()&&!rdbCable.isSelected() && rdbInternet.isSelected() && Altice.getInstance().planTieneServicio(aux, "Internet")) {
+					auxiliar.add(aux);
 				}
-			}
-			if (rdbInternet.isSelected()) {
-				for (int i = 0; i < cantPlanes; i++) {
-					Plan aux = Altice.getInstance().getmisPlanes().get(i);
-					if (Altice.getInstance().planTieneServicio(aux, "Internet") == true) {
-						auxiliar.add(aux);	
-					}
+				//dose selected
+				if(rdbCable.isSelected()&&rdbInternet.isSelected() && !rdbTelefono.isSelected() &&Altice.getInstance().planTieneServicio(aux, "Cable") && Altice.getInstance().planTieneServicio(aux, "Internet")) {
+					auxiliar.add(aux);
+				}
+				if(rdbCable.isSelected()&&!rdbInternet.isSelected() && rdbTelefono.isSelected() && Altice.getInstance().planTieneServicio(aux, "Cable") && Altice.getInstance().planTieneServicio(aux, "Telefono")) {
+					auxiliar.add(aux);
+				}
+				if(!rdbCable.isSelected()&&rdbInternet.isSelected() && rdbTelefono.isSelected() && Altice.getInstance().planTieneServicio(aux, "Telefono") && Altice.getInstance().planTieneServicio(aux, "Internet")) {
+					auxiliar.add(aux);
+				}
+				//tres selected
+				if(rdbCable.isSelected()&&rdbInternet.isSelected() && rdbTelefono.isSelected() && Altice.getInstance().planTieneServicio(aux, "Telefono") && Altice.getInstance().planTieneServicio(aux, "Internet") && Altice.getInstance().planTieneServicio(aux, "Cable")) {
+					auxiliar.add(aux);
 				}
 			}
 		}
