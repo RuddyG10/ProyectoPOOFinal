@@ -301,10 +301,13 @@ public class ListadoPlanes extends JDialog {
 		loadTable();
 	}
 	private void loadTable() {
-	
-		//txtCodigo.setText(Altice.getInstance().planMasVendido().getCodigo());
-		//txtNombre.setText(Altice.getInstance().planMasVendido().getNombrePlan());
+		
+		if(Altice.getInstance().planMasVendido() != null) {
+			txtCodigo.setText(Altice.getInstance().planMasVendido().getCodigo());
+			txtNombre.setText(Altice.getInstance().planMasVendido().getNombrePlan());
 
+		}
+		
 		ArrayList<Plan> auxiliar = new ArrayList<>();
 		int cantPlanes = Altice.getInstance().getmisPlanes().size();
 
@@ -342,10 +345,11 @@ public class ListadoPlanes extends JDialog {
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
 		for(int i = 0; i < auxiliar.size(); i++) {
+			
 			row[0] = auxiliar.get(i).getCodigo();
 			row[1] = auxiliar.get(i).getNombrePlan();
 			row[2] = auxiliar.get(i).getTotalPrecio();
-
+			
 			model.addRow(row);
 
 		}
