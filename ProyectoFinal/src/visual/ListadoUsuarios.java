@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Toolkit;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.SystemColor;
@@ -43,6 +45,7 @@ public class ListadoUsuarios extends JDialog {
 	private JRadioButton rdbComercial;
 	private static DefaultTableModel model;
 	private static Object row[];
+	private Trabajador selected = null;
 
 
 	/**
@@ -133,6 +136,18 @@ public class ListadoUsuarios extends JDialog {
 		model = new DefaultTableModel();
 		model.setColumnIdentifiers(headers);
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int index = table.getSelectedRow();
+				if (index >=0) {
+					String ced = table.getValueAt(index, 0).toString();
+					selected = Altice.getInstance().buscarTrabajadorByCedula(ced);
+					btnDetalles.setEnabled(true);
+					btnEliminar.setEnabled(true);
+				}
+			}
+		});
 		table.setModel(model);
 		scrollPane.setViewportView(table);
 		{
@@ -142,6 +157,17 @@ public class ListadoUsuarios extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
 			btnEliminar = new JButton("Eliminar");
+			btnEliminar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					int option = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar a : "+selected.getNombre() + selected.getApellidos() +" con cedula: "+selected.getCedula()+ " de la lista de usuarios?");
+					if (JOptionPane.YES_OPTION == option) {
+						Altice.getInstance().eliminarUsuario(selected);
+						loadTable();
+						btnDetalles.setEnabled(false);
+						btnEliminar.setEnabled(false);
+					}
+				}
+			});
 			btnEliminar.setEnabled(false);
 			btnEliminar.addMouseListener(new MouseAdapter() {
 				@Override
@@ -197,6 +223,8 @@ public class ListadoUsuarios extends JDialog {
 		loadTable();
 	}
 	private void loadTable() {
+		
+		
 		ArrayList<Trabajador> auxiliar = new ArrayList<>();
 		int cantTrab = Altice.getInstance().getMisTrabajadores().size();
 

@@ -45,7 +45,6 @@ public class ListadoPlanes extends JDialog {
 	private JTextField txtCodigo;
 	private JTextField txtNombre;
 	private JButton btnEliminar;
-	private JRadioButton rdbDestacar;
 	private JRadioButton rdbTelefono;
 	private JRadioButton rdbCable;
 	private JRadioButton rdbInternet;
@@ -140,35 +139,28 @@ public class ListadoPlanes extends JDialog {
 		JLabel lblNewLabel_2 = new JLabel("Codigo:");
 		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(36, 19, 86, 24);
+		lblNewLabel_2.setBounds(34, 35, 86, 24);
 		panel_1.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("Nombre:");
 		lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setBounds(348, 19, 86, 24);
+		lblNewLabel_3.setBounds(346, 35, 86, 24);
 		panel_1.add(lblNewLabel_3);
 
 		txtCodigo = new JTextField();
 		txtCodigo.setHorizontalAlignment(SwingConstants.CENTER);
 		txtCodigo.setEditable(false);
-		txtCodigo.setBounds(127, 19, 189, 24);
+		txtCodigo.setBounds(125, 35, 189, 24);
 		panel_1.add(txtCodigo);
 		txtCodigo.setColumns(10);
 
 		txtNombre = new JTextField();
 		txtNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		txtNombre.setEditable(false);
-		txtNombre.setBounds(441, 19, 184, 24);
+		txtNombre.setBounds(439, 35, 184, 24);
 		panel_1.add(txtNombre);
 		txtNombre.setColumns(10);
-
-		rdbDestacar = new JRadioButton("Destacar en el listado de planes");
-		rdbDestacar.setBounds(36, 50, 280, 35);
-		panel_1.add(rdbDestacar);
-		rdbDestacar.setBackground(SystemColor.controlLtHighlight);
-		rdbDestacar.setFont(new Font("Arial", Font.PLAIN, 15));
-		rdbDestacar.setHorizontalAlignment(SwingConstants.CENTER);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setForeground(new Color(0, 0, 51));
@@ -301,9 +293,11 @@ public class ListadoPlanes extends JDialog {
 		loadTable();
 	}
 	private void loadTable() {
-	
-		//txtCodigo.setText(Altice.getInstance().planMasVendido().getCodigo());
-		//txtNombre.setText(Altice.getInstance().planMasVendido().getNombrePlan());
+		
+		if (Altice.getInstance().planMasVendido()!= null) {
+		txtCodigo.setText(Altice.getInstance().planMasVendido().getCodigo());
+		txtNombre.setText(Altice.getInstance().planMasVendido().getNombrePlan());
+		}
 
 		ArrayList<Plan> auxiliar = new ArrayList<>();
 		int cantPlanes = Altice.getInstance().getmisPlanes().size();
