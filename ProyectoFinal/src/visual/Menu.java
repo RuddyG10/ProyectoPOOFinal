@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import logico.Altice;
+import logico.Comercial;
 import logico.Trabajador;
 
 import javax.swing.UIManager;
@@ -25,6 +27,14 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JLabel;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 
 public class Menu extends JFrame {
 
@@ -51,7 +61,7 @@ public class Menu extends JFrame {
 	private JButton btnVenta;
 	private JButton btnListFac;
 	private JButton btnRegPer;
-	private JButton btn;
+	private JButton btnListPer;
 	private Trabajador admin = null;
 	
 	/**
@@ -74,6 +84,32 @@ public class Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu(Trabajador aux) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				
+				FileOutputStream altice2;
+				ObjectOutputStream alticeWrite;
+				try {
+					altice2 = new FileOutputStream("altice.dat");
+					alticeWrite = new ObjectOutputStream(altice2);
+					alticeWrite.writeInt(Altice.getInstance().genCodeFac);
+					alticeWrite.writeInt(Altice.getInstance().genCodePlan);
+					alticeWrite.writeInt(Altice.getInstance().genCodeServ);
+					alticeWrite.writeInt(Altice.getInstance().genCodeVent);
+					alticeWrite.writeObject(Altice.getInstance());
+				} catch (FileNotFoundException e2) {
+					// TODO: handle exception
+					e2.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				Login log = new Login();
+				log.setVisible(true);
+			}
+		});
+		
 		admin = aux;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/imagenes/logo altice pf.PNG")));
 		setTitle("Altice - Menu Principal");
@@ -257,7 +293,26 @@ public class Menu extends JFrame {
 				revision(true);
 				int option = JOptionPane.showConfirmDialog(null, "Desea cerrar la sesion?", "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if(option == 0) {
+					FileOutputStream altice2;
+					ObjectOutputStream alticeWrite;
+					try {
+						altice2 = new FileOutputStream("altice.dat");
+						alticeWrite = new ObjectOutputStream(altice2);
+						alticeWrite.writeInt(Altice.getInstance().genCodeFac);
+						alticeWrite.writeInt(Altice.getInstance().genCodePlan);
+						alticeWrite.writeInt(Altice.getInstance().genCodeServ);
+						alticeWrite.writeInt(Altice.getInstance().genCodeVent);
+						alticeWrite.writeObject(Altice.getInstance());
+					} catch (FileNotFoundException e2) {
+						// TODO: handle exception
+						e2.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					dispose();
+					Login log = new Login();
+					log.setVisible(true);
 				}
 			}
 		});
@@ -334,7 +389,7 @@ public class Menu extends JFrame {
 		btnVenta = new JButton("Realizar Venta");
 		btnVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Facturacion facturacion = new Facturacion(null);
+				Facturacion facturacion = new Facturacion(admin);
 				facturacion.setVisible(true);
 			}
 		});
@@ -384,12 +439,12 @@ public class Menu extends JFrame {
 		btnRegPer.setBounds(10, 11, 301, 64);
 		panelPersonal.add(btnRegPer);
 		
-		btn = new JButton("New button");
-		btn.setForeground(Color.DARK_GRAY);
-		btn.setBackground(Color.LIGHT_GRAY);
-		btn.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		btn.setBounds(10, 153, 301, 64);
-		panelPersonal.add(btn);
+		btnListPer = new JButton("Lista de Usuarios");
+		btnListPer.setForeground(Color.DARK_GRAY);
+		btnListPer.setBackground(Color.LIGHT_GRAY);
+		btnListPer.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		btnListPer.setBounds(10, 153, 301, 64);
+		panelPersonal.add(btnListPer);
 		
 		panelConsultas = new JPanel();
 		panelConsultas.setBackground(Color.DARK_GRAY);
@@ -398,10 +453,25 @@ public class Menu extends JFrame {
 		contentPane.add(panelConsultas);
 		
 		JLabel lblLogo = new JLabel("Sistema de Administracion.");
-		lblLogo.setBounds(208, 342, 1241, 201);
+		lblLogo.setBounds(428, 381, 1241, 201);
 		contentPane.add(lblLogo);
-		lblLogo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 74));
+		lblLogo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 50));
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/AlticeLogo100.png")));
+		lblNewLabel.setBounds(706, 284, 113, 121);
+		contentPane.add(lblNewLabel);
+		revisarTrabajador();
 	}
+	public void revisarTrabajador() {
+		if(admin instanceof Comercial) {
+			btnConsultas.setVisible(false);
+			btnRevision.setVisible(false);
+			btnPersonal.setVisible(false);
+		}
+		
+	}
+
 	public void revision(boolean cerrarTodas) {
 		if(panelClient.isVisible()){
 			panelPlanes.setVisible(false);

@@ -1,11 +1,13 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 
-public class Altice {
+public class Altice implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Trabajador> misTrabajadores;
 	private ArrayList<Plan> misPlanes;
 	private ArrayList<Cliente> misClientes;
@@ -17,6 +19,7 @@ public class Altice {
 	public static int genCodeVent = 1;
 	public static int genCodeServ = 1;
 	private static Altice altice = null;
+	private static boolean firstTime;
 
 	private Altice() {
 		super();
@@ -27,13 +30,22 @@ public class Altice {
 		this.servicios = new ArrayList<Servicio>();
 		this.ventas= new ArrayList<Venta>();
 	}
+	public static boolean isFirstTime() {
+		return firstTime;
+	}
+
+	public static void setFirstTime(boolean firstTime) {
+		Altice.firstTime = firstTime;
+	}
 	public static Altice getInstance() {
 		if(altice == null) {
 			altice = new Altice();
 		}
 		return altice;
 	}
-	
+	public static void setAltice(Altice altice) {
+		Altice.altice = altice;
+	}
 	public ArrayList<Venta> getVentas() {
 		return ventas;
 	}
@@ -86,7 +98,7 @@ public class Altice {
 	public Date calcularFechaCorte(Date date) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
-		c.add(Calendar.MONTH,1);
+		c.add(Calendar.MONTH,3);
 		Date newDate = c.getTime();
 		return newDate;
 	}
@@ -159,11 +171,14 @@ public class Altice {
 		Venta auxVenta = null;
 		Trabajador auxTrab = buscarTrabajadorByCedula(cedulaTrabajador);
 		Cliente auxClient = buscarClientePorCedula(cedulaCliente);
-		if(auxTrab != null && auxClient != null && auxTrab instanceof Comercial) {
+		if(auxTrab != null && auxClient != null) {
 			if(planesHabilitados(auxClient)) {
 				auxVenta = new Venta("V-"+genCodeVent, auxTrab, auxClient, planes);
 				realizarFactura(auxVenta);
-				((Comercial) auxTrab).getMisVentas().add(auxVenta);
+				if(auxTrab instanceof Comercial) {
+					((Comercial) auxTrab).getMisVentas().add(auxVenta);
+				}
+				
 				insertarVenta(auxVenta);
 				}
 			}

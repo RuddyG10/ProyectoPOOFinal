@@ -348,6 +348,7 @@ public class Facturacion extends JDialog {
 							
 						}
 					}
+					
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Faltan datos para completar la compra.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -385,11 +386,6 @@ public class Facturacion extends JDialog {
 			}
 		});
 		buttonPane.add(btnCancelar);
-		ArrayList<Servicio> servicios = new ArrayList<>();
-		Servicio internet = new Internet("I-"+Altice.getInstance().genCodeServ, "Internet", 100, 100, 100);
-		servicios.add(internet);
-		Plan planInt = new Plan("P-"+Altice.getInstance().genCodePlan, "InternetFull", "Internet 100mbps", servicios, 200);
-		Altice.getInstance().insertarPlan(planInt);
 		llenarList();
 		activarRegistro();
 		totalPrecio();
@@ -481,6 +477,7 @@ public class Facturacion extends JDialog {
 					ver.setVisible(true);
 				}
 				clean();
+				
 			}
 			else {
 				JOptionPane.showConfirmDialog(null, "Algo salio mal con la factura.", "Error", JOptionPane.ERROR_MESSAGE);

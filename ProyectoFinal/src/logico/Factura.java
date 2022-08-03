@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Factura {
+public class Factura implements Serializable {
 	
 	private String codigo;
 	private Plan plan;

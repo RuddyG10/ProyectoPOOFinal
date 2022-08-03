@@ -161,7 +161,7 @@ public class ListVent extends JDialog {
 			}
 			row[2] = precioTotal;
 			row[3] = formater.format(vent.getFecha());
-			
+			model.addRow(row);
 		}
 		
 	}
