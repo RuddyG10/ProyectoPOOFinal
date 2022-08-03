@@ -359,4 +359,25 @@ public class Altice implements Serializable {
 		return vent;
 	}
 	
-}
+	
+	public void eliminarUsuario(Trabajador selected) {
+		int index = -1;
+		index = buscarIndexByTrabajador(selected.getCedula());
+		misPlanes.remove(index);
+
+		
+	}
+	private int buscarIndexByTrabajador(String cedula) {
+		int aux = -1;
+		int i =0;
+		boolean encontrado = false;
+		while (i < misTrabajadores.size() && !encontrado) {
+			if (misTrabajadores.get(i).getCedula().equalsIgnoreCase(cedula)) {
+				aux = i;
+				encontrado = true;
+			}
+			i++;
+		}
+		return aux;
+	}
+	}

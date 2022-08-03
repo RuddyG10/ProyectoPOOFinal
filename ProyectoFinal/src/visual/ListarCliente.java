@@ -2,12 +2,11 @@ package visual;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import javax.swing.table.DefaultTableModel;
 
 import logico.Altice;
@@ -28,10 +27,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class ListarCliente extends JDialog {
 
 	private JPanel contentPane;
+
 	private JTable table;
 	private DefaultTableModel model;
 	private String[] headers = {"Cedula","Nombre","Apellido","Telefono","Cant. planes"};
@@ -40,10 +41,7 @@ public class ListarCliente extends JDialog {
 	private JButton btnVerFac;
 	private JButton btnEliminar;
 	private JButton btnMod;
-	
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -69,18 +67,24 @@ public class ListarCliente extends JDialog {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
-		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(10, 382, 646, 48);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
+
+		JButton btnNewButton = new JButton("Listar");
+		btnNewButton.setBounds(208, 352, 89, 23);
+		contentPane.add(btnNewButton);
+
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setEnabled(false);
 		btnEliminar.setBounds(337, 23, 94, 23);
 		panel.add(btnEliminar);
-		
+		JButton btnNewButton_1 = new JButton("Eliminar");
+		btnNewButton_1.setBounds(10, 352, 89, 23);
+		contentPane.add(btnNewButton_1);
+
 		btnMod = new JButton("Modificar");
 		btnMod.setEnabled(false);
 		btnMod.setBounds(441, 23, 100, 23);
@@ -189,5 +193,8 @@ public class ListarCliente extends JDialog {
 				model.addRow(row);
 			}
 		}
+		JButton btnNewButton_2 = new JButton("Modificar");
+		btnNewButton_2.setBounds(109, 352, 89, 23);
+		contentPane.add(btnNewButton_2);
 	}
 }
