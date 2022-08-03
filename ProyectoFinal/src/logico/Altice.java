@@ -345,6 +345,7 @@ public class Altice implements Serializable {
 		}
 		return vent;
 	}
+	
 	public void eliminarUsuario(Trabajador selected) {
 		int index = -1;
 		index = buscarIndexByTrabajador(selected.getCedula());
@@ -365,5 +366,6 @@ public class Altice implements Serializable {
 		}
 		return aux;
 	}
+	}
 	
-}
+
