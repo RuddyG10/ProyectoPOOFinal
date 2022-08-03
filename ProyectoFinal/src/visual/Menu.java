@@ -93,6 +93,10 @@ public class Menu extends JFrame {
 				try {
 					altice2 = new FileOutputStream("altice.dat");
 					alticeWrite = new ObjectOutputStream(altice2);
+					alticeWrite.writeInt(Altice.getInstance().genCodeFac);
+					alticeWrite.writeInt(Altice.getInstance().genCodePlan);
+					alticeWrite.writeInt(Altice.getInstance().genCodeServ);
+					alticeWrite.writeInt(Altice.getInstance().genCodeVent);
 					alticeWrite.writeObject(Altice.getInstance());
 				} catch (FileNotFoundException e2) {
 					// TODO: handle exception

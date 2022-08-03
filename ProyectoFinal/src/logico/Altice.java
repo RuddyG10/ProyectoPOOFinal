@@ -171,11 +171,14 @@ public class Altice implements Serializable {
 		Venta auxVenta = null;
 		Trabajador auxTrab = buscarTrabajadorByCedula(cedulaTrabajador);
 		Cliente auxClient = buscarClientePorCedula(cedulaCliente);
-		if(auxTrab != null && auxClient != null && auxTrab instanceof Comercial) {
+		if(auxTrab != null && auxClient != null) {
 			if(planesHabilitados(auxClient)) {
 				auxVenta = new Venta("V-"+genCodeVent, auxTrab, auxClient, planes);
 				realizarFactura(auxVenta);
-				((Comercial) auxTrab).getMisVentas().add(auxVenta);
+				if(auxTrab instanceof Comercial) {
+					((Comercial) auxTrab).getMisVentas().add(auxVenta);
+				}
+				
 				insertarVenta(auxVenta);
 				}
 			}

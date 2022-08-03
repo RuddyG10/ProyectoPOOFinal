@@ -56,8 +56,16 @@ public class Login extends JDialog {
 				try {
 					altice = new FileInputStream("altice.dat");
 					reader = new ObjectInputStream(altice);
-					Altice temp = (Altice)reader.readObject();
+					int genCodeFac = (Integer)reader.readInt();
+					int genCodePlan = (Integer)reader.readInt();
+					int genCodeServ = (Integer)reader.readInt();
+					int genCodeVent = (Integer)reader.readInt();
+;					Altice temp = (Altice)reader.readObject();
 					Altice.setAltice(temp);
+					temp.genCodeFac = genCodeFac;
+					temp.genCodePlan = genCodePlan;
+					temp.genCodeServ = genCodeServ;
+					temp.genCodeVent = genCodeVent;
 					altice.close();
 					reader.close();
 					
@@ -67,7 +75,10 @@ public class Login extends JDialog {
 						alticeWrite = new ObjectOutputStream(altice2);
 						Trabajador admin = new Administrador("admin", "admin", "000", "0000", "administrador", "admin", "admin", 0);
 						Altice.getInstance().insertarTrabajador(admin);
-						
+						alticeWrite.writeInt(Altice.getInstance().genCodeFac);
+						alticeWrite.writeInt(Altice.getInstance().genCodePlan);
+						alticeWrite.writeInt(Altice.getInstance().genCodeServ);
+						alticeWrite.writeInt(Altice.getInstance().genCodeVent);
 						alticeWrite.writeObject(Altice.getInstance());
 						
 						altice2.close();
