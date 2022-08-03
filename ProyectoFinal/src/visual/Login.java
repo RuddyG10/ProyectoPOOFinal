@@ -56,11 +56,11 @@ public class Login extends JDialog {
 				try {
 					altice = new FileInputStream("altice.dat");
 					reader = new ObjectInputStream(altice);
-					int genCodeFac = (Integer)reader.readInt();
-					int genCodePlan = (Integer)reader.readInt();
-					int genCodeServ = (Integer)reader.readInt();
-					int genCodeVent = (Integer)reader.readInt();
-;					Altice temp = (Altice)reader.readObject();
+					int genCodeFac = reader.readInt();
+					int genCodePlan = reader.readInt();
+					int genCodeServ = reader.readInt();
+					int genCodeVent = reader.readInt();
+					Altice temp = (Altice)reader.readObject();
 					Altice.setAltice(temp);
 					temp.genCodeFac = genCodeFac;
 					temp.genCodePlan = genCodePlan;

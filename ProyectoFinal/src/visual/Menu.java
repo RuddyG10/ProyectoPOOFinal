@@ -61,7 +61,7 @@ public class Menu extends JFrame {
 	private JButton btnVenta;
 	private JButton btnListFac;
 	private JButton btnRegPer;
-	private JButton btn;
+	private JButton btnListPer;
 	private Trabajador admin = null;
 	
 	/**
@@ -298,6 +298,10 @@ public class Menu extends JFrame {
 					try {
 						altice2 = new FileOutputStream("altice.dat");
 						alticeWrite = new ObjectOutputStream(altice2);
+						alticeWrite.writeInt(Altice.getInstance().genCodeFac);
+						alticeWrite.writeInt(Altice.getInstance().genCodePlan);
+						alticeWrite.writeInt(Altice.getInstance().genCodeServ);
+						alticeWrite.writeInt(Altice.getInstance().genCodeVent);
 						alticeWrite.writeObject(Altice.getInstance());
 					} catch (FileNotFoundException e2) {
 						// TODO: handle exception
@@ -435,12 +439,12 @@ public class Menu extends JFrame {
 		btnRegPer.setBounds(10, 11, 301, 64);
 		panelPersonal.add(btnRegPer);
 		
-		btn = new JButton("New button");
-		btn.setForeground(Color.DARK_GRAY);
-		btn.setBackground(Color.LIGHT_GRAY);
-		btn.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		btn.setBounds(10, 153, 301, 64);
-		panelPersonal.add(btn);
+		btnListPer = new JButton("Lista de Usuarios");
+		btnListPer.setForeground(Color.DARK_GRAY);
+		btnListPer.setBackground(Color.LIGHT_GRAY);
+		btnListPer.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		btnListPer.setBounds(10, 153, 301, 64);
+		panelPersonal.add(btnListPer);
 		
 		panelConsultas = new JPanel();
 		panelConsultas.setBackground(Color.DARK_GRAY);
@@ -449,9 +453,14 @@ public class Menu extends JFrame {
 		contentPane.add(panelConsultas);
 		
 		JLabel lblLogo = new JLabel("Sistema de Administracion.");
-		lblLogo.setBounds(208, 342, 1241, 201);
+		lblLogo.setBounds(428, 381, 1241, 201);
 		contentPane.add(lblLogo);
-		lblLogo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 74));
+		lblLogo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 50));
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/AlticeLogo100.png")));
+		lblNewLabel.setBounds(706, 284, 113, 121);
+		contentPane.add(lblNewLabel);
 		revisarTrabajador();
 	}
 	public void revisarTrabajador() {
