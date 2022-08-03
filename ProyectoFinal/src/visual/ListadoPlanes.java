@@ -301,13 +301,12 @@ public class ListadoPlanes extends JDialog {
 		loadTable();
 	}
 	private void loadTable() {
-
+	
 		txtCodigo.setText(Altice.getInstance().planMasVendido().getCodigo());
 		txtNombre.setText(Altice.getInstance().planMasVendido().getNombrePlan());
 
 		ArrayList<Plan> auxiliar = new ArrayList<>();
 		int cantPlanes = Altice.getInstance().getmisPlanes().size();
-
 
 		if (rdbTelefono.isSelected() | rdbCable.isSelected() | rdbInternet.isSelected()) {
 			for (int i = 0; i < cantPlanes; i++) {
@@ -317,10 +316,10 @@ public class ListadoPlanes extends JDialog {
 				}
 				if(!rdbTelefono.isSelected()&&rdbCable.isSelected() && !rdbInternet.isSelected() && Altice.getInstance().planTieneServicio(aux, "Cable")) {
 					auxiliar.add(aux);
-
+			}
 				if(!rdbTelefono.isSelected()&&!rdbCable.isSelected() && rdbInternet.isSelected() && Altice.getInstance().planTieneServicio(aux, "Internet")) {
 					auxiliar.add(aux);
-
+				}
 				//dose selected
 				if(rdbCable.isSelected()&&rdbInternet.isSelected() && !rdbTelefono.isSelected() &&Altice.getInstance().planTieneServicio(aux, "Cable") && Altice.getInstance().planTieneServicio(aux, "Internet")) {
 					auxiliar.add(aux);
@@ -334,8 +333,8 @@ public class ListadoPlanes extends JDialog {
 				//tres selected
 				if(rdbCable.isSelected()&&rdbInternet.isSelected() && rdbTelefono.isSelected() && Altice.getInstance().planTieneServicio(aux, "Telefono") && Altice.getInstance().planTieneServicio(aux, "Internet") && Altice.getInstance().planTieneServicio(aux, "Cable")) {
 					auxiliar.add(aux);
+				}
 			}
-
 		}
 		else {
 			auxiliar = Altice.getInstance().getmisPlanes();
@@ -346,8 +345,9 @@ public class ListadoPlanes extends JDialog {
 			row[0] = auxiliar.get(i).getCodigo();
 			row[1] = auxiliar.get(i).getNombrePlan();
 			row[2] = auxiliar.get(i).getTotalPrecio();
+
 			model.addRow(row);
+
 		}
-		
 	}
 }
