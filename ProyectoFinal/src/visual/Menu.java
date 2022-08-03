@@ -113,7 +113,6 @@ public class Menu extends JFrame {
 		admin = aux;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/imagenes/logo altice pf.PNG")));
 		setTitle("Altice - Menu Principal");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		dim = getToolkit().getScreenSize();
 		setSize(dim.width,dim.height-50);
@@ -335,7 +334,8 @@ public class Menu extends JFrame {
 		btnListClient = new JButton("Listar Clientes");
 		btnListClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				ListarCliente lista = new ListarCliente();
+				lista.setVisible(true);
 			}
 		});
 		btnListClient.setForeground(Color.DARK_GRAY);
@@ -399,7 +399,7 @@ public class Menu extends JFrame {
 		btnVenta.setBounds(10, 11, 301, 64);
 		panelFactura.add(btnVenta);
 		
-		btnListFac = new JButton("Lista de Facturas");
+		btnListFac = new JButton("Lista de Ventas");
 		btnListFac.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListVent lista = new ListVent();

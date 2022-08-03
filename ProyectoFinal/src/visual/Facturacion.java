@@ -133,7 +133,21 @@ public class Facturacion extends JDialog {
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO ventana de busqueda de clientes me diante su lista.
+				if(!txtCedula.getText().isEmpty()) {
+					Cliente client = Altice.getInstance().buscarClientePorCedula(txtCedula.getText());
+					if(client != null) {
+						txtNombre.setText(client.getNombre());
+						txtApellidos.setText(client.getApellido());
+						txtDireccion.setText(client.getDireccion());
+						txtTelefono.setText(client.getTelefono());
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "No se ha encontrado dicho cliente.", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Debe escribir la cedula del cliente que quiere buscar.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnBuscar.setIcon(new ImageIcon(Facturacion.class.getResource("/imagenes/buscar1.png")));
