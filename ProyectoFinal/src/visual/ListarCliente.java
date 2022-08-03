@@ -73,17 +73,10 @@ public class ListarCliente extends JDialog {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JButton btnNewButton = new JButton("Listar");
-		btnNewButton.setBounds(208, 352, 89, 23);
-		contentPane.add(btnNewButton);
-
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setEnabled(false);
 		btnEliminar.setBounds(337, 23, 94, 23);
 		panel.add(btnEliminar);
-		JButton btnNewButton_1 = new JButton("Eliminar");
-		btnNewButton_1.setBounds(10, 352, 89, 23);
-		contentPane.add(btnNewButton_1);
 
 		btnMod = new JButton("Modificar");
 		btnMod.setEnabled(false);
@@ -193,8 +186,5 @@ public class ListarCliente extends JDialog {
 				model.addRow(row);
 			}
 		}
-		JButton btnNewButton_2 = new JButton("Modificar");
-		btnNewButton_2.setBounds(109, 352, 89, 23);
-		contentPane.add(btnNewButton_2);
 	}
 }

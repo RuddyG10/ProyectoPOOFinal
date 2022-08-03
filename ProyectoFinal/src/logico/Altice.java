@@ -209,7 +209,6 @@ public class Altice implements Serializable {
 				auxFac = new Factura("F-"+genCodeFac, venta.getCliente(),plan,venta.getVendedor() , plan.getTotalPrecio());
 				venta.getCliente().getMisFacturas().add(auxFac);
 				insertarFactura(auxFac);
-				genCodeFac++;
 			}
 		}
 	}
@@ -308,13 +307,19 @@ public class Altice implements Serializable {
 	public Plan planMasVendido() {
 		Plan planVendido = null;
 		int cantVenta = 0;
-		for (Venta venta : ventas) {
-			ArrayList<Plan> planesVenta = venta.getPlanes();
-			for (Plan plan : planesVenta) {
-				if(cantVenta<cantidadPlanVendido(planesVenta,plan)) {
-					cantVenta = cantidadPlanVendido(planesVenta,plan);
-					planVendido = plan;
+		
+		
+		for (Plan plan : misPlanes) {
+			int cantidad = 0;
+			for(Venta vent: ventas) {
+				ArrayList<Plan> planesVenta = vent.getPlanes();
+				if(planesVenta.contains(plan)) {
+					cantidad++;
 				}
+			}
+			if(cantidad>cantVenta) {
+				cantVenta = cantidad;
+				planVendido = plan;
 			}
 		}
 		return planVendido;

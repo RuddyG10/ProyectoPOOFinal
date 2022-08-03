@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
@@ -29,6 +30,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -36,7 +39,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class Login extends JDialog {
+public class Login extends JFrame {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtUser;
@@ -109,12 +112,38 @@ public class Login extends JDialog {
 	 * Create the dialog.
 	 */
 	public Login() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				
+				FileOutputStream altice2;
+				ObjectOutputStream alticeWrite;
+				try {
+					altice2 = new FileOutputStream("altice.dat");
+					alticeWrite = new ObjectOutputStream(altice2);
+					alticeWrite.writeInt(Altice.getInstance().genCodeFac);
+					alticeWrite.writeInt(Altice.getInstance().genCodePlan);
+					alticeWrite.writeInt(Altice.getInstance().genCodeServ);
+					alticeWrite.writeInt(Altice.getInstance().genCodeVent);
+					alticeWrite.writeObject(Altice.getInstance());
+				} catch (FileNotFoundException e2) {
+					// TODO: handle exception
+					e2.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				Login log = new Login();
+				log.setVisible(true);
+			}
+		});
 		setTitle("Iniciar Sesion");
 		setBounds(100, 100, 525, 354);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(253, 245, 230));
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
