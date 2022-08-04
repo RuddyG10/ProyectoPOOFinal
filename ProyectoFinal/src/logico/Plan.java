@@ -13,6 +13,7 @@ public class Plan implements Serializable{
 	private float totalPrecio;
 	private Date fechaInicio;
 	private Date fechaPago;
+	private int cantidad;
 	
 	public Plan(String codigo, String nombrePlan,String descripcion, ArrayList<Servicio> servicios, float totalPrecio) {
 		super();
@@ -86,7 +87,25 @@ public class Plan implements Serializable{
 	public Date getFechaPago() {
 		return fechaPago;
 	}
-	
-	
+
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
+
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+
+	public void setFechaPago(Date fechaPago) {
+		this.fechaPago = fechaPago;
+	}
 
 }
