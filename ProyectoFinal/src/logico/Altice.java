@@ -368,7 +368,7 @@ public class Altice implements Serializable {
 	public void eliminarUsuario(Trabajador selected) {
 		int index = -1;
 		index = buscarIndexByTrabajador(selected.getCedula());
-		misPlanes.remove(index);
+		misTrabajadores.remove(index);
 
 		
 	}

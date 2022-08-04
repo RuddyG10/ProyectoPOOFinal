@@ -33,6 +33,8 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class ListadoUsuarios extends JDialog {
 
@@ -46,6 +48,8 @@ public class ListadoUsuarios extends JDialog {
 	private static DefaultTableModel model;
 	private static Object row[];
 	private Trabajador selected = null;
+	private JTextField txtNombre;
+	private JTextField txtCantVentas;
 
 
 	/**
@@ -65,9 +69,11 @@ public class ListadoUsuarios extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListadoUsuarios() {
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListadoUsuarios.class.getResource("/imagenes/logo altice pf.PNG")));
 		setTitle("Altice");
-		setBounds(100, 100, 652, 528);
+		setBounds(100, 100, 652, 554);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.window);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -90,7 +96,7 @@ public class ListadoUsuarios extends JDialog {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Seleccione uno", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 102)));
 		panel_1.setBackground(SystemColor.controlLtHighlight);
-		panel_1.setBounds(10, 87, 616, 76);
+		panel_1.setBounds(10, 162, 616, 65);
 		contentPanel.add(panel_1);
 		panel_1.setLayout(null);
 
@@ -125,7 +131,7 @@ public class ListadoUsuarios extends JDialog {
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "Listado", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 102)));
 		panel_2.setBackground(SystemColor.window);
-		panel_2.setBounds(10, 171, 616, 270);
+		panel_2.setBounds(10, 238, 616, 223);
 		contentPanel.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 
@@ -150,6 +156,38 @@ public class ListadoUsuarios extends JDialog {
 		});
 		table.setModel(model);
 		scrollPane.setViewportView(table);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(SystemColor.window);
+		panel_3.setBorder(new TitledBorder(null, "Mejor comercial", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 102)));
+		panel_3.setBounds(10, 87, 616, 65);
+		contentPanel.add(panel_3);
+		panel_3.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("Nombre:");
+		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(9, 24, 127, 22);
+		panel_3.add(lblNewLabel_1);
+		
+		txtNombre = new JTextField();
+		txtNombre.setEditable(false);
+		txtNombre.setBounds(121, 24, 158, 22);
+		panel_3.add(txtNombre);
+		txtNombre.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("Cant de ventas:");
+		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setBounds(305, 24, 127, 22);
+		panel_3.add(lblNewLabel_2);
+		
+		txtCantVentas = new JTextField();
+		txtCantVentas.setEditable(false);
+		txtCantVentas.setBackground(SystemColor.control);
+		txtCantVentas.setBounds(431, 24, 158, 22);
+		panel_3.add(txtCantVentas);
+		txtCantVentas.setColumns(10);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(SystemColor.window);
@@ -184,6 +222,17 @@ public class ListadoUsuarios extends JDialog {
 			buttonPane.add(btnEliminar);
 			{
 				btnDetalles = new JButton("Ver detalles");
+				btnDetalles.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						DetallesUsuarios detalles = new DetallesUsuarios();
+						detalles.cargarInfo(selected);
+						detalles.setModal(true);
+						detalles.setVisible(true);
+					}
+					
+				});
+
+			
 				btnDetalles.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseEntered(MouseEvent e) {
@@ -203,6 +252,11 @@ public class ListadoUsuarios extends JDialog {
 			}
 			{
 				btnAtras = new JButton("Atras");
+				btnAtras.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				btnAtras.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseEntered(MouseEvent e) {
@@ -223,6 +277,11 @@ public class ListadoUsuarios extends JDialog {
 		loadTable();
 	}
 	private void loadTable() {
+		
+		if (Altice.getInstance().mejorComercial() != null) {
+			txtNombre.setText(Altice.getInstance().mejorComercial().getNombre() + Altice.getInstance().mejorComercial().getApellidos());
+			txtCantVentas.setText(String.valueOf(((Comercial) Altice.getInstance().mejorComercial()).getMisVentas().size()));
+		}
 		
 		
 		ArrayList<Trabajador> auxiliar = new ArrayList<>();
