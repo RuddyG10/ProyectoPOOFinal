@@ -306,11 +306,14 @@ public class ListadoUsuarios extends JDialog {
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
 		for(int i = 0; i < auxiliar.size(); i++) {
-			row[0] = auxiliar.get(i).getCedula();
-			row[1] = auxiliar.get(i).getNombre();
-			row[2] = auxiliar.get(i).getEmail();
+			if(!auxiliar.get(i).getNombre().equalsIgnoreCase("admin")) {
+				row[0] = auxiliar.get(i).getCedula();
+				row[1] = auxiliar.get(i).getNombre();
+				row[2] = auxiliar.get(i).getEmail();
 
-			model.addRow(row);
+				model.addRow(row);
+			}
+			
 		}
 	}
 }

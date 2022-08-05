@@ -27,16 +27,15 @@ import java.awt.event.ActionEvent;
 public class BuscarCliente extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtCedula;
-	private JButton btnLista;
 	private JButton btnBuscar;
-	private Cliente cliente = null;
+	private JPanel panelBuscar;
+	private JTextField txtCedula;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			BuscarCliente dialog = new BuscarCliente(null);
+			BuscarCliente dialog = new BuscarCliente();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -47,12 +46,11 @@ public class BuscarCliente extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public BuscarCliente(Cliente aux) {
-		cliente = aux;
+	public BuscarCliente() {
 		setModal(true);
 		setResizable(false);
 		setTitle("Buscar Cliente");
-		setBounds(100, 100, 535, 387);
+		setBounds(100, 100, 433, 343);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -71,32 +69,21 @@ public class BuscarCliente extends JDialog {
 		lblNewLabel.setBounds(10, 0, 241, 77);
 		panel.add(lblNewLabel);
 		
-		JTextPane txtpnEscribaLaCedula = new JTextPane();
-		txtpnEscribaLaCedula.setFont(new Font("Tahoma", Font.BOLD, 15));
-		txtpnEscribaLaCedula.setBackground(SystemColor.control);
-		txtpnEscribaLaCedula.setText("Escriba la cedula del cliente o presione el boton buscar e la lista de clientes.\r\n");
-		txtpnEscribaLaCedula.setBounds(10, 88, 509, 44);
-		contentPanel.add(txtpnEscribaLaCedula);
-		
-		JLabel lblNewLabel_1 = new JLabel("Cedula:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(69, 192, 68, 14);
-		contentPanel.add(lblNewLabel_1);
+		panelBuscar = new JPanel();
+		panelBuscar.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelBuscar.setBounds(10, 88, 407, 177);
+		contentPanel.add(panelBuscar);
+		panelBuscar.setLayout(null);
 		
 		txtCedula = new JTextField();
-		txtCedula.setBounds(147, 191, 183, 20);
-		contentPanel.add(txtCedula);
 		txtCedula.setColumns(10);
+		txtCedula.setBounds(150, 76, 183, 20);
+		panelBuscar.add(txtCedula);
 		
-		btnLista = new JButton("Buscar en lista");
-		btnLista.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ListarCliente lista = new ListarCliente();
-				lista.setVisible(true);
-			}
-		});
-		btnLista.setBounds(340, 190, 138, 23);
-		contentPanel.add(btnLista);
+		JLabel label = new JLabel("Cedula:");
+		label.setFont(new Font("Tahoma", Font.BOLD, 18));
+		label.setBounds(41, 76, 99, 14);
+		panelBuscar.add(label);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -109,7 +96,9 @@ public class BuscarCliente extends JDialog {
 					if(!txtCedula.getText().isEmpty()) {
 						Cliente auxCliente = Altice.getInstance().buscarClientePorCedula(txtCedula.getText());
 						if(auxCliente != null) {
-							//TODO cuando raymer termine.
+							ListFac auxList = new ListFac(auxCliente,true);
+							auxList.setVisible(true);
+							dispose();
 						}
 						else {
 							JOptionPane.showMessageDialog(null, "Este cliente no esta registrado.", "Error.", JOptionPane.ERROR_MESSAGE);
@@ -132,13 +121,5 @@ public class BuscarCliente extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 		}
-		setCedula();
-	}
-
-	private void setCedula() {
-		if(cliente != null) {
-			txtCedula.setText(cliente.getCedula());
-		}
-		
 	}
 }

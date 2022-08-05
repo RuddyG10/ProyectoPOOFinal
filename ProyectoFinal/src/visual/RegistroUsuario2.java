@@ -114,6 +114,7 @@ public class RegistroUsuario2 extends JDialog {
 										    if(option == 0) {
 										    	Altice.getInstance().insertarTrabajador(admin);
 										    	JOptionPane.showMessageDialog(null, "Registro exitoso.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+										    	clear();
 										    }
 										}
 										

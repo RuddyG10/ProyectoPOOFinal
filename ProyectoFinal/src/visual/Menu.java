@@ -63,6 +63,8 @@ public class Menu extends JFrame {
 	private JButton btnRegPer;
 	private JButton btnListPer;
 	private Trabajador admin = null;
+	private JButton btnPagar;
+	private JButton btnGenerarFacturas;
 	
 	/**
 	 * Launch the application.
@@ -412,12 +414,25 @@ public class Menu extends JFrame {
 		btnListFac.setBounds(10, 86, 301, 64);
 		panelFactura.add(btnListFac);
 		
-		JButton btnPagar = new JButton("Pagar planes");
+		btnPagar = new JButton("Pagar planes");
+		btnPagar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				BuscarCliente buscador = new BuscarCliente();
+				buscador.setVisible(true);
+			}
+		});
 		btnPagar.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnPagar.setForeground(Color.DARK_GRAY);
 		btnPagar.setBackground(Color.LIGHT_GRAY);
 		btnPagar.setBounds(10, 161, 301, 64);
 		panelFactura.add(btnPagar);
+		
+		btnGenerarFacturas = new JButton("Generar Facturas");
+		btnGenerarFacturas.setForeground(Color.DARK_GRAY);
+		btnGenerarFacturas.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		btnGenerarFacturas.setBackground(Color.LIGHT_GRAY);
+		btnGenerarFacturas.setBounds(10, 236, 301, 64);
+		panelFactura.add(btnGenerarFacturas);
 		
 		panelPersonal = new JPanel();
 		panelPersonal.setBackground(Color.DARK_GRAY);

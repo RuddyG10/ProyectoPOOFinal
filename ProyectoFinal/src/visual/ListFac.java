@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -36,12 +37,14 @@ public class ListFac extends JDialog {
 	private Object[] row;
 	private Cliente client = null;
 	private JButton btnCerrar;
+	private JButton btnPagar;
+	private boolean pagar = false;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			ListFac dialog = new ListFac(null);
+			ListFac dialog = new ListFac(null,false);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -52,8 +55,9 @@ public class ListFac extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListFac(Cliente aux) {
+	public ListFac(Cliente aux,boolean auxpagar) {
 		client = aux;
+		pagar =auxpagar;
 		setResizable(false);
 		setModal(true);
 		setBounds(100, 100, 572, 417);
@@ -72,6 +76,28 @@ public class ListFac extends JDialog {
 						verFac.setVisible(true);
 					}
 				});
+				{
+					btnPagar = new JButton("Pagar Factura");
+					btnPagar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							int option = JOptionPane.showConfirmDialog(null, "Seguro que desea pagar la factura "+selected.getCodigo()+"?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+							if(option==0) {
+
+								Plan auxPlan = selected.getPlan();
+								if(!auxPlan.getEstado().equalsIgnoreCase("Habilitado")) {
+									auxPlan.setEstado("Habilitado");
+									JOptionPane.showMessageDialog(null, "Plan pagado con exito.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+									
+								}else {
+									JOptionPane.showMessageDialog(null, "Esta factura esta al dia.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+								}
+							}
+						}
+					});
+					btnPagar.setVisible(false);
+					btnPagar.setEnabled(false);
+					buttonPane.add(btnPagar);
+				}
 				btnVerFac.setEnabled(false);
 				btnVerFac.setActionCommand("OK");
 				buttonPane.add(btnVerFac);
@@ -114,6 +140,9 @@ public class ListFac extends JDialog {
 							String codigo = table.getValueAt(index, 0).toString();
 							selected = Altice.getInstance().buscarFacturaClientByCode(codigo);
 							btnVerFac.setEnabled(true);
+							if(btnPagar.isVisible()) {
+								btnPagar.setEnabled(true);
+							}
 						}
 					});
 					table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -127,6 +156,9 @@ public class ListFac extends JDialog {
 		load();
 	}
 	public void load() {
+		if(pagar) {
+			btnPagar.setVisible(true);
+		}
 		SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];

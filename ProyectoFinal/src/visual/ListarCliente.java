@@ -95,7 +95,7 @@ public class ListarCliente extends JDialog {
 		btnVerFac = new JButton("Ver Facturas");
 		btnVerFac.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ListFac facturas = new ListFac(selected);
+				ListFac facturas = new ListFac(selected,false);
 				facturas.setVisible(true);
 				btnEliminar.setEnabled(false);
 				btnMod.setEnabled(false);
