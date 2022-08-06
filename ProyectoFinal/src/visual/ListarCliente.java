@@ -11,6 +11,8 @@ import javax.swing.table.DefaultTableModel;
 
 import logico.Altice;
 import logico.Cliente;
+import logico.Factura;
+import logico.Plan;
 import logico.Trabajador;
 
 import javax.swing.JButton;
@@ -21,6 +23,7 @@ import java.awt.Color;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -28,6 +31,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ListarCliente extends JDialog {
 
@@ -41,12 +45,14 @@ public class ListarCliente extends JDialog {
 	private JButton btnVerFac;
 	private JButton btnEliminar;
 	private JButton btnMod;
+	private JButton btnPagarFac;
+	private boolean facturar = false;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ListarCliente frame = new ListarCliente();
+					ListarCliente frame = new ListarCliente(false);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,7 +64,8 @@ public class ListarCliente extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	public ListarCliente() {
+	public ListarCliente(boolean pagar) {
+		facturar = pagar;
 		setResizable(false);
 		setTitle("Altice - Lista Clientes");
 		setBounds(100, 100, 672, 470);
@@ -99,12 +106,42 @@ public class ListarCliente extends JDialog {
 				facturas.setVisible(true);
 				btnEliminar.setEnabled(false);
 				btnMod.setEnabled(false);
-				btnVerFac.setEnabled(false);
 			}
 		});
 		btnVerFac.setEnabled(false);
 		btnVerFac.setBounds(214, 23, 113, 23);
 		panel.add(btnVerFac);
+		
+		btnPagarFac = new JButton("Facturar");
+		btnPagarFac.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<Cliente> clientes = Altice.getInstance().getMisClientes();
+				if(clientes != null) {
+					for (Cliente cliente : clientes) {
+						ArrayList<Plan> planes = cliente.getPlanes();
+						System.out.println(cliente.getCedula()+planes.size());
+							for (Plan plan : planes) {
+								Factura fac = Altice.getInstance().buscarFacPorClientPlan(plan,cliente);
+								if(fac!=null) {
+									
+									Factura auxFac = new Factura("F-"+Altice.genCodeFac, cliente, plan, fac.getVendedor(), Altice.getInstance().calcularFechaCorte(new Date()), fac.getTotal());
+									cliente.getMisFacturas().add(auxFac);
+									Altice.getInstance().insertarFactura(auxFac);
+									}
+								else {
+									System.out.println(plan.getCodigo());
+								}
+							}
+							Altice.getInstance().revisarFacturasClient(cliente);
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Error: No hay clientes registrados.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnPagarFac.setVisible(false);
+		btnPagarFac.setBounds(115, 23, 89, 23);
+		panel.add(btnPagarFac);
 		
 		JPanel panelTabla = new JPanel();
 		panelTabla.setBounds(10, 164, 646, 207);
@@ -114,7 +151,7 @@ public class ListarCliente extends JDialog {
 		JScrollPane scrollPane = new JScrollPane();
 		panelTabla.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new JTable();
+		table = new ColorCell();
 		table.addMouseListener(new MouseAdapter() {
 			
 
@@ -126,6 +163,7 @@ public class ListarCliente extends JDialog {
 					btnEliminar.setEnabled(true);
 					btnMod.setEnabled(true);
 					btnVerFac.setEnabled(true);
+					
 				}
 				else {
 					btnEliminar.setEnabled(false);
@@ -173,6 +211,9 @@ public class ListarCliente extends JDialog {
 	}
 
 	public void obtenerClientes() {
+		if(facturar) {
+			btnPagarFac.setVisible(true);
+		}
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
 		if(Altice.getInstance().getMisClientes() != null) {
@@ -184,6 +225,7 @@ public class ListarCliente extends JDialog {
 				row[3] = client.getTelefono();
 				row[4] = client.getPlanes().size();
 				model.addRow(row);
+				
 			}
 		}
 	}

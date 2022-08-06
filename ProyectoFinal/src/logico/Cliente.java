@@ -14,14 +14,14 @@ public class Cliente implements Serializable{
 	private Date fechaRegistro;
 	private ArrayList<Plan> planes;
 	private ArrayList<Factura> misFacturas;
-	public Cliente(String cedula, String nombre, String apellido, String telefono, String direccion, ArrayList<Plan> planes) {
+	public Cliente(String cedula, String nombre, String apellido, String telefono, String direccion) {
 		super();
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
 		this.direccion = direccion;
-		this.planes = planes;
+		this.planes = new ArrayList<Plan>();
 		this.misFacturas = new ArrayList<Factura>();
 	}
 	public String getCedula() {
@@ -62,6 +62,16 @@ public class Cliente implements Serializable{
 	}
 	public ArrayList<Factura> getMisFacturas() {
 		return misFacturas;
+	}
+	public void insertPlanes(ArrayList<Plan> planes2) {
+		ArrayList<Plan> planesNuevos = planes2;
+		if(planesNuevos != null) {
+			for (Plan plan : planesNuevos) {
+				planes.add(plan);
+			}
+		}
+		
+		
 	}
 	
 	

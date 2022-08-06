@@ -336,7 +336,7 @@ public class Menu extends JFrame {
 		btnListClient = new JButton("Listar Clientes");
 		btnListClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ListarCliente lista = new ListarCliente();
+				ListarCliente lista = new ListarCliente(false);
 				lista.setVisible(true);
 			}
 		});
@@ -428,6 +428,12 @@ public class Menu extends JFrame {
 		panelFactura.add(btnPagar);
 		
 		btnGenerarFacturas = new JButton("Generar Facturas");
+		btnGenerarFacturas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarCliente listadoClient = new ListarCliente(true);
+				listadoClient.setVisible(true);
+			}
+		});
 		btnGenerarFacturas.setForeground(Color.DARK_GRAY);
 		btnGenerarFacturas.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnGenerarFacturas.setBackground(Color.LIGHT_GRAY);

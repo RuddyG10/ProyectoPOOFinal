@@ -31,7 +31,7 @@ import java.awt.event.ActionEvent;
 public class ListFac extends JDialog {
 	private JTable table;
 	private Factura selected = null;
-	private String[] headers = {"Codigo","Plan","Total","Fecha corte"};
+	private String[] headers = {"Codigo","Plan","Total","Fecha corte","Estado Plan"};
 	private JButton btnVerFac;
 	private DefaultTableModel model;
 	private Object[] row;
@@ -82,12 +82,12 @@ public class ListFac extends JDialog {
 						public void actionPerformed(ActionEvent arg0) {
 							int option = JOptionPane.showConfirmDialog(null, "Seguro que desea pagar la factura "+selected.getCodigo()+"?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 							if(option==0) {
-
-								Plan auxPlan = selected.getPlan();
-								if(!auxPlan.getEstado().equalsIgnoreCase("Habilitado")) {
-									auxPlan.setEstado("Habilitado");
+								if(!selected.isPagada()) {
+									selected.setPagada(true);
+									Cliente auxClient = selected.getMiCliente();
+									Altice.getInstance().revisarFacturasClient(auxClient);
 									JOptionPane.showMessageDialog(null, "Plan pagado con exito.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-									
+									load();
 								}else {
 									JOptionPane.showMessageDialog(null, "Esta factura esta al dia.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 								}
@@ -167,11 +167,16 @@ public class ListFac extends JDialog {
 		if(client != null) {
 			ArrayList<Factura> facturas = client.getMisFacturas();
 			for (Factura fac : facturas) {
-				float precioTotal = 0;
 				row[0] = fac.getCodigo();
 				row[1] = fac.getPlan().getNombrePlan();
 				row[2] = fac.getTotal();
 				row[3] = formater.format(fac.getFecha());
+				if(!fac.isPagada()) {
+					row[4] = "Sin Pagar";
+				}
+				else {
+					row[4] = "Pagada";
+				}
 				model.addRow(row);
 			}
 		}

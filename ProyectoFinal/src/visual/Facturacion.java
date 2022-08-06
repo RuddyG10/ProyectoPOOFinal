@@ -342,20 +342,32 @@ public class Facturacion extends JDialog {
 				if(activarRegistro()) {
 					Cliente auxClient = Altice.getInstance().buscarClientePorCedula(txtCedula.getText());
 					ArrayList<Plan> planes = getPlanesCarrito();
+					System.out.println(planes.size());
+					ArrayList<Plan> planesCopia = new ArrayList<Plan>();
 					if(auxClient == null) {
 						
 						if(planes!= null) {
-							auxClient = new Cliente(txtCedula.getText(), txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtDireccion.getText(), planes);
+							auxClient = new Cliente(txtCedula.getText(), txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtDireccion.getText());
+							System.out.println(auxClient.getCedula());
+							Altice.getInstance().insertarCliente(auxClient);
 							realizarVenta(auxClient,planes);
 						}
 						else {
-							JOptionPane.showMessageDialog(null, "No hay planes seleccionados.", "Error", JOptionPane.ERROR_MESSAGE);
-							
+							JOptionPane.showMessageDialog(null, "No hay planes seleccionados.", "Error", JOptionPane.ERROR_MESSAGE);	
 						}
 					}
 					else {
 						if(Altice.getInstance().planesHabilitados(auxClient)) {
-							realizarVenta(auxClient,planes);
+							for (Plan plan : planes) {
+								if(auxClient.getPlanes().contains(plan)) {
+									Plan cpyPlan = new Plan(plan.getCodigo()+"-"+Altice.genCodePlan, plan.getNombrePlan(), plan.getDescripcion(), plan.getServicios(), plan.getTotalPrecio());
+									planesCopia.add(cpyPlan);
+								}
+								else {
+									planesCopia.add(plan);
+								}
+							}
+							realizarVenta(auxClient,planesCopia);
 						}
 						else {
 							JOptionPane.showMessageDialog(null, "Al parecer el cliente tiene planes inhabilitados.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -481,12 +493,12 @@ public class Facturacion extends JDialog {
 	}
 	public void realizarVenta(Cliente auxClient,ArrayList<Plan> planes) {
 		if(comercial != null) {
-			Altice.getInstance().insertarCliente(auxClient);
 			Venta vent = Altice.getInstance().realizarVenta(auxClient.getCedula(), comercial.getCedula(), planes);
 			if(vent!= null) {
 				
 				int option = JOptionPane.showConfirmDialog(null, "Venta realizada con Exito, desea ver su factura?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 				if(option == 0) {
+					auxClient.insertPlanes(planes);
 					VerFactura ver = new VerFactura(vent);
 					ver.setVisible(true);
 				}

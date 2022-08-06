@@ -216,6 +216,7 @@ public class VerFactura extends JDialog {
 		if(factura != null) {
 			float total = 0;
 			ArrayList<Plan> planes = factura.getPlanes();
+			System.out.println(planes.size());
 			Cliente client = factura.getCliente();
 			Trabajador comercial = factura.getVendedor();
 			model.setRowCount(0);

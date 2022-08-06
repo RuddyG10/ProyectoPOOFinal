@@ -109,6 +109,13 @@ public class Altice implements Serializable {
 		Date newDate = c.getTime();
 		return newDate;
 	}
+	public Date fechaFactura(Date date,int month) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(c.MONTH, -month);
+		Date newDate = c.getTime();
+		return newDate;
+	}
 	public Trabajador buscarTrabajadorByCedula(String cedula) {
 		Trabajador auxTrab = null;
 		boolean found = false;
@@ -179,7 +186,6 @@ public class Altice implements Serializable {
 		Trabajador auxTrab = buscarTrabajadorByCedula(cedulaTrabajador);
 		Cliente auxClient = buscarClientePorCedula(cedulaCliente);
 		if(auxTrab != null && auxClient != null) {
-			if(planesHabilitados(auxClient)) {
 				auxVenta = new Venta("V-"+genCodeVent, auxTrab, auxClient, planes);
 				realizarFactura(auxVenta);
 				if(auxTrab instanceof Comercial) {
@@ -188,11 +194,66 @@ public class Altice implements Serializable {
 				
 				insertarVenta(auxVenta);
 				}
-			}
+			
 			
 		return auxVenta;
 
 
+	}
+	public boolean revisarFacturasClient(Cliente aux) {
+		ArrayList<Factura> facturas = aux.getMisFacturas();
+		ArrayList<Plan> planes = aux.getPlanes();
+		boolean alDia = true;
+		for (Plan plan : planes) {
+			int count = 0;
+			for (Factura fac : facturas) {
+				if(fac.getPlan().equals(plan)) {
+					if(!fac.isPagada()) {
+						count++;
+					}
+				}
+			}
+			if(count >=3) {
+				plan.setEstado("Cancelado");
+				alDia = false;
+			}
+			else if(count>0 && count < 3){
+				plan.setEstado("Inhabilitado");
+				alDia = false;
+			}
+			else if(count == 0) {
+				plan.setEstado("Habilitado");
+			}
+		}
+		return alDia;
+	}
+	public int cantFacturasPendientes(Cliente aux){
+		ArrayList<Factura> facturas = aux.getMisFacturas();
+		ArrayList<Plan> planes = aux.getPlanes();
+		int count = 0;
+		for (Plan plan : planes) {
+			int auxcount = 0;
+			for (Factura fac : facturas) {
+				if(fac.getPlan().equals(plan)) {
+					if(!fac.isPagada()) {
+						auxcount++;
+					}
+				}
+			}
+			if(count < auxcount) {
+				count = auxcount;
+			}
+			if(auxcount >=3) {
+				plan.setEstado("Cancelado");
+			}
+			else if(auxcount>0 && auxcount < 3){
+				plan.setEstado("Inhabilitado");
+			}
+			else if(count == 0) {
+				plan.setEstado("Habilitado");
+			}
+		}
+		return count;
 	}
 
 	public boolean planesHabilitados(Cliente auxClient) {
@@ -200,7 +261,7 @@ public class Altice implements Serializable {
 		ArrayList<Plan> planesCliente = auxClient.getPlanes();
 		int i = 0;
 		while(i< planesCliente.size() && habilitado) {
-			if(!planesCliente.get(i).getEstado().equalsIgnoreCase("Habilitado")) {
+			if(planesCliente.get(i).getEstado().equalsIgnoreCase("Cancelado")) {
 				habilitado = false;
 			}
 			i++;
@@ -213,7 +274,7 @@ public class Altice implements Serializable {
 		if(venta != null) {
 			ArrayList<Plan> planes = venta.getPlanes();
 			for (Plan plan : planes) {
-				auxFac = new Factura("F-"+genCodeFac, venta.getCliente(),plan,venta.getVendedor() , plan.getTotalPrecio());
+				auxFac = new Factura("F-"+genCodeFac, venta.getCliente(),plan,venta.getVendedor(),calcularFechaCorte(new Date()) , plan.getTotalPrecio());
 				venta.getCliente().getMisFacturas().add(auxFac);
 				insertarFactura(auxFac);
 			}
@@ -392,4 +453,33 @@ public class Altice implements Serializable {
 		}
 		return aux;
 	}
+	public ArrayList<Factura> buscarFacturasSinPagar(Cliente cliente, Plan plan) {
+		ArrayList<Factura> facturas = null;
+		if(cliente != null && plan != null) {
+			facturas = new ArrayList<Factura>();
+			for (Factura factura : cliente.getMisFacturas()) {
+				if(factura.getPlan().equals(plan) && !factura.isPagada()) {
+					facturas.add(factura);
+				}
+			}
+		}
+		
+		return facturas;
+	}
+	public Factura buscarFacPorClientPlan(Plan plan, Cliente cliente) {
+		Factura vent = null;
+		boolean found = false;
+		ArrayList<Factura> clientFac = cliente.getMisFacturas();
+		int i = 0;
+		while(i< clientFac.size()&&!found) {
+			System.out.println(clientFac.get(i).getPlan().getCodigo());
+			if(clientFac.get(i).getPlan().equals(plan)) {
+				vent = clientFac.get(i);
+				found = true;
+			}
+			i++;
+		}
+		return vent;
+	}
+	
 	}
