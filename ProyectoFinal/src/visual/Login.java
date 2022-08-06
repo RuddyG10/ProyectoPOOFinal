@@ -137,7 +137,7 @@ public class Login extends JFrame {
 				log.setVisible(true);
 			}
 		});
-		setTitle("Iniciar Sesion");
+		setTitle("Altice - Iniciar Sesi\u00F3n");
 		setBounds(100, 100, 525, 354);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(253, 245, 230));
@@ -153,37 +153,37 @@ public class Login extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/imagenes/image.png")));
 		lblNewLabel.setBounds(-45, 80, 275, 142);
+		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/imagenes/image.png")));
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(Login.class.getResource("/imagenes/icons8-male-user-100.png")));
-		lblNewLabel_1.setBounds(86, 0, 107, 100);
+		lblNewLabel_1.setBounds(85, 10, 107, 100);
 		contentPanel.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Iniciar Sesion");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
-		lblNewLabel_2.setBounds(70, 111, 155, 16);
+		JLabel lblNewLabel_2 = new JLabel("Iniciar Sesi\u00F3n");
+		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 20));
+		lblNewLabel_2.setBounds(72, 121, 155, 16);
 		contentPanel.add(lblNewLabel_2);
 		
 		txtUser = new JTextField();
-		txtUser.setBounds(134, 152, 141, 20);
+		txtUser.setBounds(134, 162, 141, 20);
 		contentPanel.add(txtUser);
 		txtUser.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Usuario o Email:");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_3.setBounds(10, 154, 114, 14);
+		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 13));
+		lblNewLabel_3.setBounds(10, 164, 114, 14);
 		contentPanel.add(lblNewLabel_3);
 		
 		password = new JPasswordField();
-		password.setBounds(134, 199, 141, 20);
+		password.setBounds(134, 205, 141, 20);
 		contentPanel.add(password);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-		lblContrasea.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblContrasea.setBounds(10, 201, 114, 14);
+		lblContrasea.setFont(new Font("Arial", Font.BOLD, 13));
+		lblContrasea.setBounds(10, 207, 114, 14);
 		contentPanel.add(lblContrasea);
 		
 		btnIniciar = new JButton("Iniciar");
@@ -217,7 +217,7 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		btnIniciar.setBounds(86, 230, 89, 23);
+		btnIniciar.setBounds(186, 245, 89, 23);
 		contentPanel.add(btnIniciar);
 	}
 }

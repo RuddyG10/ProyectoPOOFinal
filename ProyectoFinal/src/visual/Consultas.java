@@ -8,7 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import logico.Altice;
+import logico.Factura;
 import logico.Plan;
+
 import logico.Venta;
 
 import javax.swing.JLabel;
@@ -16,10 +18,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import javax.swing.JRadioButton;
 
 public class Consultas extends JFrame {
 
@@ -53,7 +59,7 @@ public class Consultas extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Seleccione la opcion deseada:");
-		lblNewLabel.setBounds(181, 125, 315, 27);
+		lblNewLabel.setBounds(169, 123, 315, 27);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		contentPane.add(lblNewLabel);
 		
@@ -63,17 +69,17 @@ public class Consultas extends JFrame {
 		contentPane.add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Cantidad de fondos generados:");
-		lblNewLabel_1_2.setBounds(116, 254, 262, 22);
+		lblNewLabel_1_2.setBounds(116, 233, 262, 22);
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		contentPane.add(lblNewLabel_1_2);
 		
 		JLabel lblNewLabel_1_2_1 = new JLabel("Cantidad de fondos por plan:");
-		lblNewLabel_1_2_1.setBounds(127, 328, 247, 22);
+		lblNewLabel_1_2_1.setBounds(127, 281, 247, 22);
 		lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		contentPane.add(lblNewLabel_1_2_1);
 		
 		JButton btnNewButton = new JButton("Imprimir");
-		btnNewButton.setBounds(401, 188, 109, 23);
+		btnNewButton.setBounds(291, 345, 109, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				Altice.getInstance().getVentas();
@@ -134,19 +140,9 @@ public class Consultas extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		contentPane.add(btnNewButton);
 		
-		JButton btnNewButton_2 = new JButton("Imprimir");
-		btnNewButton_2.setBounds(401, 255, 109, 23);
-		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		contentPane.add(btnNewButton_2);
-		
-		JButton btnNewButton_3 = new JButton("Imprimir");
-		btnNewButton_3.setBounds(401, 329, 109, 23);
-		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		contentPane.add(btnNewButton_3);
-		
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.BLACK);
 		panel.setBounds(0, 0, 658, 88);
+		panel.setBackground(Color.BLACK);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -155,5 +151,17 @@ public class Consultas extends JFrame {
 		panel.add(lblNewLabel_1);
 		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 30));
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("");
+		rdbtnNewRadioButton.setBounds(375, 190, 109, 23);
+		contentPane.add(rdbtnNewRadioButton);
+		
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("");
+		rdbtnNewRadioButton_1.setBounds(375, 233, 109, 23);
+		contentPane.add(rdbtnNewRadioButton_1);
+		
+		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("");
+		rdbtnNewRadioButton_2.setBounds(375, 284, 109, 23);
+		contentPane.add(rdbtnNewRadioButton_2);
 	}
 }
