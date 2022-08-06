@@ -392,6 +392,25 @@ public class Altice implements Serializable {
 		}
 		return planVendido;
 	}
+	
+	public Plan planMenosVendido () {
+		Plan menosVendido = null;
+		int cantVenta = 0;
+		for (Plan plan: misPlanes) {
+			int cantidad =0;
+			for (Venta vent : ventas) {
+				ArrayList<Plan> planes = vent.getPlanes();
+				if (planes.contains(plan)) {
+					cantidad++;
+				}
+				if(cantidad <= cantVenta) {
+					cantVenta = cantidad;
+					menosVendido = plan;
+				}
+			}
+		}
+		return menosVendido;
+	}
 	public int cantidadPlanVendido(ArrayList<Plan> planesVenta, Plan plan) {
 		int cantidad = 0;
 		if(plan != null && planesVenta != null) {

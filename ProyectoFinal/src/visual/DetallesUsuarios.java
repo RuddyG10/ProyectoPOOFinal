@@ -107,6 +107,7 @@ public class DetallesUsuarios extends JDialog {
 			}
 			{
 				txtNombreCompleto = new JTextField();
+				txtNombreCompleto.setEditable(false);
 				txtNombreCompleto.setBounds(192, 13, 224, 26);
 				panel_1.add(txtNombreCompleto);
 				txtNombreCompleto.setColumns(10);
@@ -120,6 +121,7 @@ public class DetallesUsuarios extends JDialog {
 			}
 			{
 				txtCedula = new JTextField();
+				txtCedula.setEditable(false);
 				txtCedula.setBounds(192, 52, 224, 26);
 				panel_1.add(txtCedula);
 				txtCedula.setColumns(10);
@@ -133,6 +135,7 @@ public class DetallesUsuarios extends JDialog {
 			}
 			{
 				txtPuesto = new JTextField();
+				txtPuesto.setEditable(false);
 				txtPuesto.setBounds(192, 91, 224, 26);
 				panel_1.add(txtPuesto);
 				txtPuesto.setColumns(10);
@@ -154,6 +157,7 @@ public class DetallesUsuarios extends JDialog {
 			}
 			{
 				txtTelefono = new JTextField();
+				txtTelefono.setEditable(false);
 				txtTelefono.setBounds(113, 27, 155, 26);
 				panel_2.add(txtTelefono);
 				txtTelefono.setColumns(10);
@@ -167,6 +171,7 @@ public class DetallesUsuarios extends JDialog {
 			}
 			{
 				txtCorreo = new JTextField();
+				txtCorreo.setEditable(false);
 				txtCorreo.setBounds(358, 27, 155, 26);
 				panel_2.add(txtCorreo);
 				txtCorreo.setColumns(10);
@@ -188,6 +193,7 @@ public class DetallesUsuarios extends JDialog {
 			}
 			{
 				txtUserName = new JTextField();
+				txtUserName.setEditable(false);
 				txtUserName.setBounds(113, 39, 155, 26);
 				panel_3.add(txtUserName);
 				txtUserName.setColumns(10);
@@ -225,7 +231,7 @@ public class DetallesUsuarios extends JDialog {
 
 	public void cargarInfo(Trabajador selected) {
 		lblTitulo.setText(" Detalles sobre: " + selected.getNombre() +" "+ selected.getApellidos());
-		txtNombreCompleto.setText(selected.getNombre() + selected.getApellidos());
+		txtNombreCompleto.setText(selected.getNombre() +" "+ selected.getApellidos());
 		txtCedula.setText(selected.getCedula());
 		if (selected instanceof Administrador) {
 			txtPuesto.setText("Administrador");
