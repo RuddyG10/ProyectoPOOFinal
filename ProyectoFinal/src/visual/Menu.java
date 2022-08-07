@@ -35,6 +35,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Menu extends JFrame {
 
@@ -47,14 +49,13 @@ public class Menu extends JFrame {
 	private JButton btnPlanes;
 	private JButton btnFacturacion;
 	private JButton btnPersonal;
-	private JButton btnConsultas;
 	private JButton btnRevision;
 	private JButton btnCerrarSesion;
 	private JPanel panelClient;
 	private JPanel panelPersonal;
 	private JPanel panelFactura;
 	private JPanel panelPlanes;
-	private JPanel panelConsultas;
+	private JPanel panelRevision;
 	private JButton btnListClient;
 	private JButton btnRegPlan;
 	private JButton btnListPlan;
@@ -66,6 +67,9 @@ public class Menu extends JFrame {
 	private JButton btnPagar;
 	private JButton btnGenerarFacturas;
 	private JLabel lblNewLabel_1;
+	private JButton btnPlanesRev;
+	private JButton btnGanancias;
+	private JButton btnImprimir;
 	
 	/**
 	 * Launch the application.
@@ -267,7 +271,7 @@ public class Menu extends JFrame {
 				}
 				else {
 					panelPersonal.setVisible(false);
-					btnPlanes.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/personal.png")));
+					btnPersonal.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/personal.png")));
 					revision(false);
 				}
 			}
@@ -280,18 +284,27 @@ public class Menu extends JFrame {
 		btnPersonal.setBounds(0, 228, 301, 64);
 		panelMenu.add(btnPersonal);
 		
-		btnConsultas = new JButton("Consultas");
-		btnConsultas.setForeground(Color.LIGHT_GRAY);
-		btnConsultas.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnConsultas.setBackground(new Color(52,52,52));
-		btnConsultas.setBounds(0, 301, 301, 64);
-		panelMenu.add(btnConsultas);
-		
 		btnRevision = new JButton("Revision");
+		btnRevision.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				revision(true);
+				if(!panelRevision.isVisible()) {
+					panelRevision.setVisible(true);
+					btnRevision.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/icons8-checked-checkbox-60 (1).png")));
+				}
+				else {
+					panelRevision.setVisible(false);
+					btnPlanes.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/icons8-checked-checkbox-60.png")));
+					revision(false);
+				}
+			}
+		});
+		btnRevision.setRolloverIcon(new ImageIcon(Menu.class.getResource("/imagenes/icons8-checked-checkbox-60 (1).png")));
+		btnRevision.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/icons8-checked-checkbox-60.png")));
 		btnRevision.setForeground(Color.LIGHT_GRAY);
 		btnRevision.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnRevision.setBackground(new Color(52,52,52));
-		btnRevision.setBounds(0, 374, 301, 64);
+		btnRevision.setBounds(0, 303, 301, 64);
 		panelMenu.add(btnRevision);
 		
 		btnCerrarSesion = new JButton("Cerrar Sesion");
@@ -480,11 +493,39 @@ public class Menu extends JFrame {
 		btnListPer.setBounds(10, 153, 301, 64);
 		panelPersonal.add(btnListPer);
 		
-		panelConsultas = new JPanel();
-		panelConsultas.setBackground(Color.DARK_GRAY);
-		panelConsultas.setVisible(false);
-		panelConsultas.setBounds(299, 109, 312, 522);
-		contentPane.add(panelConsultas);
+		panelRevision = new JPanel();
+		panelRevision.setBackground(Color.DARK_GRAY);
+		panelRevision.setVisible(false);
+		panelRevision.setBounds(299, 109, 312, 522);
+		contentPane.add(panelRevision);
+		panelRevision.setLayout(null);
+		
+		btnPlanesRev = new JButton("Revision de planes");
+		btnPlanesRev.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RevPlanes revisionPlan = new RevPlanes();
+				revisionPlan.setVisible(true);
+			}
+		});
+		btnPlanesRev.setBackground(Color.LIGHT_GRAY);
+		btnPlanesRev.setForeground(Color.DARK_GRAY);
+		btnPlanesRev.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		btnPlanesRev.setBounds(10, 11, 301, 64);
+		panelRevision.add(btnPlanesRev);
+		
+		btnGanancias = new JButton("Ganancias");
+		btnGanancias.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		btnGanancias.setForeground(Color.DARK_GRAY);
+		btnGanancias.setBackground(Color.LIGHT_GRAY);
+		btnGanancias.setBounds(10, 86, 301, 64);
+		panelRevision.add(btnGanancias);
+		
+		btnImprimir = new JButton("Imprimir");
+		btnImprimir.setBackground(Color.LIGHT_GRAY);
+		btnImprimir.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		btnImprimir.setForeground(Color.DARK_GRAY);
+		btnImprimir.setBounds(10, 161, 301, 64);
+		panelRevision.add(btnImprimir);
 		
 		JLabel lblLogo = new JLabel("Sistema de Administracion.");
 		lblLogo.setBounds(428, 381, 1241, 201);
@@ -499,7 +540,6 @@ public class Menu extends JFrame {
 	}
 	public void revisarTrabajador() {
 		if(admin instanceof Comercial) {
-			btnConsultas.setVisible(false);
 			btnRevision.setVisible(false);
 			btnPersonal.setVisible(false);
 		}
@@ -510,22 +550,22 @@ public class Menu extends JFrame {
 		if(panelClient.isVisible()){
 			panelPlanes.setVisible(false);
 			panelFactura.setVisible(false);
-			panelConsultas.setVisible(false);
+			panelRevision.setVisible(false);
 			panelPersonal.setVisible(false);
 		}
 		else if(panelPlanes.isVisible()){
 			panelClient.setVisible(false);
 			panelFactura.setVisible(false);
-			panelConsultas.setVisible(false);
+			panelRevision.setVisible(false);
 			panelPersonal.setVisible(false);
 		}
 		else if(panelFactura.isVisible()){
 			panelPlanes.setVisible(false);
 			panelClient.setVisible(false);
-			panelConsultas.setVisible(false);
+			panelRevision.setVisible(false);
 			panelPersonal.setVisible(false);
 		}
-		else if(panelConsultas.isVisible()){
+		else if(panelRevision.isVisible()){
 			panelPlanes.setVisible(false);
 			panelFactura.setVisible(false);
 			panelClient.setVisible(false);
@@ -534,13 +574,13 @@ public class Menu extends JFrame {
 		else if(panelPersonal.isVisible()){
 			panelPlanes.setVisible(false);
 			panelFactura.setVisible(false);
-			panelConsultas.setVisible(false);
+			panelRevision.setVisible(false);
 			panelClient.setVisible(false);
 		}
 		else {
 			panelPlanes.setVisible(false);
 			panelFactura.setVisible(false);
-			panelConsultas.setVisible(false);
+			panelRevision.setVisible(false);
 			panelClient.setVisible(false);
 			panelPersonal.setVisible(false);
 		}
@@ -549,9 +589,11 @@ public class Menu extends JFrame {
 			btnPlanes.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/WifiGris.png")));
 			btnFacturacion.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/FacturaGris.png")));
 			btnPersonal.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/personal.png")));
+			btnRevision.setIcon(new ImageIcon(Menu.class.getResource("/imagenes/icons8-checked-checkbox-60.png")));
+			
 			panelPlanes.setVisible(false);
 			panelFactura.setVisible(false);
-			panelConsultas.setVisible(false);
+			panelRevision.setVisible(false);
 			panelClient.setVisible(false);
 			panelPersonal.setVisible(false);
 		}
