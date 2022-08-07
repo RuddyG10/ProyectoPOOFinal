@@ -585,7 +585,6 @@ public class Altice implements Serializable {
 			}
 			
 		}
-		System.out.println(newDate);
 		
 		return newDate;
 		
