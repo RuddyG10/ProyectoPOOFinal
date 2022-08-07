@@ -614,7 +614,6 @@ public class Altice implements Serializable {
 		aux.setApellido(auxiliar.getApellido());
 		aux.setDireccion(auxiliar.getDireccion());
 		aux.setTelefono(auxiliar.getTelefono());
-
-	}
+}
 	
 }

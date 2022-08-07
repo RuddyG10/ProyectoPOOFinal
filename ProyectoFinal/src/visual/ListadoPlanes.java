@@ -292,7 +292,7 @@ public class ListadoPlanes extends JDialog {
 		}
 		loadTable();
 	}
-	private void loadTable() {
+	public void loadTable() {
 		
 		if(Altice.getInstance().planMasVendido() != null) {
 			txtCodigo.setText(Altice.getInstance().planMasVendido().getCodigo());
