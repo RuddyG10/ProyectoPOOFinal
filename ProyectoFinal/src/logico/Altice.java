@@ -602,5 +602,18 @@ public class Altice implements Serializable {
 		
 		return dias;
 	}
+	public void editarPlan(String cod, Plan auxiliar) {
+		Plan aux = buscarPlanByCode(cod);
+		aux.setNombrePlan(auxiliar.getNombrePlan());
+		aux.setDescripcion(auxiliar.getDescripcion());
+	}
+	public void editarInfoClient(String ced, Cliente auxiliar) {
+		Cliente aux = buscarClientePorCedula(ced);
+		aux.setNombre(auxiliar.getNombre());
+		aux.setApellido(auxiliar.getApellido());
+		aux.setDireccion(auxiliar.getDireccion());
+		aux.setTelefono(auxiliar.getTelefono());
+		
+	}
 	
 }
