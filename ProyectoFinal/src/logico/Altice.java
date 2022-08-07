@@ -28,6 +28,7 @@ public class Altice implements Serializable {
 	public static int genCodeFac = 1;
 	public static int genCodeVent = 1;
 	public static int genCodeServ = 1;
+	public static int genCodeFile = 1;
 	private static Altice altice = null;
 	private ArrayList<Date> fechasGanancias;
 	private ArrayList<Float> ingresoE;
@@ -601,6 +602,19 @@ public class Altice implements Serializable {
 		long dias = unidad.convert(tiempoTrans, TimeUnit.MILLISECONDS);
 		
 		return dias;
+	}
+	public void editarPlan(String cod, Plan auxiliar) {
+		Plan aux = buscarPlanByCode(cod);
+		aux.setNombrePlan(auxiliar.getNombrePlan());
+		aux.setDescripcion(auxiliar.getDescripcion());
+	}
+	public void editarInfoClient(String ced, Cliente auxiliar) {
+		Cliente aux = buscarClientePorCedula(ced);
+		aux.setNombre(auxiliar.getNombre());
+		aux.setApellido(auxiliar.getApellido());
+		aux.setDireccion(auxiliar.getDireccion());
+		aux.setTelefono(auxiliar.getTelefono());
+
 	}
 	
 }

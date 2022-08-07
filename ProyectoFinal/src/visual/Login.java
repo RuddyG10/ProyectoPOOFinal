@@ -63,12 +63,14 @@ public class Login extends JFrame {
 					int genCodePlan = reader.readInt();
 					int genCodeServ = reader.readInt();
 					int genCodeVent = reader.readInt();
+					int genCodeFile = reader.readInt();
 					Altice temp = (Altice)reader.readObject();
 					Altice.setAltice(temp);
 					temp.genCodeFac = genCodeFac;
 					temp.genCodePlan = genCodePlan;
 					temp.genCodeServ = genCodeServ;
 					temp.genCodeVent = genCodeVent;
+					temp.genCodeFile = genCodeFile;
 					altice.close();
 					reader.close();
 					
@@ -82,6 +84,7 @@ public class Login extends JFrame {
 						alticeWrite.writeInt(Altice.getInstance().genCodePlan);
 						alticeWrite.writeInt(Altice.getInstance().genCodeServ);
 						alticeWrite.writeInt(Altice.getInstance().genCodeVent);
+						alticeWrite.writeInt(Altice.getInstance().genCodeFile);
 						alticeWrite.writeObject(Altice.getInstance());
 						
 						altice2.close();
@@ -125,6 +128,7 @@ public class Login extends JFrame {
 					alticeWrite.writeInt(Altice.getInstance().genCodePlan);
 					alticeWrite.writeInt(Altice.getInstance().genCodeServ);
 					alticeWrite.writeInt(Altice.getInstance().genCodeVent);
+					alticeWrite.writeInt(Altice.getInstance().genCodeFile);
 					alticeWrite.writeObject(Altice.getInstance());
 				} catch (FileNotFoundException e2) {
 					// TODO: handle exception
