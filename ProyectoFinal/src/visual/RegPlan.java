@@ -137,13 +137,18 @@ public class RegPlan extends JDialog {
 		txtCodigo.setColumns(10);
 
 		txtNombre = new JTextField();
+
 		txtNombre.setText("Ej :  TriplePlay");
 		txtNombre.setFont(new Font("Arial", Font.PLAIN, 10));
 		txtNombre.setForeground(Color.LIGHT_GRAY);
+
+		txtNombre.setForeground(Color.GRAY);
+		txtNombre.setFont(new Font("Arial", Font.PLAIN, 10));
+		txtNombre.setText("Ej :  TriplePlay");
 		txtNombre.setBounds(438, 24, 197, 31);
 		panel_2.add(txtNombre);
 		txtNombre.setColumns(10);
-		
+
 		lblObligatorio_3 = new JLabel("Obligatorio *");
 		lblObligatorio_3.setVisible(false);
 		lblObligatorio_3.setForeground(new Color(204, 0, 0));
@@ -269,7 +274,7 @@ public class RegPlan extends JDialog {
 		spnMBajada = new JSpinner();
 		spnMBajada.setBounds(126, 84, 60, 20);
 		panel_Internet.add(spnMBajada);
-		
+
 		lblObligatorio_2 = new JLabel("Obligatorio *");
 		lblObligatorio_2.setVisible(false);
 		lblObligatorio_2.setForeground(new Color(204, 0, 0));
@@ -277,7 +282,7 @@ public class RegPlan extends JDialog {
 		lblObligatorio_2.setFont(new Font("Arial", Font.PLAIN, 10));
 		lblObligatorio_2.setBounds(581, 497, 86, 14);
 		contentPanel.add(lblObligatorio_2);
-		
+
 		lblObligatorio_1 = new JLabel("Obligatorio *");
 		lblObligatorio_1.setBounds(581, 256, 86, 14);
 		contentPanel.add(lblObligatorio_1);
@@ -310,21 +315,26 @@ public class RegPlan extends JDialog {
 							ArrayList<Servicio> aux = new ArrayList<>();
 							if (rdbTelefono.isSelected()) {
 								float cantMinutos = Float.parseFloat(spnMinutos.getValue().toString());
+
 								Servicio tel = new Telefono("tel-"+Altice.genCodeServ, "Telefono", Altice.getInstance().calcularPrecioServicio(cantMinutos), cantMinutos);
 								Altice.getInstance().insertarServicio(tel);
 								aux.add(tel);
 							}
 							if (rdbCable.isSelected()) {
 								int cantCanales = Integer.parseInt(spnCanales.getValue().toString());
+
 								Servicio cab = new Cable("cab-"+Altice.genCodeServ, "Cable", Altice.getInstance().calcularPrecioServicio(cantCanales), cantCanales);
 								Altice.getInstance().insertarServicio(cab);
 								aux.add(cab);
+
 							}
 							if (rdbInternet.isSelected()) {
 								float subida = Float.parseFloat(spnMSubida.getValue().toString());
 								float bajada = Float.parseFloat(spnMBajada.getValue().toString());
+
 								Servicio net= new Internet("net-"+Altice.genCodeServ, "Internet", Altice.getInstance().calcularPrecioServicio(subida+bajada), subida, bajada);
 								aux.add(net);
+
 							}
 							Plan auxiliar = new Plan("Altice-"+Altice.genCodePlan, txtNombre.getText(), txtDescripcion.getText(), aux, Altice.getInstance().calcularPrecioPlan(aux));
 							try {
@@ -343,7 +353,7 @@ public class RegPlan extends JDialog {
 						}
 					}
 				});
-	
+
 				btnRegistrar.setIcon(new ImageIcon(RegPlan.class.getResource("/imagenes/icono check.png")));
 				btnRegistrar.setActionCommand("OK");
 				buttonPane.add(btnRegistrar);
@@ -379,7 +389,7 @@ public class RegPlan extends JDialog {
 		String pre = "Altice-";
 		txtCodigo.setText(pre+Altice.genCodePlan);
 	}
-	
+
 	private boolean verificarCampos() {
 		boolean registrar = false;
 		if (!txtNombre.getText().isEmpty() && !txtDescripcion.getText().isEmpty()) {
@@ -396,7 +406,7 @@ public class RegPlan extends JDialog {
 				}
 			}
 		}
-			
+
 		return registrar;
 	}
 	private boolean cantidadesNegativas() {
@@ -430,6 +440,7 @@ public class RegPlan extends JDialog {
 		}
 		return true;
 	}
+
 	private void clean () {
 		lblObligatorio_1.setVisible(false);
 		lblObligatorio_2.setVisible(false);

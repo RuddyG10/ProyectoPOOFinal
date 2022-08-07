@@ -420,8 +420,8 @@ public class Altice implements Serializable {
 	
 	public Plan planMenosVendido () {
 		Plan menosVendido = null;
-		int menor = 0;
-		for (Plan plan: misPlanes) {
+		int menor = 1;
+		for (Plan plan: misPlanes){
 			int cantidad =0;
 			for (Venta vent : ventas) {
 				ArrayList<Plan> planes = vent.getPlanes();

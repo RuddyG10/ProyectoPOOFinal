@@ -212,6 +212,12 @@ public class Menu extends JFrame {
 		btnMenu.setBounds(0, 0, 251, 110);
 		panel.add(btnMenu);
 		
+
+		lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Raymer (Trabajos)\\Desktop\\imagenes proyecto poo\\altice-logo.png"));
+		lblNewLabel_1.setBounds(564, 24, 302, 75);
+		panel.add(lblNewLabel_1);
+		
 		panelMenu = new JPanel();
 		panelMenu.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, Color.LIGHT_GRAY));
 		panelMenu.setVisible(false);
