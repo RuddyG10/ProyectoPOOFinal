@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import logico.Administrador;
 import logico.Altice;
 import logico.Comercial;
 import logico.Trabajador;
@@ -33,6 +34,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.awt.event.MouseAdapter;
@@ -77,6 +79,50 @@ public class Menu extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				FileInputStream altice;
+				FileOutputStream altice2;
+				ObjectInputStream reader;
+				ObjectOutputStream alticeWrite;
+				try {
+					altice = new FileInputStream("altice.dat");
+					reader = new ObjectInputStream(altice);
+					int genCodeFac = reader.readInt();
+					int genCodePlan = reader.readInt();
+					int genCodeServ = reader.readInt();
+					int genCodeVent = reader.readInt();
+					Altice temp = (Altice)reader.readObject();
+					Altice.setAltice(temp);
+					temp.genCodeFac = genCodeFac;
+					temp.genCodePlan = genCodePlan;
+					temp.genCodeServ = genCodeServ;
+					temp.genCodeVent = genCodeVent;
+					altice.close();
+					reader.close();
+					
+				} catch (FileNotFoundException e) {
+					try {
+						altice2 = new FileOutputStream("altice.dat");
+						alticeWrite = new ObjectOutputStream(altice2);
+						Trabajador admin = new Administrador("admin", "admin", "000", "0000", "administrador", "admin", "admin", 0);
+						Altice.getInstance().insertarTrabajador(admin);
+						alticeWrite.writeInt(Altice.getInstance().genCodeFac);
+						alticeWrite.writeInt(Altice.getInstance().genCodePlan);
+						alticeWrite.writeInt(Altice.getInstance().genCodeServ);
+						alticeWrite.writeInt(Altice.getInstance().genCodeVent);
+						alticeWrite.writeObject(Altice.getInstance());
+						
+						altice2.close();
+						alticeWrite.close();
+					} catch (Exception e2) {
+						// TODO: handle exception
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				try {
 					Menu frame = new Menu(null);
 					frame.setVisible(true);
@@ -165,11 +211,6 @@ public class Menu extends JFrame {
 		btnMenu.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnMenu.setBounds(0, 0, 251, 110);
 		panel.add(btnMenu);
-		
-		lblNewLabel_1 = new JLabel("logo here");
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Raymer (Trabajos)\\Desktop\\imagenes proyecto poo\\altice-logo.png"));
-		lblNewLabel_1.setBounds(564, 24, 302, 75);
-		panel.add(lblNewLabel_1);
 		
 		panelMenu = new JPanel();
 		panelMenu.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, Color.LIGHT_GRAY));
@@ -514,6 +555,12 @@ public class Menu extends JFrame {
 		panelRevision.add(btnPlanesRev);
 		
 		btnGanancias = new JButton("Ganancias");
+		btnGanancias.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RevisionFinanzas revGan = new RevisionFinanzas();
+				revGan.setVisible(true);
+			}
+		});
 		btnGanancias.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnGanancias.setForeground(Color.DARK_GRAY);
 		btnGanancias.setBackground(Color.LIGHT_GRAY);

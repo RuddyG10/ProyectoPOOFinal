@@ -45,7 +45,6 @@ public class DetallesPlan extends JDialog {
 	private JTextField txtPrecioTotal;
 	private DefaultTableModel model;
 	private Object [] row;
-	private JButton btnModificar;
 
 	/**
 	 * Launch the application.
@@ -227,22 +226,6 @@ public class DetallesPlan extends JDialog {
 						dispose();
 					}
 				});
-				{
-					btnModificar = new JButton("Modificar");
-					btnModificar.addMouseListener(new MouseAdapter() {
-						@Override
-						public void mouseEntered(MouseEvent e) {
-							btnModificar.setBackground(Color.blue);
-						}
-						@Override
-						public void mouseExited(MouseEvent e) {
-							btnModificar.setBackground(UIManager.getColor("control"));
-						}
-					});
-					btnModificar.setFont(new Font("Arial", Font.PLAIN, 15));
-					btnModificar.setIcon(new ImageIcon(DetallesPlan.class.getResource("/imagenes/icono editar.png")));
-					buttonPane.add(btnModificar);
-				}
 				btnSalir.setIcon(new ImageIcon(DetallesPlan.class.getResource("/imagenes/icono cancelar.png")));
 				btnSalir.setActionCommand("Cancel");
 				buttonPane.add(btnSalir);

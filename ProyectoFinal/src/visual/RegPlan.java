@@ -30,6 +30,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -136,6 +137,9 @@ public class RegPlan extends JDialog {
 		txtCodigo.setColumns(10);
 
 		txtNombre = new JTextField();
+		txtNombre.setText("Ej :  TriplePlay");
+		txtNombre.setFont(new Font("Arial", Font.PLAIN, 10));
+		txtNombre.setForeground(Color.LIGHT_GRAY);
 		txtNombre.setBounds(438, 24, 197, 31);
 		panel_2.add(txtNombre);
 		txtNombre.setColumns(10);
@@ -323,14 +327,19 @@ public class RegPlan extends JDialog {
 								aux.add(net);
 							}
 							Plan auxiliar = new Plan("Altice-"+Altice.genCodePlan, txtNombre.getText(), txtDescripcion.getText(), aux, Altice.getInstance().calcularPrecioPlan(aux));
-							Altice.getInstance().insertarPlan(auxiliar);
+							try {
+								Altice.getInstance().insertarPlan(auxiliar);
+							} catch (ParseException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 							JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 							clean();
 						}else {
 							lblObligatorio_1.setVisible(true);
 							lblObligatorio_2.setVisible(true);
 							lblObligatorio_3.setVisible(true);
-							JOptionPane.showMessageDialog(null, "Faltan datos para completar el registro", "Error", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Verifique que ha completado todos los campos correctamente", "Registro incompleto", JOptionPane.WARNING_MESSAGE);
 						}
 					}
 				});
@@ -375,17 +384,57 @@ public class RegPlan extends JDialog {
 		boolean registrar = false;
 		if (!txtNombre.getText().isEmpty() && !txtDescripcion.getText().isEmpty()) {
 			if (rdbTelefono.isSelected() || rdbCable.isSelected() || rdbInternet.isSelected()) {
-				registrar = true;
+				if (contieneSoloLetras(txtNombre.getText())== true) {
+					if (cantidadesNegativas() == false) {
+						registrar = true;
+					}else {
+						JOptionPane.showMessageDialog(null, "No puede ingresar valores negativos para los servicios", "Error", JOptionPane.WARNING_MESSAGE);
+					}			
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "El nombre solo puede contener letras y espacios", "Error", JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		}
 			
 		return registrar;
 	}
+	private boolean cantidadesNegativas() {
+		if (rdbTelefono.isSelected()) {
+			float Minutos = Float.parseFloat(spnMinutos.getValue().toString());
+			if(Minutos <= 0) {
+				return true;
+			}
+		}
+		if (rdbCable.isSelected()) {
+			int Canales = Integer.parseInt(spnCanales.getValue().toString());
+			if(Canales <= 0) {
+				return true;
+			}
+		}
+		if (rdbInternet.isSelected()) {
+			float subida = Float.parseFloat(spnMSubida.getValue().toString());
+			float bajada = Float.parseFloat(spnMBajada.getValue().toString());
+			if(subida <= 0 || bajada <=0) {
+				return true;
+			}
+		}
+		return false;
+	}
+	private boolean contieneSoloLetras(String text) {
+		for(int i =0; i< text.length(); i++) {
+			char c = text.charAt(i);
+			if (!((c >= 'a' && c <= 'z' ) || (c >='A' && c<='Z')|| c == ' ')) {
+				return false;
+			}
+		}
+		return true;
+	}
 	private void clean () {
 		lblObligatorio_1.setVisible(false);
 		lblObligatorio_2.setVisible(false);
 		lblObligatorio_3.setVisible(false);
-		txtNombre.setText("");
+		txtNombre.setText("Ej: TriplePlay");
 		txtDescripcion.setText("");
 		rdbTelefono.setSelected(false);
 		rdbCable.setSelected(false);

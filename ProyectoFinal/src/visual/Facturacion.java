@@ -36,6 +36,7 @@ import javax.swing.border.LineBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.peer.PanelPeer;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -350,7 +351,12 @@ public class Facturacion extends JDialog {
 							auxClient = new Cliente(txtCedula.getText(), txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(), txtDireccion.getText());
 							System.out.println(auxClient.getCedula());
 							Altice.getInstance().insertarCliente(auxClient);
-							realizarVenta(auxClient,planes);
+							try {
+								realizarVenta(auxClient,planes);
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 						else {
 							JOptionPane.showMessageDialog(null, "No hay planes seleccionados.", "Error", JOptionPane.ERROR_MESSAGE);	
@@ -367,7 +373,12 @@ public class Facturacion extends JDialog {
 									planesCopia.add(plan);
 								}
 							}
-							realizarVenta(auxClient,planesCopia);
+							try {
+								realizarVenta(auxClient,planesCopia);
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 						else {
 							JOptionPane.showMessageDialog(null, "Al parecer el cliente tiene planes inhabilitados.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -491,7 +502,7 @@ public class Facturacion extends JDialog {
 		}
 		return aux;
 	}
-	public void realizarVenta(Cliente auxClient,ArrayList<Plan> planes) {
+	public void realizarVenta(Cliente auxClient,ArrayList<Plan> planes) throws ParseException {
 		if(comercial != null) {
 			Venta vent = Altice.getInstance().realizarVenta(auxClient.getCedula(), comercial.getCedula(), planes);
 			if(vent!= null) {
