@@ -67,6 +67,7 @@ public class RevPlanes extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RevPlanes.class.getResource("/imagenes/logo altice pf.PNG")));
 		setTitle("Altice");
 		setBounds(100, 100, 714, 593);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		{
 			JPanel buttonPane = new JPanel();
@@ -77,6 +78,7 @@ public class RevPlanes extends JDialog {
 			getContentPane().add(buttonPane);
 			{
 				btnDetalles = new JButton("Ver detalles");
+				btnDetalles.setEnabled(false);
 				btnDetalles.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						DetallesRevisionPlan aux = new DetallesRevisionPlan();
@@ -263,7 +265,7 @@ public class RevPlanes extends JDialog {
 			row[1] = auxiliar.get(i).getNombrePlan();
 			row[2] = auxiliar.get(i).getTotalPrecio();
 			for(Venta vent: Altice.getInstance().getVentas()) {
-				ArrayList<Plan> planesVendidos = vent.getPlanes();
+				ArrayList <Plan> planesVendidos = vent.getPlanes();
 				cantidad += Altice.getInstance().cantidadPlanVendido(planesVendidos, auxiliar.get(i));
 			}
 			total = auxiliar.get(i).getTotalPrecio()*cantidad;

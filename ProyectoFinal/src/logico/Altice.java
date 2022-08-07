@@ -395,7 +395,7 @@ public class Altice implements Serializable {
 	
 	public Plan planMenosVendido () {
 		Plan menosVendido = null;
-		int cantVenta = 0;
+		int menor = 1;
 		for (Plan plan: misPlanes) {
 			int cantidad =0;
 			for (Venta vent : ventas) {
@@ -403,8 +403,8 @@ public class Altice implements Serializable {
 				if (planes.contains(plan)) {
 					cantidad++;
 				}
-				if(cantidad <= cantVenta) {
-					cantVenta = cantidad;
+				if(cantidad <= menor) {
+					menor = cantidad;
 					menosVendido = plan;
 				}
 			}
