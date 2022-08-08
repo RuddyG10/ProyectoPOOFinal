@@ -36,6 +36,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class RegPlan extends JDialog {
 
@@ -78,7 +80,7 @@ public class RegPlan extends JDialog {
 		setForeground(Color.BLACK);
 		setBackground(Color.BLACK);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegPlan.class.getResource("/imagenes/logo altice pf.PNG")));
-		setTitle("Altice");
+		setTitle("Altice - Registrar Plan");
 		setBounds(100, 100, 707, 599);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -93,11 +95,11 @@ public class RegPlan extends JDialog {
 		contentPanel.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("   Registrar plan");
+		JLabel lblNewLabel = new JLabel(" Registrar plan");
 		lblNewLabel.setIcon(new ImageIcon(RegPlan.class.getResource("/imagenes/wifi icon.png")));
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 30));
 		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(44, 11, 497, 42);
+		lblNewLabel.setBounds(21, 11, 497, 42);
 		panel.add(lblNewLabel);
 
 		JLabel lblNewLabel_4 = new JLabel("Descripci\u00F3n: ");
@@ -136,6 +138,23 @@ public class RegPlan extends JDialog {
 		txtCodigo.setColumns(10);
 
 		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int key = e.getKeyChar();
+
+			    boolean mayusculas = key >= 65 && key <= 90;
+			    boolean minusculas = key >= 97 && key <= 122;
+			    boolean espacio = key == 32;
+			            
+			     if (!(minusculas || mayusculas || espacio))
+			    {
+			    	 JOptionPane.showMessageDialog(null, "Solo se deben ingresar caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+			        txtNombre.setText("");
+			    	 e.consume();
+			    }
+			}
+		});
 		txtNombre.setBounds(438, 24, 197, 31);
 		panel_2.add(txtNombre);
 		txtNombre.setColumns(10);

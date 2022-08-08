@@ -32,6 +32,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Date;
+import java.awt.Toolkit;
+import java.awt.SystemColor;
 
 public class ListarCliente extends JDialog {
 
@@ -65,16 +67,19 @@ public class ListarCliente extends JDialog {
 	 * Create the frame.
 	 */
 	public ListarCliente(boolean pagar) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarCliente.class.getResource("/imagenes/logo altice pf.PNG")));
 		facturar = pagar;
 		setResizable(false);
 		setTitle("Altice - Lista Clientes");
 		setBounds(100, 100, 672, 470);
 		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.window);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.window);
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(10, 382, 646, 48);
 		contentPane.add(panel);
@@ -183,7 +188,15 @@ public class ListarCliente extends JDialog {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
+		JLabel lblNewLabel_2 = new JLabel("Lista Clientes");
+		lblNewLabel_2.setIcon(new ImageIcon(ListarCliente.class.getResource("/imagenes/detalles icono.png")));
+		lblNewLabel_2.setForeground(Color.WHITE);
+		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 30));
+		lblNewLabel_2.setBounds(10, 11, 356, 50);
+		panel_1.add(lblNewLabel_2);
+		
 		JPanel panelInfo = new JPanel();
+		panelInfo.setBackground(SystemColor.window);
 		panelInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informacion del cliente segun su color", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelInfo.setName("");
 		panelInfo.setBounds(10, 83, 646, 70);

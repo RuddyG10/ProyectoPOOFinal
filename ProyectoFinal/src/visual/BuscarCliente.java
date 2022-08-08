@@ -23,6 +23,7 @@ import java.awt.SystemColor;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class BuscarCliente extends JDialog {
 
@@ -47,14 +48,17 @@ public class BuscarCliente extends JDialog {
 	 * Create the dialog.
 	 */
 	public BuscarCliente() {
-		setModal(true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(BuscarCliente.class.getResource("/imagenes/logo altice pf.PNG")));
 		setResizable(false);
+		setModal(true);
 		setTitle("Buscar Cliente");
 		setBounds(100, 100, 433, 343);
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(SystemColor.window);
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.BLACK);
@@ -70,6 +74,7 @@ public class BuscarCliente extends JDialog {
 		panel.add(lblNewLabel);
 		
 		panelBuscar = new JPanel();
+		panelBuscar.setBackground(SystemColor.window);
 		panelBuscar.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelBuscar.setBounds(10, 88, 407, 177);
 		contentPanel.add(panelBuscar);
@@ -86,6 +91,7 @@ public class BuscarCliente extends JDialog {
 		panelBuscar.add(label);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(SystemColor.window);
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);

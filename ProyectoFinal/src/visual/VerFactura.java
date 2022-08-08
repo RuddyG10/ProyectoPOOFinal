@@ -31,6 +31,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class VerFactura extends JDialog {
 
@@ -64,14 +65,17 @@ public class VerFactura extends JDialog {
 	 * Create the dialog.
 	 */
 	public VerFactura(Venta aux) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VerFactura.class.getResource("/imagenes/logo altice pf.PNG")));
+		setResizable(false);
 		setModal(true);
-		setTitle("Factura");
+		setTitle("Altice - Factura");
 		factura = aux;
 		setBounds(100, 100, 682, 463);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JPanel panelAltice = new JPanel();
 		panelAltice.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -200,6 +204,7 @@ public class VerFactura extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnCancelar = new JButton("Cerrar");
+				btnCancelar.setIcon(new ImageIcon(VerFactura.class.getResource("/imagenes/icono cancelar.png")));
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();

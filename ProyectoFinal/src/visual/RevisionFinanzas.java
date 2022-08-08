@@ -7,6 +7,11 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class RevisionFinanzas extends JDialog {
 
@@ -29,11 +34,27 @@ public class RevisionFinanzas extends JDialog {
 	 * Create the dialog.
 	 */
 	public RevisionFinanzas() {
-		setBounds(100, 100, 450, 300);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RevisionFinanzas.class.getResource("/imagenes/logo altice pf.PNG")));
+		setTitle("Altice - Revision Finanzas");
+		setBounds(100, 100, 622, 408);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		setLocationRelativeTo(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.BLACK);
+		panel.setBounds(0, 0, 606, 79);
+		contentPanel.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Revision Finanzas");
+		lblNewLabel.setIcon(new ImageIcon(RevisionFinanzas.class.getResource("/imagenes/icons8-documento-42.png")));
+		lblNewLabel.setBounds(10, 11, 466, 58);
+		panel.add(lblNewLabel);
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 30));
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -51,5 +72,4 @@ public class RevisionFinanzas extends JDialog {
 			}
 		}
 	}
-
 }

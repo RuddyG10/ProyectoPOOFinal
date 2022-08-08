@@ -27,6 +27,11 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.ImageIcon;
+import java.awt.SystemColor;
 
 public class ListFac extends JDialog {
 	private JTable table;
@@ -39,6 +44,7 @@ public class ListFac extends JDialog {
 	private JButton btnCerrar;
 	private JButton btnPagar;
 	private boolean pagar = false;
+	private JLabel lblListaFactura;
 	/**
 	 * Launch the application.
 	 */
@@ -56,14 +62,19 @@ public class ListFac extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListFac(Cliente aux,boolean auxpagar) {
+		getContentPane().setBackground(SystemColor.window);
+		setTitle("Altice - Lista Factura");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListFac.class.getResource("/imagenes/logo altice pf.PNG")));
 		client = aux;
 		pagar =auxpagar;
 		setResizable(false);
 		setModal(true);
 		setBounds(100, 100, 572, 417);
 		getContentPane().setLayout(null);
+		setLocationRelativeTo(null);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(SystemColor.window);
 			buttonPane.setBounds(10, 339, 533, 38);
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -117,8 +128,17 @@ public class ListFac extends JDialog {
 		{
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.BLACK);
-			panel.setBounds(0, 0, 566, 56);
+			panel.setBounds(0, 0, 566, 64);
 			getContentPane().add(panel);
+			panel.setLayout(null);
+			{
+				lblListaFactura = new JLabel("Lista Factura");
+				lblListaFactura.setIcon(new ImageIcon(ListFac.class.getResource("/imagenes/detalles icono.png")));
+				lblListaFactura.setBounds(10, 11, 497, 45);
+				lblListaFactura.setForeground(Color.WHITE);
+				lblListaFactura.setFont(new Font("Arial", Font.BOLD, 30));
+				panel.add(lblListaFactura);
+			}
 		}
 		{
 			JPanel panel = new JPanel();

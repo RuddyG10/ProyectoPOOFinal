@@ -40,6 +40,10 @@ import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollBar;
+import java.awt.Toolkit;
+import java.awt.SystemColor;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Facturacion extends JDialog {
 
@@ -82,9 +86,10 @@ public class Facturacion extends JDialog {
 	 * Create the dialog.
 	 */
 	public Facturacion(Trabajador aux) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Facturacion.class.getResource("/imagenes/logo altice pf.PNG")));
 		comercial = aux;
 		setResizable(false);
-		setTitle("Facturacion");
+		setTitle("Altice - Facturacion");
 		setModal(true);
 		setBounds(100, 100, 710, 670);
 		
@@ -92,7 +97,7 @@ public class Facturacion extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setBackground(new Color(253,245,230));
+		contentPanel.setBackground(SystemColor.window);
 		contentPanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
@@ -103,13 +108,13 @@ public class Facturacion extends JDialog {
 		
 		JLabel lblNewLabel = new JLabel("Realizar Venta");
 		lblNewLabel.setIcon(new ImageIcon(Facturacion.class.getResource("/imagenes/FacturaGris.png")));
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblNewLabel.setForeground(Color.LIGHT_GRAY);
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 30));
+		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setBounds(10, 11, 292, 40);
 		panel.add(lblNewLabel);
 		
 		JPanel panelCliente = new JPanel();
-		panelCliente.setBackground(new Color(253, 245, 230));
+		panelCliente.setBackground(SystemColor.window);
 		panelCliente.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelCliente.setBounds(10, 73, 675, 183);
 		contentPanel.add(panelCliente);
@@ -126,6 +131,25 @@ public class Facturacion extends JDialog {
 		panelCliente.add(lblNewLabel_2);
 		
 		txtCedula = new JTextField();
+		txtCedula.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int key = e.getKeyChar();
+
+			    boolean numeros = key >= 48 && key <= 57;
+			        
+			    if (!numeros)
+			    {
+			    	 JOptionPane.showMessageDialog(null, "Solo se deben ingresar numeros.", "Error", JOptionPane.ERROR_MESSAGE);
+			        e.consume();
+			        txtCedula.setText("");
+			    }
+
+			    if (txtCedula.getText().trim().length() == 10) {
+			        e.consume();
+			    }
+			}
+		});
 		txtCedula.setBounds(88, 30, 154, 20);
 		panelCliente.add(txtCedula);
 		txtCedula.setColumns(10);
@@ -160,6 +184,23 @@ public class Facturacion extends JDialog {
 		panelCliente.add(lblNewLabel_3);
 		
 		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				 int key = e.getKeyChar();
+
+				    boolean mayusculas = key >= 65 && key <= 90;
+				    boolean minusculas = key >= 97 && key <= 122;
+				    boolean espacio = key == 32;
+				            
+				     if (!(minusculas || mayusculas || espacio))
+				    {
+				    	 JOptionPane.showMessageDialog(null, "Solo se deben ingresar caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+				    	 txtNombre.setText("");
+				    	 e.consume();
+				    }
+			}
+		});
 		txtNombre.setColumns(10);
 		txtNombre.setBounds(88, 80, 154, 20);
 		panelCliente.add(txtNombre);
@@ -170,6 +211,23 @@ public class Facturacion extends JDialog {
 		panelCliente.add(lblApellidos);
 		
 		txtApellidos = new JTextField();
+		txtApellidos.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				 int key = e.getKeyChar();
+
+				    boolean mayusculas = key >= 65 && key <= 90;
+				    boolean minusculas = key >= 97 && key <= 122;
+				    boolean espacio = key == 32;
+				            
+				     if (!(minusculas || mayusculas || espacio))
+				    {
+				    	 JOptionPane.showMessageDialog(null, "Solo se deben ingresar caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+				    	 txtApellidos.setText("");
+				    	 e.consume();
+				    }
+			}
+		});
 		txtApellidos.setColumns(10);
 		txtApellidos.setBounds(376, 80, 154, 20);
 		panelCliente.add(txtApellidos);
@@ -180,6 +238,25 @@ public class Facturacion extends JDialog {
 		panelCliente.add(lblNewLabel_4);
 		
 		txtTelefono = new JTextField();
+		txtTelefono.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				 int key = e.getKeyChar();
+
+				    boolean numeros = key >= 48 && key <= 57;
+				        
+				    if (!numeros)
+				    {
+				    	 JOptionPane.showMessageDialog(null, "Solo se deben ingresar numeros.", "Error", JOptionPane.ERROR_MESSAGE);
+				        e.consume();
+				    }
+
+				    if (txtTelefono.getText().trim().length() == 10) {
+				    	txtTelefono.setText("");
+				    	e.consume();
+				    }
+			}
+		});
 		txtTelefono.setColumns(10);
 		txtTelefono.setBounds(88, 130, 154, 20);
 		panelCliente.add(txtTelefono);
@@ -195,7 +272,7 @@ public class Facturacion extends JDialog {
 		panelCliente.add(txtDireccion);
 		
 		JPanel panelSeleccion = new JPanel();
-		panelSeleccion.setBackground(new Color(253, 245, 230));
+		panelSeleccion.setBackground(SystemColor.window);
 		panelSeleccion.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelSeleccion.setBounds(10, 267, 675, 81);
 		contentPanel.add(panelSeleccion);
@@ -212,7 +289,7 @@ public class Facturacion extends JDialog {
 				llenarList();
 			}
 		});
-		rdbtnInternet.setBackground(new Color(253, 245, 230));
+		rdbtnInternet.setBackground(SystemColor.window);
 		rdbtnInternet.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		rdbtnInternet.setBounds(54, 38, 152, 23);
 		panelSeleccion.add(rdbtnInternet);
@@ -224,7 +301,7 @@ public class Facturacion extends JDialog {
 				
 			}
 		});
-		rdbtnCable.setBackground(new Color(253, 245, 230));
+		rdbtnCable.setBackground(SystemColor.window);
 		rdbtnCable.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		rdbtnCable.setBounds(260, 39, 152, 23);
 		panelSeleccion.add(rdbtnCable);
@@ -235,13 +312,13 @@ public class Facturacion extends JDialog {
 					llenarList();
 			}
 		});
-		rdbtnTelefono.setBackground(new Color(253, 245, 230));
+		rdbtnTelefono.setBackground(SystemColor.window);
 		rdbtnTelefono.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		rdbtnTelefono.setBounds(466, 39, 152, 23);
 		panelSeleccion.add(rdbtnTelefono);
 		
 		JPanel panelCarrito = new JPanel();
-		panelCarrito.setBackground(new Color(253, 245, 230));
+		panelCarrito.setBackground(SystemColor.window);
 		panelCarrito.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelCarrito.setBounds(10, 359, 675, 210);
 		contentPanel.add(panelCarrito);
@@ -313,7 +390,7 @@ public class Facturacion extends JDialog {
 		panelCarrito.add(btnRemove);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(253, 245, 230));
+		panel_1.setBackground(SystemColor.window);
 		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(10, 580, 377, 40);
 		contentPanel.add(panel_1);
@@ -331,7 +408,7 @@ public class Facturacion extends JDialog {
 		txtSubtotal.setColumns(10);
 		
 		JPanel buttonPane = new JPanel();
-		buttonPane.setBackground(new Color(253, 245, 230));
+		buttonPane.setBackground(SystemColor.window);
 		buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		buttonPane.setBounds(397, 581, 288, 39);
 		contentPanel.add(buttonPane);

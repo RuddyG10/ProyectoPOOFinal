@@ -70,7 +70,7 @@ public class ListadoPlanes extends JDialog {
 		setResizable(false);
 		setBackground(SystemColor.controlLtHighlight);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListadoPlanes.class.getResource("/imagenes/logo altice pf.PNG")));
-		setTitle("Altice");
+		setTitle("Altice - Listado de Planes");
 		setBounds(100, 100, 688, 629);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -86,11 +86,11 @@ public class ListadoPlanes extends JDialog {
 		contentPanel.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("  Listado de planes");
+		JLabel lblNewLabel = new JLabel("Listado de planes");
 		lblNewLabel.setIcon(new ImageIcon(ListadoPlanes.class.getResource("/imagenes/listado icono.png")));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 30));
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 30));
 		lblNewLabel.setBounds(10, 11, 420, 52);
 		panel.add(lblNewLabel);
 		{
