@@ -23,7 +23,9 @@ import javax.swing.table.DefaultTableModel;
 
 import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 
+import logico.Altice;
 import logico.Cable;
+import logico.Cliente;
 import logico.Internet;
 import logico.Plan;
 import logico.Servicio;
@@ -228,22 +230,31 @@ public class DetallesPlan extends JDialog {
 						dispose();
 					}
 				});
-				{
-					btnModificar = new JButton("Modificar");
-					btnModificar.addMouseListener(new MouseAdapter() {
-						@Override
-						public void mouseEntered(MouseEvent e) {
-							btnModificar.setBackground(Color.blue);
-						}
-						@Override
-						public void mouseExited(MouseEvent e) {
-							btnModificar.setBackground(UIManager.getColor("control"));
-						}
-					});
-					btnModificar.setFont(new Font("Arial", Font.PLAIN, 15));
-					btnModificar.setIcon(new ImageIcon(DetallesPlan.class.getResource("/imagenes/icono editar.png")));
-					buttonPane.add(btnModificar);
-				}
+				
+				btnModificar = new JButton("Modificar");
+				btnModificar.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						btnModificar.setBackground(Color.blue);
+					}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						btnModificar.setBackground(UIManager.getColor("control"));
+					}
+				});
+				btnModificar.setFont(new Font("Arial", Font.PLAIN, 15));
+				btnModificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Modificar aux = new Modificar();	
+						aux.cargarInfo(Altice.getInstance().buscarPlanByCode(txtCodigo.getText()),null);
+						aux.setModal(true);
+						aux.setVisible(true);
+						ListadoPlanes list = new ListadoPlanes();
+						list.loadTable();
+					}
+				});
+				btnModificar.setIcon(new ImageIcon(DetallesPlan.class.getResource("/imagenes/icono editar.png")));
+				buttonPane.add(btnModificar);
 				btnSalir.setIcon(new ImageIcon(DetallesPlan.class.getResource("/imagenes/icono cancelar.png")));
 				btnSalir.setActionCommand("Cancel");
 				buttonPane.add(btnSalir);

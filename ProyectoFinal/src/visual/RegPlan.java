@@ -30,6 +30,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -138,6 +139,7 @@ public class RegPlan extends JDialog {
 		txtCodigo.setColumns(10);
 
 		txtNombre = new JTextField();
+
 		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -155,10 +157,20 @@ public class RegPlan extends JDialog {
 			    }
 			}
 		});
+
+
+		txtNombre.setText("Ej :  TriplePlay");
+		txtNombre.setFont(new Font("Arial", Font.PLAIN, 10));
+		txtNombre.setForeground(Color.LIGHT_GRAY);
+
+		txtNombre.setForeground(Color.GRAY);
+		txtNombre.setFont(new Font("Arial", Font.PLAIN, 10));
+		txtNombre.setText("Ej :  TriplePlay");
+
 		txtNombre.setBounds(438, 24, 197, 31);
 		panel_2.add(txtNombre);
 		txtNombre.setColumns(10);
-		
+
 		lblObligatorio_3 = new JLabel("Obligatorio *");
 		lblObligatorio_3.setVisible(false);
 		lblObligatorio_3.setForeground(new Color(204, 0, 0));
@@ -284,7 +296,7 @@ public class RegPlan extends JDialog {
 		spnMBajada = new JSpinner();
 		spnMBajada.setBounds(126, 84, 60, 20);
 		panel_Internet.add(spnMBajada);
-		
+
 		lblObligatorio_2 = new JLabel("Obligatorio *");
 		lblObligatorio_2.setVisible(false);
 		lblObligatorio_2.setForeground(new Color(204, 0, 0));
@@ -292,7 +304,7 @@ public class RegPlan extends JDialog {
 		lblObligatorio_2.setFont(new Font("Arial", Font.PLAIN, 10));
 		lblObligatorio_2.setBounds(581, 497, 86, 14);
 		contentPanel.add(lblObligatorio_2);
-		
+
 		lblObligatorio_1 = new JLabel("Obligatorio *");
 		lblObligatorio_1.setBounds(581, 256, 86, 14);
 		contentPanel.add(lblObligatorio_1);
@@ -325,35 +337,45 @@ public class RegPlan extends JDialog {
 							ArrayList<Servicio> aux = new ArrayList<>();
 							if (rdbTelefono.isSelected()) {
 								float cantMinutos = Float.parseFloat(spnMinutos.getValue().toString());
+
 								Servicio tel = new Telefono("tel-"+Altice.genCodeServ, "Telefono", Altice.getInstance().calcularPrecioServicio(cantMinutos), cantMinutos);
 								Altice.getInstance().insertarServicio(tel);
 								aux.add(tel);
 							}
 							if (rdbCable.isSelected()) {
 								int cantCanales = Integer.parseInt(spnCanales.getValue().toString());
+
 								Servicio cab = new Cable("cab-"+Altice.genCodeServ, "Cable", Altice.getInstance().calcularPrecioServicio(cantCanales), cantCanales);
 								Altice.getInstance().insertarServicio(cab);
 								aux.add(cab);
+
 							}
 							if (rdbInternet.isSelected()) {
 								float subida = Float.parseFloat(spnMSubida.getValue().toString());
 								float bajada = Float.parseFloat(spnMBajada.getValue().toString());
+
 								Servicio net= new Internet("net-"+Altice.genCodeServ, "Internet", Altice.getInstance().calcularPrecioServicio(subida+bajada), subida, bajada);
 								aux.add(net);
+
 							}
 							Plan auxiliar = new Plan("Altice-"+Altice.genCodePlan, txtNombre.getText(), txtDescripcion.getText(), aux, Altice.getInstance().calcularPrecioPlan(aux));
-							Altice.getInstance().insertarPlan(auxiliar);
+							try {
+								Altice.getInstance().insertarPlan(auxiliar);
+							} catch (ParseException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 							JOptionPane.showMessageDialog(null, "Operacion exitosa", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 							clean();
 						}else {
 							lblObligatorio_1.setVisible(true);
 							lblObligatorio_2.setVisible(true);
 							lblObligatorio_3.setVisible(true);
-							JOptionPane.showMessageDialog(null, "Faltan datos para completar el registro", "Error", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Verifique que ha completado todos los campos correctamente", "Registro incompleto", JOptionPane.WARNING_MESSAGE);
 						}
 					}
 				});
-	
+
 				btnRegistrar.setIcon(new ImageIcon(RegPlan.class.getResource("/imagenes/icono check.png")));
 				btnRegistrar.setActionCommand("OK");
 				buttonPane.add(btnRegistrar);
@@ -389,22 +411,63 @@ public class RegPlan extends JDialog {
 		String pre = "Altice-";
 		txtCodigo.setText(pre+Altice.genCodePlan);
 	}
-	
+
 	private boolean verificarCampos() {
 		boolean registrar = false;
 		if (!txtNombre.getText().isEmpty() && !txtDescripcion.getText().isEmpty()) {
 			if (rdbTelefono.isSelected() || rdbCable.isSelected() || rdbInternet.isSelected()) {
-				registrar = true;
+				if (contieneSoloLetras(txtNombre.getText())== true) {
+					if (cantidadesNegativas() == false) {
+						registrar = true;
+					}else {
+						JOptionPane.showMessageDialog(null, "No puede ingresar valores negativos para los servicios", "Error", JOptionPane.WARNING_MESSAGE);
+					}			
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "El nombre solo puede contener letras y espacios", "Error", JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		}
-			
+
 		return registrar;
 	}
+	private boolean cantidadesNegativas() {
+		if (rdbTelefono.isSelected()) {
+			float Minutos = Float.parseFloat(spnMinutos.getValue().toString());
+			if(Minutos <= 0) {
+				return true;
+			}
+		}
+		if (rdbCable.isSelected()) {
+			int Canales = Integer.parseInt(spnCanales.getValue().toString());
+			if(Canales <= 0) {
+				return true;
+			}
+		}
+		if (rdbInternet.isSelected()) {
+			float subida = Float.parseFloat(spnMSubida.getValue().toString());
+			float bajada = Float.parseFloat(spnMBajada.getValue().toString());
+			if(subida <= 0 || bajada <=0) {
+				return true;
+			}
+		}
+		return false;
+	}
+	private boolean contieneSoloLetras(String text) {
+		for(int i =0; i< text.length(); i++) {
+			char c = text.charAt(i);
+			if (!((c >= 'a' && c <= 'z' ) || (c >='A' && c<='Z')|| c == ' ')) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	private void clean () {
 		lblObligatorio_1.setVisible(false);
 		lblObligatorio_2.setVisible(false);
 		lblObligatorio_3.setVisible(false);
-		txtNombre.setText("");
+		txtNombre.setText("Ej: TriplePlay");
 		txtDescripcion.setText("");
 		rdbTelefono.setSelected(false);
 		rdbCable.setSelected(false);

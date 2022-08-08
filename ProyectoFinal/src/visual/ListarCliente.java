@@ -91,6 +91,14 @@ public class ListarCliente extends JDialog {
 		panel.add(btnEliminar);
 
 		btnMod = new JButton("Modificar");
+		btnMod.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Modificar aux = new Modificar();
+				aux.cargarInfo(null, selected);
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
 		btnMod.setEnabled(false);
 		btnMod.setBounds(441, 23, 100, 23);
 		panel.add(btnMod);
@@ -111,6 +119,7 @@ public class ListarCliente extends JDialog {
 				facturas.setVisible(true);
 				btnEliminar.setEnabled(false);
 				btnMod.setEnabled(false);
+				obtenerClientes();
 			}
 		});
 		btnVerFac.setEnabled(false);

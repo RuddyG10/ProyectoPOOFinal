@@ -8,10 +8,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;		
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Altice implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -25,8 +28,13 @@ public class Altice implements Serializable {
 	public static int genCodeFac = 1;
 	public static int genCodeVent = 1;
 	public static int genCodeServ = 1;
+	public static int genCodeFile = 1;
 	private static Altice altice = null;
-	private static boolean firstTime;
+	private ArrayList<Date> fechasGanancias;
+	private ArrayList<Float> ingresoE;
+	private ArrayList<Float> ingresoR;
+	private float ingresoEstimada;
+	private float ingresoReal;
 
 	private Altice() {
 		super();
@@ -36,19 +44,33 @@ public class Altice implements Serializable {
 		this.misPlanes = new ArrayList<Plan>();
 		this.servicios = new ArrayList<Servicio>();
 		this.ventas= new ArrayList<Venta>();
-	}
-	public static boolean isFirstTime() {
-		return firstTime;
-	}
-
-	public static void setFirstTime(boolean firstTime) {
-		Altice.firstTime = firstTime;
+		this.fechasGanancias = new ArrayList<Date>();
+		this.ingresoE = new ArrayList<Float>();
+		this.ingresoR = new ArrayList<Float>();
+		this.ingresoEstimada = 0;
+		this.ingresoReal = 0;
 	}
 	public static Altice getInstance() {
 		if(altice == null) {
 			altice = new Altice();
 		}
 		return altice;
+	}
+	
+	public ArrayList<Date> getFechasGanancias() {
+		return fechasGanancias;
+	}
+	public ArrayList<Float> getIngresoE() {
+		return ingresoE;
+	}
+	public ArrayList<Float> getIngresoR() {
+		return ingresoR;
+	}
+	public float getIngresoEstimada() {
+		return ingresoEstimada;
+	}
+	public float getIngresoReal() {
+		return ingresoReal;
 	}
 	public static void setAltice(Altice altice) {
 		Altice.altice = altice;
@@ -94,9 +116,11 @@ public class Altice implements Serializable {
 		facturas.add(fac);
 		genCodeFac++;
 	}
-	public void insertarPlan(Plan plan) {
+	public void insertarPlan(Plan plan) throws ParseException {
 		misPlanes.add(plan);
 		genCodePlan++;
+		ingresoEstimada+= plan.getTotalPrecio();
+		ingresarGanancias(new Date());
 	}
 	public void insertarServicio(Servicio serv) {
 		servicios.add(serv);
@@ -181,7 +205,7 @@ public class Altice implements Serializable {
 		}
 		return auxClient;
 	}
-	public Venta realizarVenta(String cedulaCliente,String cedulaTrabajador,ArrayList<Plan> planes) {
+	public Venta realizarVenta(String cedulaCliente,String cedulaTrabajador,ArrayList<Plan> planes) throws ParseException {
 		Venta auxVenta = null;
 		Trabajador auxTrab = buscarTrabajadorByCedula(cedulaTrabajador);
 		Cliente auxClient = buscarClientePorCedula(cedulaCliente);
@@ -193,6 +217,7 @@ public class Altice implements Serializable {
 				}
 				
 				insertarVenta(auxVenta);
+				ingresarGanancias(new Date());
 				}
 			
 			
@@ -277,6 +302,7 @@ public class Altice implements Serializable {
 				auxFac = new Factura("F-"+genCodeFac, venta.getCliente(),plan,venta.getVendedor(),calcularFechaCorte(new Date()) , plan.getTotalPrecio());
 				venta.getCliente().getMisFacturas().add(auxFac);
 				insertarFactura(auxFac);
+				ingresoReal+=plan.getTotalPrecio();
 			}
 		}
 	}
@@ -395,16 +421,16 @@ public class Altice implements Serializable {
 	
 	public Plan planMenosVendido () {
 		Plan menosVendido = null;
-		int cantVenta = 0;
-		for (Plan plan: misPlanes) {
+		int menor = 1;
+		for (Plan plan: misPlanes){
 			int cantidad =0;
 			for (Venta vent : ventas) {
 				ArrayList<Plan> planes = vent.getPlanes();
 				if (planes.contains(plan)) {
 					cantidad++;
 				}
-				if(cantidad <= cantVenta) {
-					cantVenta = cantidad;
+				if(cantidad <= menor) {
+					menor = cantidad;
 					menosVendido = plan;
 				}
 			}
@@ -501,4 +527,93 @@ public class Altice implements Serializable {
 		return vent;
 	}
 	
+	public void ingresarGanancias(Date date) throws ParseException {
+		boolean ingreso = ingresarFecha(date);
+		if(ingreso && fechasGanancias.size()== ingresoE.size() && fechasGanancias.size()== ingresoR.size()) {
+			ingresoE.add(ingresoEstimada);
+			ingresoR.add(ingresoReal);
+			
+		}else if (ingreso && fechasGanancias.size()> ingresoE.size() && fechasGanancias.size()> ingresoR.size()) {
+			ingresoE.add(ingresoEstimada);
+			ingresoR.add(ingresoReal);
+			ingresoEstimada = 0;
+			ingresoReal = 0;
+		}
+		else if(!ingreso){
+			int i = fechasGanancias.size();
+			if(ingresoR.size()>0) {
+				float real = ingresoR.get(i-1);
+				real+=ingresoReal;
+				ingresoR.add(i-1, real);
+				ingresoReal = 0;
+			}
+			else {
+				ingresoR.add(ingresoReal);
+				ingresoReal = 0;
+			}
+			if(ingresoE.size()>0) {
+				float est = ingresoE.get(i-1);
+				est+=ingresoEstimada;
+				ingresoE.add(i-1, est);
+				ingresoEstimada = 0;
+			}
+			else {
+				ingresoE.add(ingresoEstimada);
+				ingresoEstimada = 0;
+			}
+			}
 	}
+	
+	public boolean ingresarFecha(Date date) {
+		boolean newDate = false;
+		
+		if(fechasGanancias.size() == 0) {
+			fechasGanancias.add(date);
+			newDate = true;
+		}
+		else if(fechasGanancias.size()>0 && !newDate) {
+			int i = fechasGanancias.size()-1;
+			Date firstDate = fechasGanancias.get(i);
+			
+			try {
+				if(mayorFecha(firstDate,date)>=1) {
+					fechasGanancias.add(date);
+					newDate = true;
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return newDate;
+		
+	}
+	private long mayorFecha(Date firstDate, Date date) throws ParseException {
+		boolean esMayor = false;
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		String firstDateString = formato.format(firstDate);
+		String lastDayString = formato.format(date);
+		Date firstDateFormat = formato.parse(firstDateString);
+		Date lastDayFormat = formato.parse(lastDayString);
+		long tiempoTrans = lastDayFormat.getTime() - firstDateFormat.getTime();
+		TimeUnit unidad = TimeUnit.DAYS;
+		long dias = unidad.convert(tiempoTrans, TimeUnit.MILLISECONDS);
+		
+		return dias;
+	}
+	public void editarPlan(String cod, Plan auxiliar) {
+		Plan aux = buscarPlanByCode(cod);
+		aux.setNombrePlan(auxiliar.getNombrePlan());
+		aux.setDescripcion(auxiliar.getDescripcion());
+	}
+	public void editarInfoClient(String ced, Cliente auxiliar) {
+		Cliente aux = buscarClientePorCedula(ced);
+		aux.setNombre(auxiliar.getNombre());
+		aux.setApellido(auxiliar.getApellido());
+		aux.setDireccion(auxiliar.getDireccion());
+		aux.setTelefono(auxiliar.getTelefono());
+}
+	
+}
