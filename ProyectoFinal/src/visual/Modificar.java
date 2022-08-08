@@ -122,7 +122,7 @@ public class Modificar extends JDialog {
 					JLabel lblNewLabel_9 = new JLabel("Apellidos:");
 					lblNewLabel_9.setFont(new Font("Arial", Font.PLAIN, 15));
 					lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
-					lblNewLabel_9.setBounds(312, 24, 97, 25);
+					lblNewLabel_9.setBounds(310, 53, 97, 25);
 					panel.add(lblNewLabel_9);
 				}
 				{
@@ -134,13 +134,13 @@ public class Modificar extends JDialog {
 				}
 				{
 					txtNombreCliente = new JTextField();
-					txtNombreCliente.setBounds(124, 56, 160, 25);
+					txtNombreCliente.setBounds(124, 53, 160, 25);
 					panel.add(txtNombreCliente);
 					txtNombreCliente.setColumns(10);
 				}
 				{
 					txtApellidosCliente = new JTextField();
-					txtApellidosCliente.setBounds(419, 24, 149, 25);
+					txtApellidosCliente.setBounds(420, 53, 149, 25);
 					panel.add(txtApellidosCliente);
 					txtApellidosCliente.setColumns(10);
 				}
@@ -299,20 +299,22 @@ public class Modificar extends JDialog {
 				});
 				btnModificar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (panel_Plan.isVisible()== true) {
-							Plan aux = new Plan(txtCodigoPlan.getText(), txtNombrePlan.getText(), txtDescripcionPlan.getText(), Altice.getInstance().buscarPlanByCode(txtCodigoPlan.getText()).getServicios(), Float.parseFloat(txtPrecioPlan.getText()));
-							Altice.getInstance().editarPlan(txtCodigoPlan.getText(),aux);
-							JOptionPane.showMessageDialog(null, "Registro actualizado.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-							dispose();
-						}
-						if (panel_Cliente.isVisible() == true) {
-							Cliente aux = new Cliente(txtCedulaCliente.getText(), txtNombreCliente.getText(), txtApellidosCliente.getText(), txtTelefonoCliente.getText(), txtDireccionCliente.getText());
-							Altice.getInstance().editarInfoClient(txtCedulaCliente.getText(), aux);
-							JOptionPane.showMessageDialog(null, "Registro actualizado.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-							dispose();
-						}
-					}
 					
+							if (panel_Plan.isVisible()== true) {
+								Plan aux = new Plan(txtCodigoPlan.getText(), txtNombrePlan.getText(), txtDescripcionPlan.getText(), Altice.getInstance().buscarPlanByCode(txtCodigoPlan.getText()).getServicios(), Float.parseFloat(txtPrecioPlan.getText()));
+								Altice.getInstance().editarPlan(txtCodigoPlan.getText(),aux);
+								JOptionPane.showMessageDialog(null, "Registro actualizado.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+								dispose();
+							}
+							if (panel_Cliente.isVisible() == true) {
+								Cliente aux = new Cliente(txtCedulaCliente.getText(), txtNombreCliente.getText(), txtApellidosCliente.getText(), txtTelefonoCliente.getText(), txtDireccionCliente.getText());
+								Altice.getInstance().editarInfoClient(txtCedulaCliente.getText(), aux);
+								JOptionPane.showMessageDialog(null, "Registro actualizado.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+								dispose();
+							}
+						
+					}
+
 				});
 				btnModificar.setFont(new Font("Arial", Font.PLAIN, 15));
 				btnModificar.setIcon(new ImageIcon(Modificar.class.getResource("/imagenes/icono check.png")));
@@ -345,6 +347,7 @@ public class Modificar extends JDialog {
 		}
 	}
 
+	
 	public void cargarInfo(Plan plan, Cliente client) {
 		if (plan != null && client == null) {
 			panel_Plan.setVisible(true);
