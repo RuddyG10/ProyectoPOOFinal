@@ -41,7 +41,6 @@ public class DetallesPlan extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtCodigo;
 	private JTextField txtNombre;
-	private JTextField txtEstado;
 	private JTable table;
 	private JTextField txtDescripcion;
 	private JTextField txtPrecioTotal;
@@ -105,43 +104,29 @@ public class DetallesPlan extends JDialog {
 				lblNewLabel_1.setBackground(SystemColor.controlLtHighlight);
 				lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 15));
 				lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-				lblNewLabel_1.setBounds(4, 27, 112, 25);
+				lblNewLabel_1.setBounds(10, 53, 112, 25);
 				panel.add(lblNewLabel_1);
 			}
 			{
 				JLabel lblNewLabel_2 = new JLabel("Nombre:");
 				lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 15));
 				lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-				lblNewLabel_2.setBounds(323, 27, 112, 25);
+				lblNewLabel_2.setBounds(325, 53, 112, 25);
 				panel.add(lblNewLabel_2);
-			}
-			{
-				JLabel lblNewLabel_3 = new JLabel("Estado:");
-				lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 15));
-				lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-				lblNewLabel_3.setBounds(4, 79, 112, 25);
-				panel.add(lblNewLabel_3);
 			}
 			{
 				txtCodigo = new JTextField();
 				txtCodigo.setEditable(false);
-				txtCodigo.setBounds(115, 27, 199, 25);
+				txtCodigo.setBounds(115, 54, 199, 25);
 				panel.add(txtCodigo);
 				txtCodigo.setColumns(10);
 			}
 			{
 				txtNombre = new JTextField();
 				txtNombre.setEditable(false);
-				txtNombre.setBounds(433, 27, 199, 25);
+				txtNombre.setBounds(433, 54, 199, 25);
 				panel.add(txtNombre);
 				txtNombre.setColumns(10);
-			}
-			{
-				txtEstado = new JTextField();
-				txtEstado.setEditable(false);
-				txtEstado.setBounds(115, 80, 199, 25);
-				panel.add(txtEstado);
-				txtEstado.setColumns(10);
 			}
 		}
 		{
@@ -266,7 +251,6 @@ public class DetallesPlan extends JDialog {
 	public void cargarInfo(Plan selected) {
 		txtCodigo.setText(selected.getCodigo());
 		txtNombre.setText(selected.getNombrePlan());
-		txtEstado.setText(selected.getEstado());
 		txtDescripcion.setText(selected.getDescripcion());
 		txtPrecioTotal.setText(""+selected.getTotalPrecio());
 		

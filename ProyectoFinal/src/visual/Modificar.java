@@ -28,6 +28,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Modificar extends JDialog {
 
@@ -134,12 +136,34 @@ public class Modificar extends JDialog {
 				}
 				{
 					txtNombreCliente = new JTextField();
+					txtNombreCliente.addKeyListener(new KeyAdapter() {
+						@Override
+						public void keyTyped(KeyEvent arg0) {
+							char key = arg0.getKeyChar();
+				               if(!Character.isAlphabetic(key)) {
+				            	   if(arg0.VK_BACK_SPACE != arg0.getKeyCode()) {
+				            		  arg0.consume();  
+				            	   }
+				                }
+						}
+					});
 					txtNombreCliente.setBounds(124, 53, 160, 25);
 					panel.add(txtNombreCliente);
 					txtNombreCliente.setColumns(10);
 				}
 				{
 					txtApellidosCliente = new JTextField();
+					txtApellidosCliente.addKeyListener(new KeyAdapter() {
+						@Override
+						public void keyTyped(KeyEvent e) {
+							char key = e.getKeyChar();
+				               if(!Character.isAlphabetic(key)) {
+				            	   if(e.VK_BACK_SPACE != e.getKeyCode()) {
+				            		  e.consume();  
+				            	   }
+				                }
+						}
+					});
 					txtApellidosCliente.setBounds(420, 53, 149, 25);
 					panel.add(txtApellidosCliente);
 					txtApellidosCliente.setColumns(10);
@@ -174,6 +198,18 @@ public class Modificar extends JDialog {
 				}
 				{
 					txtTelefonoCliente = new JTextField();
+					txtTelefonoCliente.addKeyListener(new KeyAdapter() {
+						@Override
+						public void keyTyped(KeyEvent e) {
+							char key = e.getKeyChar();
+				               if(!Character.isDigit(key)) {
+				            	   if(e.VK_BACK_SPACE != e.getKeyCode()) {
+				            		  e.consume();  
+				            	   }
+				                }
+							
+						}
+					});
 					txtTelefonoCliente.setBounds(128, 81, 295, 25);
 					panel.add(txtTelefonoCliente);
 					txtTelefonoCliente.setColumns(10);
@@ -232,6 +268,17 @@ public class Modificar extends JDialog {
 				}
 				{
 					txtNombrePlan = new JTextField();
+					txtNombrePlan.addKeyListener(new KeyAdapter() {
+						@Override
+						public void keyTyped(KeyEvent e) {
+							char key = e.getKeyChar();
+				               if(!Character.isAlphabetic(key)) {
+				            	   if(e.VK_BACK_SPACE != e.getKeyCode()) {
+				            		  e.consume();  
+				            	   }
+				                }
+						}
+					});
 					txtNombrePlan.setBounds(413, 11, 171, 25);
 					panel.add(txtNombrePlan);
 					txtNombrePlan.setColumns(10);
@@ -266,6 +313,17 @@ public class Modificar extends JDialog {
 				}
 				{
 					txtPrecioPlan = new JTextField();
+					txtPrecioPlan.addKeyListener(new KeyAdapter() {
+						@Override
+						public void keyTyped(KeyEvent e) {
+							char key = e.getKeyChar();
+				               if(!Character.isDigit(key)) {
+				            	   if(e.VK_BACK_SPACE != e.getKeyCode()) {
+				            		  e.consume();  
+				            	   }
+				                }
+						}
+					});
 					txtPrecioPlan.setEditable(false);
 					txtPrecioPlan.setBounds(179, 84, 142, 25);
 					panel.add(txtPrecioPlan);
