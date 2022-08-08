@@ -222,7 +222,7 @@ public class VerFacClient extends JDialog {
 			row[0] = plan.getCodigo();
 			row[1] = plan.getNombrePlan();
 			row[2] = plan.getFechaPago();
-			row[3] = plan.getTotalPrecio();
+			row[3] = formater.format(plan.getFechaPago());
 			model.addRow(row);
 			txtNomClient.setText(client.getNombre()+" "+client.getApellido());
 			txtCeduClient.setText(client.getCedula());

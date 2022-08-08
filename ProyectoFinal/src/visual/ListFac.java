@@ -45,6 +45,7 @@ public class ListFac extends JDialog {
 	private JButton btnPagar;
 	private boolean pagar = false;
 	private JLabel lblListaFactura;
+	private SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
 	/**
 	 * Launch the application.
 	 */
@@ -85,6 +86,8 @@ public class ListFac extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						VerFacClient verFac = new VerFacClient(selected);
 						verFac.setVisible(true);
+						btnPagar.setEnabled(false);
+						btnVerFac.setEnabled(false);
 					}
 				});
 				{
@@ -102,7 +105,10 @@ public class ListFac extends JDialog {
 								}else {
 									JOptionPane.showMessageDialog(null, "Esta factura esta al dia.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 								}
+								
 							}
+							btnPagar.setEnabled(false);
+							btnVerFac.setEnabled(false);
 						}
 					});
 					btnPagar.setVisible(false);
@@ -179,7 +185,6 @@ public class ListFac extends JDialog {
 		if(pagar) {
 			btnPagar.setVisible(true);
 		}
-		SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
 		model.setRowCount(0);
 		row = new Object[model.getColumnCount()];
 		

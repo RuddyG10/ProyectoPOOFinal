@@ -70,6 +70,7 @@ public class Facturacion extends JDialog {
 	private JScrollPane scrollVenta;
 	private JScrollPane scrollCarrito;
 	private Trabajador comercial;
+	private ArrayList<Plan> planesCopia;
 	/**
 	 * Launch the application.
 	 */
@@ -89,6 +90,8 @@ public class Facturacion extends JDialog {
 	public Facturacion(Trabajador aux) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Facturacion.class.getResource("/imagenes/logo altice pf.PNG")));
 		comercial = aux;
+
+		planesCopia = new ArrayList<Plan>();
 		setResizable(false);
 		setTitle("Altice - Facturacion");
 		setModal(true);
@@ -135,20 +138,11 @@ public class Facturacion extends JDialog {
 		txtCedula.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				int key = e.getKeyChar();
-
-			    boolean numeros = key >= 48 && key <= 57;
-			        
-			    if (!numeros)
-			    {
-			    	 JOptionPane.showMessageDialog(null, "Solo se deben ingresar numeros.", "Error", JOptionPane.ERROR_MESSAGE);
+				char key = e.getKeyChar();
+                if(!Character.isDigit(key)) {
+                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar numeros.", "Error", JOptionPane.ERROR_MESSAGE);
 			        e.consume();
-			        txtCedula.setText("");
-			    }
-
-			    if (txtCedula.getText().trim().length() == 10) {
-			        e.consume();
-			    }
+                }
 			}
 		});
 		txtCedula.setBounds(88, 30, 154, 20);
@@ -167,7 +161,11 @@ public class Facturacion extends JDialog {
 						txtTelefono.setText(client.getTelefono());
 					}
 					else {
-						JOptionPane.showMessageDialog(null, "No se ha encontrado dicho cliente.", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Cliente no registrado.", "Error", JOptionPane.ERROR_MESSAGE);
+						txtNombre.setEditable(true);
+						txtApellidos.setEditable(true);
+						txtDireccion.setEditable(true);
+						txtTelefono.setEditable(true);
 					}
 				}
 				else {
@@ -185,21 +183,15 @@ public class Facturacion extends JDialog {
 		panelCliente.add(lblNewLabel_3);
 		
 		txtNombre = new JTextField();
+		txtNombre.setEditable(false);
 		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				 int key = e.getKeyChar();
-
-				    boolean mayusculas = key >= 65 && key <= 90;
-				    boolean minusculas = key >= 97 && key <= 122;
-				    boolean espacio = key == 32;
-				            
-				     if (!(minusculas || mayusculas || espacio))
-				    {
-				    	 JOptionPane.showMessageDialog(null, "Solo se deben ingresar caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
-				    	 txtNombre.setText("");
-				    	 e.consume();
-				    }
+				char key = e.getKeyChar();
+                if(!Character.isAlphabetic(key)) {
+                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar letras.", "Error", JOptionPane.ERROR_MESSAGE);
+			        e.consume();
+                }
 			}
 		});
 		txtNombre.setColumns(10);
@@ -212,21 +204,15 @@ public class Facturacion extends JDialog {
 		panelCliente.add(lblApellidos);
 		
 		txtApellidos = new JTextField();
+		txtApellidos.setEditable(false);
 		txtApellidos.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				 int key = e.getKeyChar();
-
-				    boolean mayusculas = key >= 65 && key <= 90;
-				    boolean minusculas = key >= 97 && key <= 122;
-				    boolean espacio = key == 32;
-				            
-				     if (!(minusculas || mayusculas || espacio))
-				    {
-				    	 JOptionPane.showMessageDialog(null, "Solo se deben ingresar caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
-				    	 txtApellidos.setText("");
-				    	 e.consume();
-				    }
+				char key = e.getKeyChar();
+                if(!Character.isAlphabetic(key)) {
+                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar letras.", "Error", JOptionPane.ERROR_MESSAGE);
+			        e.consume();
+                }
 			}
 		});
 		txtApellidos.setColumns(10);
@@ -239,23 +225,15 @@ public class Facturacion extends JDialog {
 		panelCliente.add(lblNewLabel_4);
 		
 		txtTelefono = new JTextField();
+		txtTelefono.setEditable(false);
 		txtTelefono.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				 int key = e.getKeyChar();
-
-				    boolean numeros = key >= 48 && key <= 57;
-				        
-				    if (!numeros)
-				    {
-				    	 JOptionPane.showMessageDialog(null, "Solo se deben ingresar numeros.", "Error", JOptionPane.ERROR_MESSAGE);
-				        e.consume();
-				    }
-
-				    if (txtTelefono.getText().trim().length() == 10) {
-				    	txtTelefono.setText("");
-				    	e.consume();
-				    }
+				char key = e.getKeyChar();
+                if(!Character.isDigit(key)) {
+                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar numeros.", "Error", JOptionPane.ERROR_MESSAGE);
+			        e.consume();
+                }
 			}
 		});
 		txtTelefono.setColumns(10);
@@ -268,6 +246,7 @@ public class Facturacion extends JDialog {
 		panelCliente.add(lblDireccion);
 		
 		txtDireccion = new JTextField();
+		txtDireccion.setEditable(false);
 		txtDireccion.setColumns(10);
 		txtDireccion.setBounds(376, 130, 154, 20);
 		panelCliente.add(txtDireccion);
@@ -421,7 +400,6 @@ public class Facturacion extends JDialog {
 					Cliente auxClient = Altice.getInstance().buscarClientePorCedula(txtCedula.getText());
 					ArrayList<Plan> planes = getPlanesCarrito();
 					System.out.println(planes.size());
-					ArrayList<Plan> planesCopia = new ArrayList<Plan>();
 					if(auxClient == null) {
 						
 						if(planes!= null) {
@@ -451,7 +429,7 @@ public class Facturacion extends JDialog {
 								}
 							}
 							try {
-								realizarVenta(auxClient,planesCopia);
+								realizarVenta(auxClient,planes);
 							} catch (ParseException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -586,7 +564,13 @@ public class Facturacion extends JDialog {
 				
 				int option = JOptionPane.showConfirmDialog(null, "Venta realizada con Exito, desea ver su factura?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 				if(option == 0) {
-					auxClient.insertPlanes(planes);
+					if(planesCopia.size()>0) {
+
+						auxClient.insertPlanes(planesCopia);
+					}
+					else {
+						auxClient.insertPlanes(planes);
+					}
 					VerFactura ver = new VerFactura(vent);
 					ver.setVisible(true);
 				}
@@ -613,7 +597,12 @@ public class Facturacion extends JDialog {
 		rdbtnCable.setSelected(false);
 		rdbtnInternet.setSelected(false);
 		rdbtnTelefono.setSelected(false);
+		txtNombre.setEditable(false);
+		txtApellidos.setEditable(false);
+		txtDireccion.setEditable(false);
+		txtTelefono.setEditable(false);
 		modelCarrito.clear();
+		llenarList();
 		
 	}
 

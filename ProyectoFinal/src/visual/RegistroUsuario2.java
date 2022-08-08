@@ -128,6 +128,9 @@ public class RegistroUsuario2 extends JDialog {
 										    	clear();
 										    }
 										}
+										else {
+											JOptionPane.showMessageDialog(null, "Experiencia no puede tomar numeros negativos.", "Error", JOptionPane.ERROR_MESSAGE);
+										}
 										
 									}
 									else if(rdbtnComercial.isSelected()) {
@@ -158,6 +161,9 @@ public class RegistroUsuario2 extends JDialog {
 						JOptionPane.showMessageDialog(null, "La cedula escrita ya esta registrada.", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 					
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Revise que todos los campos esten completos.", "Error.", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -212,18 +218,11 @@ public class RegistroUsuario2 extends JDialog {
 		txtApellido.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				int key = e.getKeyChar();
-
-			    boolean mayusculas = key >= 65 && key <= 90;
-			    boolean minusculas = key >= 97 && key <= 122;
-			    boolean espacio = key == 32;
-			            
-			     if (!(minusculas || mayusculas || espacio))
-			    {
-			    	 JOptionPane.showMessageDialog(null, "Solo se deben ingresar caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
-			    	 txtApellido.setText("");
-			    	 e.consume();
-			    }
+				char key = e.getKeyChar();
+                if(!Character.isAlphabetic(key)) {
+                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar letras.", "Error", JOptionPane.ERROR_MESSAGE);
+			        e.consume();
+                }
                 	
 			}
 		});
@@ -246,19 +245,11 @@ public class RegistroUsuario2 extends JDialog {
 		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
-				int key = arg0.getKeyChar();
-
-			    boolean mayusculas = key >= 65 && key <= 90;
-			    boolean minusculas = key >= 97 && key <= 122;
-			    boolean espacio = key == 32;
-			            
-			     if (!(minusculas || mayusculas || espacio))
-			    {
-			    	 JOptionPane.showMessageDialog(null, "Solo se deben ingresar caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
-			    	 txtNombre.setText("");
-			    	 arg0.consume();
-			    }
-                	
+				char key = arg0.getKeyChar();
+                if(!Character.isAlphabetic(key)) {
+                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar letras.", "Error", JOptionPane.ERROR_MESSAGE);
+			        arg0.consume();
+                }
                    
 			}     
 			
@@ -271,20 +262,11 @@ public class RegistroUsuario2 extends JDialog {
 		txtCedula.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				int key = e.getKeyChar();
-
-			    boolean numeros = key >= 48 && key <= 57;
-			        
-			    if (!numeros)
-			    {
-			    	JOptionPane.showMessageDialog(null, "Solo se deben ingresar numeros.", "Error", JOptionPane.ERROR_MESSAGE);
+				char key = e.getKeyChar();
+                if(!Character.isDigit(key)) {
+                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar numeros.", "Error", JOptionPane.ERROR_MESSAGE);
 			        e.consume();
-			    }
-
-			    if (txtCedula.getText().trim().length() == 10) {
-			    	txtCedula.setText("");
-			        e.consume();
-			    }
+                }
 			}
 		});
 		txtCedula.setBounds(104, 67, 185, 20);
@@ -295,20 +277,11 @@ public class RegistroUsuario2 extends JDialog {
 		txtTelefono.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				int key = e.getKeyChar();
-
-			    boolean numeros = key >= 48 && key <= 57;
-			        
-			    if (!numeros)
-			    {
-			    	JOptionPane.showMessageDialog(null, "Solo se deben ingresar numeros.", "Error", JOptionPane.ERROR_MESSAGE);
+				char key = e.getKeyChar();
+                if(!Character.isDigit(key)) {
+                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar numeros.", "Error", JOptionPane.ERROR_MESSAGE);
 			        e.consume();
-			    }
-
-			    if (txtTelefono.getText().trim().length() == 10) {
-			    	txtTelefono.setText("");
-			        e.consume();
-			    }
+                }
 			}
 		});
 		txtTelefono.setBounds(104, 98, 185, 20);
@@ -340,22 +313,12 @@ public class RegistroUsuario2 extends JDialog {
 		lblNewLabel_5.setBounds(299, 39, 73, 14);
 		panel_1.add(lblNewLabel_5);
 		
-		JLabel lblAosDeExperiencia = new JLabel("Experiencia (a\u00F1os):\r\n");
+		JLabel lblAosDeExperiencia = new JLabel("Exp. (a\u00F1os):\r\n");
 		lblAosDeExperiencia.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblAosDeExperiencia.setBounds(299, 101, 116, 14);
 		panel_1.add(lblAosDeExperiencia);
 		
 		spnExp = new JSpinner();
-		spnExp.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				 
-				if(Integer.parseInt(spnExp.getValue().toString()) <= 100)
-			    {
-			        e.consume();
-			    }
-			}
-		});
 		spnExp.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		spnExp.setBounds(414, 98, 180, 20);
 		panel_1.add(spnExp);
@@ -426,7 +389,7 @@ public class RegistroUsuario2 extends JDialog {
 				revision();
 			}
 		});
-		rdbtnAdmin.setBounds(95, 19, 432, 23);
+		rdbtnAdmin.setBounds(95, 19, 205, 23);
 		panel_3.add(rdbtnAdmin);
 	}
 	public void clear() {
@@ -456,14 +419,4 @@ public class RegistroUsuario2 extends JDialog {
 		}
 		return reg;
 	}
-	
-	/*private boolean verificarCampos() {
-		boolean registrar = false;
-		if (!txtNombre.getText().isEmpty() && !txtApellido.getText().isEmpty() && !txtCedula.getText().isEmpty()
-				&& !txtCorreo.getText().isEmpty() && !txtUsuario.getText().isEmpty()){
-			if (rdbtnAdmin.isSelected() || rdbtnComercial.isSelected() ) {
-				registrar = true;
-			}
-		}
-	}*/
 }

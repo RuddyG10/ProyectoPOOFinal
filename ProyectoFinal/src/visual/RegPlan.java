@@ -143,18 +143,11 @@ public class RegPlan extends JDialog {
 		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				int key = e.getKeyChar();
-
-			    boolean mayusculas = key >= 65 && key <= 90;
-			    boolean minusculas = key >= 97 && key <= 122;
-			    boolean espacio = key == 32;
-			            
-			     if (!(minusculas || mayusculas || espacio))
-			    {
-			    	 JOptionPane.showMessageDialog(null, "Solo se deben ingresar caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
-			        txtNombre.setText("");
-			    	 e.consume();
-			    }
+				char key = e.getKeyChar();
+                if(!Character.isAlphabetic(key)) {
+                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar letras.", "Error", JOptionPane.ERROR_MESSAGE);
+			        e.consume();
+                }
 			}
 		});
 

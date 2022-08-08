@@ -129,14 +129,14 @@ public class Altice implements Serializable {
 	public Date calcularFechaCorte(Date date) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
-		c.add(Calendar.MONTH,3);
+		c.add(Calendar.MONTH,1);
 		Date newDate = c.getTime();
 		return newDate;
 	}
 	public Date fechaFactura(Date date,int month) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
-		c.add(c.MONTH, -month);
+		c.add(c.MONTH, 1);
 		Date newDate = c.getTime();
 		return newDate;
 	}
@@ -185,9 +185,8 @@ public class Altice implements Serializable {
 
 	public Trabajador login(String userName, String password) {
 		Trabajador admin = null;
-		if(buscarTrabajadorPorUserOEmail(userName) != null && buscarTrabajadorPorUserOEmail(userName).getPassword().equalsIgnoreCase(password)) {
+		if(buscarTrabajadorPorUserOEmail(userName) != null && buscarTrabajadorPorUserOEmail(userName).getPassword().equals(password)) {
 			admin = buscarTrabajadorPorUserOEmail(userName);
-			
 		}
 		
 		return admin;

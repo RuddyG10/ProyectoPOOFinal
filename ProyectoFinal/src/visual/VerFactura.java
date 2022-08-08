@@ -48,6 +48,7 @@ public class VerFactura extends JDialog {
 	private Object[] row;
 	private SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
 	private JTextField txtPago;
+
 	/**
 	 * Launch the application.
 	 */
@@ -229,7 +230,7 @@ public class VerFactura extends JDialog {
 			for (Plan plan : planes) {
 				row[0] = plan.getCodigo();
 				row[1] = plan.getNombrePlan();
-				row[2] = plan.getFechaPago();
+				row[2] = formater.format(plan.getFechaPago());
 				row[3] = plan.getTotalPrecio();
 				total+=plan.getTotalPrecio();
 				model.addRow(row);

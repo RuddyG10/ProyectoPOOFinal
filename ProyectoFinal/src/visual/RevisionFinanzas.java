@@ -61,7 +61,7 @@ public class RevisionFinanzas extends JDialog {
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RevisionFinanzas.class.getResource("/imagenes/logo altice pf.PNG")));
 		setTitle("Altice - Revision Finanzas");
-		setBounds(100, 100, 622, 408);
+		setBounds(100, 100, 621, 419);
 
 		setTitle("Revision de ganancias");
 		setResizable(false);
@@ -78,13 +78,13 @@ public class RevisionFinanzas extends JDialog {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.BLACK);
-		panel.setBounds(0, 0, 606, 79);
+		panel.setBounds(0, 0, 615, 61);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Revision Finanzas");
 		lblNewLabel.setIcon(new ImageIcon(RevisionFinanzas.class.getResource("/imagenes/icons8-documento-42.png")));
-		lblNewLabel.setBounds(10, 11, 466, 58);
+		lblNewLabel.setBounds(10, 0, 466, 58);
 		panel.add(lblNewLabel);
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 30));
