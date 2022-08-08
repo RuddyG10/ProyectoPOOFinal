@@ -221,11 +221,10 @@ public class RegistroUsuario2 extends JDialog {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char key = e.getKeyChar();
-                if(!Character.isAlphabetic(key)) {
-                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar letras.", "Error", JOptionPane.ERROR_MESSAGE);
-			        e.consume();
-                }
-                	
+	               if(!Character.isAlphabetic(key)) {
+	            	   e.consume();  
+	                }
+				
 			}
 		});
 		txtApellido.setBounds(414, 36, 180, 20);
@@ -233,12 +232,7 @@ public class RegistroUsuario2 extends JDialog {
 		txtApellido.setColumns(10);
 		
 		txtCorreo = new JTextField();
-		txtCorreo.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-			
-			}
-		});
+		
 		txtCorreo.setBounds(414, 67, 180, 20);
 		panel_1.add(txtCorreo);
 		txtCorreo.setColumns(10);
@@ -248,10 +242,12 @@ public class RegistroUsuario2 extends JDialog {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
 				char key = arg0.getKeyChar();
-                if(!Character.isAlphabetic(key)) {
-                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar letras.", "Error", JOptionPane.ERROR_MESSAGE);
-			        arg0.consume();
-                }
+	               if(!Character.isAlphabetic(key)) {
+	            	   if(arg0.VK_BACK_SPACE != arg0.getKeyCode()) {
+	            		  arg0.consume();  
+	            	   }
+	                }
+				
                    
 			}     
 			
@@ -265,10 +261,13 @@ public class RegistroUsuario2 extends JDialog {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char key = e.getKeyChar();
-                if(!Character.isDigit(key)) {
-                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar numeros.", "Error", JOptionPane.ERROR_MESSAGE);
-			        e.consume();
-                }
+	               if(!Character.isDigit(key)) {
+	            	   if(e.VK_BACK_SPACE != e.getKeyCode()) {
+	            		   e.consume();  
+	            	   }
+	                	
+	                }
+				
 			}
 		});
 		txtCedula.setBounds(104, 67, 185, 20);
@@ -280,10 +279,12 @@ public class RegistroUsuario2 extends JDialog {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char key = e.getKeyChar();
-                if(!Character.isDigit(key)) {
-                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar numeros.", "Error", JOptionPane.ERROR_MESSAGE);
-			        e.consume();
-                }
+	               if(!Character.isDigit(key)) {
+	            	   if(e.VK_BACK_SPACE != e.getKeyCode()) {
+	            		    e.consume();  
+	            	   }
+	                	
+	                }
 			}
 		});
 		txtTelefono.setBounds(104, 98, 185, 20);

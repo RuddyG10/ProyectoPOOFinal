@@ -146,8 +146,7 @@ public class RegPlan extends JDialog {
 			public void keyTyped(KeyEvent e) {
 				char key = e.getKeyChar();
                 if(!Character.isAlphabetic(key)) {
-                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar letras.", "Error", JOptionPane.ERROR_MESSAGE);
-			        e.consume();
+                	e.consume();
                 }
 			}
 		});

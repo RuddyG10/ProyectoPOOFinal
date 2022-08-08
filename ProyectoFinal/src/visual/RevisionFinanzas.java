@@ -28,6 +28,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
@@ -156,12 +157,13 @@ public class RevisionFinanzas extends JDialog {
 
 
 	public void loadTable() {
+		SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
 		model.setRowCount(0);
 		rows = new Object[model.getColumnCount()];
 		ArrayList<Date> fechas = Altice.getInstance().getFechasGanancias();
 		if(fechas != null) {
 			for (int i = 0; i < fechas.size(); i++) {
-				rows[0] = fechas.get(i);
+				rows[0] = formater.format(fechas.get(i));
 				rows[1] = Altice.getInstance().getIngresoE().get(i);
 				rows[2] = Altice.getInstance().getIngresoR().get(i);
 				model.addRow(rows);

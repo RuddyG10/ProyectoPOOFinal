@@ -172,8 +172,8 @@ public class Altice implements Serializable {
 		boolean found = false;
 		int i = 0;
 		while(i< misTrabajadores.size() && !found) {
-			if(misTrabajadores.get(i).getUserName().equalsIgnoreCase(user) ||
-					misTrabajadores.get(i).getEmail().equalsIgnoreCase(user)) {
+			if(misTrabajadores.get(i).getUserName().equals(user) ||
+					misTrabajadores.get(i).getEmail().equals(user)) {
 
 				aux = misTrabajadores.get(i);
 				found = true;
@@ -420,7 +420,7 @@ public class Altice implements Serializable {
 	
 	public Plan planMenosVendido () {
 		Plan menosVendido = null;
-		int menor = 1;
+		int menor = 0;
 		for (Plan plan: misPlanes){
 			int cantidad =0;
 			for (Venta vent : ventas) {
@@ -428,10 +428,11 @@ public class Altice implements Serializable {
 				if (planes.contains(plan)) {
 					cantidad++;
 				}
-				if(cantidad <= menor) {
-					menor = cantidad;
-					menosVendido = plan;
-				}
+				
+			}
+			if(cantidad <= menor) {
+				menor = cantidad;
+				menosVendido = plan;
 			}
 		}
 		return menosVendido;

@@ -228,7 +228,7 @@ public class VerFacClient extends JDialog {
 			txtCeduClient.setText(client.getCedula());
 			txtDirClient.setText(client.getDireccion());
 			txtNomEm.setText(vendedor.getNombre()+" "+vendedor.getApellidos());
-			txtFecha.setText(formater .format(factura.getFecha()));
+			txtFecha.setText(formater.format(factura.getFecha()));
 			txtPago.setText(String.valueOf(factura.getTotal()));
 			
 		}

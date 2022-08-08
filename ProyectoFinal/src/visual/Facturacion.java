@@ -138,8 +138,7 @@ public class Facturacion extends JDialog {
 			public void keyTyped(KeyEvent e) {
 				char key = e.getKeyChar();
                 if(!Character.isDigit(key)) {
-                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar numeros.", "Error", JOptionPane.ERROR_MESSAGE);
-			        e.consume();
+                	e.consume();
                 }
 			}
 		});
@@ -158,9 +157,14 @@ public class Facturacion extends JDialog {
 						txtApellidos.setText(client.getApellido());
 						txtDireccion.setText(client.getDireccion());
 						txtTelefono.setText(client.getTelefono());
+						txtNombre.setEditable(false);
+						txtApellidos.setEditable(false);
+						txtDireccion.setEditable(false);
+						txtTelefono.setEditable(false);
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "Cliente no registrado.", "Error", JOptionPane.ERROR_MESSAGE);
+						clean();
 						txtNombre.setEditable(true);
 						txtApellidos.setEditable(true);
 						txtDireccion.setEditable(true);
@@ -169,6 +173,7 @@ public class Facturacion extends JDialog {
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Debe escribir la cedula del cliente que quiere buscar.", "Error", JOptionPane.ERROR_MESSAGE);
+					clean();
 				}
 			}
 		});
@@ -189,8 +194,7 @@ public class Facturacion extends JDialog {
 			public void keyTyped(KeyEvent e) {
 				char key = e.getKeyChar();
                 if(!Character.isAlphabetic(key)) {
-                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar letras.", "Error", JOptionPane.ERROR_MESSAGE);
-			        e.consume();
+                	 e.consume();
                 }
 			}
 		});
@@ -211,8 +215,7 @@ public class Facturacion extends JDialog {
 			public void keyTyped(KeyEvent e) {
 				char key = e.getKeyChar();
                 if(!Character.isAlphabetic(key)) {
-                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar letras.", "Error", JOptionPane.ERROR_MESSAGE);
-			        e.consume();
+                	e.consume();
                 }
 			}
 		});
@@ -233,8 +236,7 @@ public class Facturacion extends JDialog {
 			public void keyTyped(KeyEvent e) {
 				char key = e.getKeyChar();
                 if(!Character.isDigit(key)) {
-                	JOptionPane.showMessageDialog(null, "Solo se deben ingresar numeros.", "Error", JOptionPane.ERROR_MESSAGE);
-			        e.consume();
+                	e.consume();
                 }
 			}
 		});
