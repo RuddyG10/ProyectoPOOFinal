@@ -40,6 +40,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.awt.Toolkit;
 import java.awt.SystemColor;
+import javax.swing.SwingConstants;
 
 public class Login extends JFrame {
 
@@ -145,7 +146,7 @@ public class Login extends JFrame {
 				log.setVisible(true);
 			}
 		});
-		setTitle("Altice - Iniciar Sesi\u00F3n");
+		setTitle("Altice - Iniciar sesi\u00F3n");
 		setBounds(100, 100, 525, 333);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.window);
@@ -168,38 +169,42 @@ public class Login extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(Login.class.getResource("/imagenes/icons8-male-user-100.png")));
-		lblNewLabel_1.setBounds(85, 10, 107, 100);
+		lblNewLabel_1.setBounds(95, 11, 107, 100);
 		contentPanel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Iniciar Sesi\u00F3n");
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 20));
-		lblNewLabel_2.setBounds(73, 120, 155, 16);
+		lblNewLabel_2.setBounds(83, 121, 155, 16);
 		contentPanel.add(lblNewLabel_2);
 		
 		txtUser = new JTextField();
-		txtUser.setBounds(134, 162, 141, 20);
+		txtUser.setBounds(134, 162, 155, 18);
 		contentPanel.add(txtUser);
 		txtUser.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Usuario o Email:");
-		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 13));
-		lblNewLabel_3.setBounds(10, 164, 114, 14);
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblNewLabel_3.setBounds(10, 164, 114, 18);
 		contentPanel.add(lblNewLabel_3);
 		
 		password = new JPasswordField();
-		password.setBounds(134, 205, 141, 20);
+		password.setBounds(134, 205, 155, 18);
 		contentPanel.add(password);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-		lblContrasea.setFont(new Font("Arial", Font.BOLD, 13));
-		lblContrasea.setBounds(10, 207, 114, 14);
+		lblContrasea.setHorizontalAlignment(SwingConstants.CENTER);
+		lblContrasea.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblContrasea.setBounds(10, 207, 114, 18);
 		contentPanel.add(lblContrasea);
 		
 		btnIniciar = new JButton("Ingresar");
+		btnIniciar.setFont(new Font("Arial", Font.PLAIN, 15));
+		btnIniciar.setIcon(new ImageIcon(Login.class.getResource("/imagenes/logo siguiente.png")));
 		btnIniciar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				btnIniciar.setBackground(Color.green);
+				btnIniciar.setBackground(Color.BLUE);
 			}
 			@Override
 			public void mouseExited(MouseEvent arg0) {
@@ -226,7 +231,7 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		btnIniciar.setBounds(186, 245, 89, 23);
+		btnIniciar.setBounds(144, 245, 135, 33);
 		contentPanel.add(btnIniciar);
 	}
 }

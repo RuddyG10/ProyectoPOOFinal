@@ -45,6 +45,7 @@ import java.awt.Toolkit;
 import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.SwingConstants;
 
 public class Facturacion extends JDialog {
 
@@ -111,27 +112,24 @@ public class Facturacion extends JDialog {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Realizar Venta");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setIcon(new ImageIcon(Facturacion.class.getResource("/imagenes/FacturaGris.png")));
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 30));
 		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(10, 11, 292, 40);
+		lblNewLabel.setBounds(10, 0, 371, 62);
 		panel.add(lblNewLabel);
 		
 		JPanel panelCliente = new JPanel();
 		panelCliente.setBackground(SystemColor.window);
-		panelCliente.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelCliente.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Escriba los datos del cliente", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 102)));
 		panelCliente.setBounds(10, 73, 675, 183);
 		contentPanel.add(panelCliente);
 		panelCliente.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Escriba datos del cliente:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_1.setBounds(10, 0, 317, 14);
-		panelCliente.add(lblNewLabel_1);
-		
 		JLabel lblNewLabel_2 = new JLabel("Cedula:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_2.setBounds(20, 33, 58, 14);
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblNewLabel_2.setBounds(10, 29, 77, 22);
 		panelCliente.add(lblNewLabel_2);
 		
 		txtCedula = new JTextField();
@@ -145,11 +143,12 @@ public class Facturacion extends JDialog {
                 }
 			}
 		});
-		txtCedula.setBounds(88, 30, 154, 20);
+		txtCedula.setBounds(88, 30, 154, 22);
 		panelCliente.add(txtCedula);
 		txtCedula.setColumns(10);
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setFont(new Font("Arial", Font.BOLD, 15));
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(!txtCedula.getText().isEmpty()) {
@@ -174,12 +173,13 @@ public class Facturacion extends JDialog {
 			}
 		});
 		btnBuscar.setIcon(new ImageIcon(Facturacion.class.getResource("/imagenes/buscar1.png")));
-		btnBuscar.setBounds(252, 25, 125, 29);
+		btnBuscar.setBounds(252, 26, 125, 29);
 		panelCliente.add(btnBuscar);
 		
 		JLabel lblNewLabel_3 = new JLabel("Nombre:");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_3.setBounds(20, 83, 58, 14);
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblNewLabel_3.setBounds(10, 80, 77, 22);
 		panelCliente.add(lblNewLabel_3);
 		
 		txtNombre = new JTextField();
@@ -195,12 +195,13 @@ public class Facturacion extends JDialog {
 			}
 		});
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(88, 80, 154, 20);
+		txtNombre.setBounds(88, 80, 154, 22);
 		panelCliente.add(txtNombre);
 		
 		JLabel lblApellidos = new JLabel("Apellidos:");
-		lblApellidos.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblApellidos.setBounds(302, 83, 58, 14);
+		lblApellidos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblApellidos.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblApellidos.setBounds(276, 80, 77, 22);
 		panelCliente.add(lblApellidos);
 		
 		txtApellidos = new JTextField();
@@ -216,12 +217,13 @@ public class Facturacion extends JDialog {
 			}
 		});
 		txtApellidos.setColumns(10);
-		txtApellidos.setBounds(376, 80, 154, 20);
+		txtApellidos.setBounds(376, 80, 154, 22);
 		panelCliente.add(txtApellidos);
 		
 		JLabel lblNewLabel_4 = new JLabel("Telefono:");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_4.setBounds(20, 133, 58, 14);
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblNewLabel_4.setBounds(10, 131, 77, 22);
 		panelCliente.add(lblNewLabel_4);
 		
 		txtTelefono = new JTextField();
@@ -237,44 +239,42 @@ public class Facturacion extends JDialog {
 			}
 		});
 		txtTelefono.setColumns(10);
-		txtTelefono.setBounds(88, 130, 154, 20);
+		txtTelefono.setBounds(88, 131, 154, 22);
 		panelCliente.add(txtTelefono);
 		
 		JLabel lblDireccion = new JLabel("Direccion:");
-		lblDireccion.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblDireccion.setBounds(302, 133, 64, 14);
+		lblDireccion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDireccion.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblDireccion.setBounds(276, 131, 77, 22);
 		panelCliente.add(lblDireccion);
 		
 		txtDireccion = new JTextField();
 		txtDireccion.setEditable(false);
 		txtDireccion.setColumns(10);
-		txtDireccion.setBounds(376, 130, 154, 20);
+		txtDireccion.setBounds(376, 131, 154, 22);
 		panelCliente.add(txtDireccion);
 		
 		JPanel panelSeleccion = new JPanel();
 		panelSeleccion.setBackground(SystemColor.window);
-		panelSeleccion.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelSeleccion.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Seleccione el tipo de plan", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 102)));
 		panelSeleccion.setBounds(10, 267, 675, 81);
 		contentPanel.add(panelSeleccion);
 		panelSeleccion.setLayout(null);
 		
-		JLabel lblNewLabel_5 = new JLabel("Seleccione tipo de plan:");
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_5.setBounds(10, 0, 317, 14);
-		panelSeleccion.add(lblNewLabel_5);
-		
 		rdbtnInternet = new JRadioButton("Con Internet");
+		rdbtnInternet.setHorizontalAlignment(SwingConstants.CENTER);
 		rdbtnInternet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				llenarList();
 			}
 		});
 		rdbtnInternet.setBackground(SystemColor.window);
-		rdbtnInternet.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		rdbtnInternet.setFont(new Font("Arial", Font.BOLD, 15));
 		rdbtnInternet.setBounds(54, 38, 152, 23);
 		panelSeleccion.add(rdbtnInternet);
 		
 		rdbtnCable = new JRadioButton("Con Television");
+		rdbtnCable.setHorizontalAlignment(SwingConstants.CENTER);
 		rdbtnCable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				llenarList();
@@ -282,36 +282,34 @@ public class Facturacion extends JDialog {
 			}
 		});
 		rdbtnCable.setBackground(SystemColor.window);
-		rdbtnCable.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		rdbtnCable.setFont(new Font("Arial", Font.BOLD, 15));
 		rdbtnCable.setBounds(260, 39, 152, 23);
 		panelSeleccion.add(rdbtnCable);
 		
 		rdbtnTelefono = new JRadioButton("Con Telefono");
+		rdbtnTelefono.setHorizontalAlignment(SwingConstants.CENTER);
 		rdbtnTelefono.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					llenarList();
 			}
 		});
 		rdbtnTelefono.setBackground(SystemColor.window);
-		rdbtnTelefono.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		rdbtnTelefono.setFont(new Font("Arial", Font.BOLD, 15));
 		rdbtnTelefono.setBounds(466, 39, 152, 23);
 		panelSeleccion.add(rdbtnTelefono);
 		
 		JPanel panelCarrito = new JPanel();
 		panelCarrito.setBackground(SystemColor.window);
-		panelCarrito.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelCarrito.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Seleccione los planes a comprar", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 102)));
 		panelCarrito.setBounds(10, 359, 675, 210);
 		contentPanel.add(panelCarrito);
 		panelCarrito.setLayout(null);
 		
-		JLabel lblNewLabel_6 = new JLabel("Seleccione los planes a comprar:");
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_6.setBounds(10, 0, 317, 14);
-		panelCarrito.add(lblNewLabel_6);
-		
 		JLabel lblNewLabel_7 = new JLabel("Lista de Planes:");
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_7.setBounds(70, 25, 113, 14);
+		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_7.setForeground(new Color(0, 0, 102));
+		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 15));
+		lblNewLabel_7.setBounds(55, 21, 148, 28);
 		panelCarrito.add(lblNewLabel_7);
 		
 		listPlan = new JList();
@@ -337,8 +335,10 @@ public class Facturacion extends JDialog {
 		panelCarrito.add(scrollCarrito);
 		
 		JLabel lblNewLabel_8 = new JLabel("Carrito de compras:\r\n");
-		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_8.setBounds(452, 25, 123, 14);
+		lblNewLabel_8.setForeground(new Color(0, 0, 102));
+		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_8.setFont(new Font("Arial", Font.BOLD, 15));
+		lblNewLabel_8.setBounds(495, 21, 148, 28);
 		panelCarrito.add(lblNewLabel_8);
 		
 		btnAddCarrito = new JButton("");
@@ -372,28 +372,30 @@ public class Facturacion extends JDialog {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.window);
 		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(10, 580, 377, 40);
+		panel_1.setBounds(10, 580, 320, 50);
 		contentPanel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_9 = new JLabel("Sub. Total de Venta: RD$");
-		lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_9.setBounds(10, 11, 197, 14);
+		JLabel lblNewLabel_9 = new JLabel("Sub. Total : RD$");
+		lblNewLabel_9.setFont(new Font("Arial", Font.BOLD, 15));
+		lblNewLabel_9.setBounds(10, 15, 152, 14);
 		panel_1.add(lblNewLabel_9);
 		
 		txtSubtotal = new JTextField();
 		txtSubtotal.setEditable(false);
-		txtSubtotal.setBounds(217, 10, 143, 20);
+		txtSubtotal.setBounds(148, 12, 143, 20);
 		panel_1.add(txtSubtotal);
 		txtSubtotal.setColumns(10);
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setBackground(SystemColor.window);
 		buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		buttonPane.setBounds(397, 581, 288, 39);
+		buttonPane.setBounds(340, 580, 345, 50);
 		contentPanel.add(buttonPane);
 		
 		btnVenta = new JButton("Realizar Venta");
+		btnVenta.setIcon(new ImageIcon(Facturacion.class.getResource("/imagenes/icono check.png")));
+		btnVenta.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(activarRegistro()) {
@@ -462,6 +464,8 @@ public class Facturacion extends JDialog {
 		buttonPane.add(btnVenta);
 		
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setIcon(new ImageIcon(Facturacion.class.getResource("/imagenes/icono cancelar.png")));
+		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();

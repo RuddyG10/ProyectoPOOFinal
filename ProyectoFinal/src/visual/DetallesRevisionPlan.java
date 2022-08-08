@@ -56,6 +56,7 @@ public class DetallesRevisionPlan extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DetallesRevisionPlan.class.getResource("/imagenes/logo altice pf.PNG")));
 		setTitle("Altice");
 		setBounds(100, 100, 593, 386);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.window);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

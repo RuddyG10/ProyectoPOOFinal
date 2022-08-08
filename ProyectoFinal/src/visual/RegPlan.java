@@ -81,7 +81,7 @@ public class RegPlan extends JDialog {
 		setForeground(Color.BLACK);
 		setBackground(Color.BLACK);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegPlan.class.getResource("/imagenes/logo altice pf.PNG")));
-		setTitle("Altice - Registrar Plan");
+		setTitle("Altice - Registrar plan");
 		setBounds(100, 100, 707, 599);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -97,10 +97,11 @@ public class RegPlan extends JDialog {
 		panel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel(" Registrar plan");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setIcon(new ImageIcon(RegPlan.class.getResource("/imagenes/wifi icon.png")));
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 30));
 		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(21, 11, 497, 42);
+		lblNewLabel.setBounds(21, 11, 643, 42);
 		panel.add(lblNewLabel);
 
 		JLabel lblNewLabel_4 = new JLabel("Descripci\u00F3n: ");

@@ -87,10 +87,11 @@ public class ListadoUsuarios extends JDialog {
 		panel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Listado de usuarios");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setIcon(new ImageIcon(ListadoUsuarios.class.getResource("/imagenes/listado icono.png")));
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 30));
 		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(10, 11, 458, 54);
+		lblNewLabel.setBounds(10, 11, 616, 54);
 		panel.add(lblNewLabel);
 
 		JPanel panel_1 = new JPanel();

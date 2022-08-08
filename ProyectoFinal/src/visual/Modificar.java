@@ -85,7 +85,7 @@ public class Modificar extends JDialog {
 				lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 				lblNewLabel.setForeground(Color.WHITE);
 				lblNewLabel.setFont(new Font("Arial", Font.BOLD, 25));
-				lblNewLabel.setBounds(36, 11, 381, 54);
+				lblNewLabel.setBounds(23, 11, 584, 54);
 				panel.add(lblNewLabel);
 			}
 		}

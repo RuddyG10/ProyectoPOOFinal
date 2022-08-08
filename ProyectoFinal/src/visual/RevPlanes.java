@@ -65,7 +65,7 @@ public class RevPlanes extends JDialog {
 		setResizable(false);
 		getContentPane().setBackground(SystemColor.window);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RevPlanes.class.getResource("/imagenes/logo altice pf.PNG")));
-		setTitle("Altice - Revision de Planes");
+		setTitle("Altice - Revision de planes");
 		setBounds(100, 100, 714, 593);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
@@ -79,6 +79,7 @@ public class RevPlanes extends JDialog {
 			getContentPane().add(buttonPane);
 			{
 				btnDetalles = new JButton("Ver detalles");
+				btnDetalles.setFont(new Font("Arial", Font.PLAIN, 15));
 				btnDetalles.setEnabled(false);
 				btnDetalles.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -105,6 +106,7 @@ public class RevPlanes extends JDialog {
 			}
 			{
 				btnSalir = new JButton("Salir");
+				btnSalir.setFont(new Font("Arial", Font.PLAIN, 15));
 				btnSalir.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
@@ -132,12 +134,12 @@ public class RevPlanes extends JDialog {
 			getContentPane().add(panel);
 			panel.setLayout(null);
 			{
-				JLabel lblNewLabel = new JLabel("Revision de planes");
+				JLabel lblNewLabel = new JLabel(" Revision de planes");
 				lblNewLabel.setIcon(new ImageIcon(RevPlanes.class.getResource("/imagenes/icons8-documento-42.png")));
 				lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 				lblNewLabel.setForeground(Color.WHITE);
 				lblNewLabel.setFont(new Font("Arial", Font.BOLD, 25));
-				lblNewLabel.setBounds(-76, 11, 460, 54);
+				lblNewLabel.setBounds(-76, 11, 761, 54);
 				panel.add(lblNewLabel);
 			}
 		}

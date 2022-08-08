@@ -35,6 +35,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Imprimir extends JDialog {
 
@@ -59,12 +63,14 @@ public class Imprimir extends JDialog {
 	 * Create the dialog.
 	 */
 	public Imprimir() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Imprimir.class.getResource("/imagenes/logo altice pf.PNG")));
 		setModal(true);
 		setResizable(false);
-		setTitle("Imprimir");
+		setTitle("Altice - Imprimir");
 		setBounds(100, 100, 447, 346);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(SystemColor.window);
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
@@ -82,12 +88,26 @@ public class Imprimir extends JDialog {
 		panel.add(lblNewLabel);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.window);
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Elija lo que desea imprimir", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 128)));
 		panel_1.setBounds(10, 99, 421, 169);
 		contentPanel.add(panel_1);
 		panel_1.setLayout(null);
 		
 		btnImprimir = new JButton("Imprimir");
+		btnImprimir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnImprimir.setBackground(Color.green);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+			btnImprimir.setBackground(UIManager.getColor("control"));
+			}
+			
+		});
+		btnImprimir.setIcon(new ImageIcon(Imprimir.class.getResource("/imagenes/icono imprimir.png")));
+		btnImprimir.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnImprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -292,20 +312,36 @@ public class Imprimir extends JDialog {
 				
 			}
 		});
-		btnImprimir.setBounds(263, 75, 96, 23);
+		btnImprimir.setBounds(275, 73, 115, 27);
 		panel_1.add(btnImprimir);
 		
 		cbxInfo = new JComboBox();
+		cbxInfo.setForeground(SystemColor.textInactiveText);
+		cbxInfo.setFont(new Font("Arial", Font.PLAIN, 15));
 		cbxInfo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Revision de planes", "Revision de Clientes", "Revision de Ingresos", "Trabajadores "}));
-		cbxInfo.setBounds(23, 76, 217, 20);
+		cbxInfo.setBounds(29, 76, 217, 20);
 		panel_1.add(cbxInfo);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(SystemColor.window);
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						btnCancelar.setBackground(Color.red);
+					}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						btnCancelar.setBackground(UIManager.getColor("control"));
+					}
+				});
+				btnCancelar.setSize(119, 23);
+				btnCancelar.setFont(new Font("Arial", Font.PLAIN, 15));
+				btnCancelar.setIcon(new ImageIcon(Imprimir.class.getResource("/imagenes/icono cancelar.png")));
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();

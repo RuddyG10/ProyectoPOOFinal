@@ -32,6 +32,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.SystemColor;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 public class ListFac extends JDialog {
 	private JTable table;
@@ -41,7 +43,7 @@ public class ListFac extends JDialog {
 	private DefaultTableModel model;
 	private Object[] row;
 	private Cliente client = null;
-	private JButton btnCerrar;
+	private JButton btnAtras;
 	private JButton btnPagar;
 	private boolean pagar = false;
 	private JLabel lblListaFactura;
@@ -64,24 +66,36 @@ public class ListFac extends JDialog {
 	 */
 	public ListFac(Cliente aux,boolean auxpagar) {
 		getContentPane().setBackground(SystemColor.window);
-		setTitle("Altice - Lista Factura");
+		setTitle("Altice - Listado de facturas");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListFac.class.getResource("/imagenes/logo altice pf.PNG")));
 		client = aux;
 		pagar =auxpagar;
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 572, 417);
+		setBounds(100, 100, 572, 439);
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(SystemColor.window);
-			buttonPane.setBounds(10, 339, 533, 38);
+			buttonPane.setBounds(10, 339, 533, 48);
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane);
 			{
 				btnVerFac = new JButton("Ver Factura");
+				btnVerFac.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						btnVerFac.setBackground(Color.blue);
+					}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						btnVerFac.setBackground(UIManager.getColor("control"));
+					}
+				});
+				btnVerFac.setFont(new Font("Arial", Font.PLAIN, 15));
+				btnVerFac.setIcon(new ImageIcon(ListFac.class.getResource("/imagenes/masDetalles icono.png")));
 				btnVerFac.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						VerFacClient verFac = new VerFacClient(selected);
@@ -92,6 +106,18 @@ public class ListFac extends JDialog {
 				});
 				{
 					btnPagar = new JButton("Pagar Factura");
+					btnPagar.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseEntered(MouseEvent e) {
+							btnPagar.setBackground(Color.green);
+						}
+						@Override
+						public void mouseExited(MouseEvent e) {
+							btnPagar.setBackground(UIManager.getColor("control"));
+						}
+					});
+					btnPagar.setFont(new Font("Arial", Font.PLAIN, 15));
+					btnPagar.setIcon(new ImageIcon(ListFac.class.getResource("/imagenes/pagar icono.png")));
 					btnPagar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							int option = JOptionPane.showConfirmDialog(null, "Seguro que desea pagar la factura "+selected.getCodigo()+"?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -121,14 +147,26 @@ public class ListFac extends JDialog {
 				getRootPane().setDefaultButton(btnVerFac);
 			}
 			{
-				btnCerrar = new JButton("Cerrar");
-				btnCerrar.addActionListener(new ActionListener() {
+				btnAtras = new JButton("Atras");
+				btnAtras.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						btnAtras.setBackground(Color.red);
+					}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						btnAtras.setBackground(UIManager.getColor("control"));
+					}
+				});
+				btnAtras.setFont(new Font("Arial", Font.PLAIN, 15));
+				btnAtras.setIcon(new ImageIcon(ListFac.class.getResource("/imagenes/icono cancelar.png")));
+				btnAtras.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
 					}
 				});
-				btnCerrar.setActionCommand("Cancel");
-				buttonPane.add(btnCerrar);
+				btnAtras.setActionCommand("Cancel");
+				buttonPane.add(btnAtras);
 			}
 		}
 		{
@@ -138,9 +176,10 @@ public class ListFac extends JDialog {
 			getContentPane().add(panel);
 			panel.setLayout(null);
 			{
-				lblListaFactura = new JLabel("Lista Factura");
+				lblListaFactura = new JLabel(" Listado de facturas");
+				lblListaFactura.setHorizontalAlignment(SwingConstants.CENTER);
 				lblListaFactura.setIcon(new ImageIcon(ListFac.class.getResource("/imagenes/detalles icono.png")));
-				lblListaFactura.setBounds(10, 11, 497, 45);
+				lblListaFactura.setBounds(10, 0, 546, 64);
 				lblListaFactura.setForeground(Color.WHITE);
 				lblListaFactura.setFont(new Font("Arial", Font.BOLD, 30));
 				panel.add(lblListaFactura);

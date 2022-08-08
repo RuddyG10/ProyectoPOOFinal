@@ -31,6 +31,8 @@ import java.awt.event.MouseEvent;
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import java.awt.SystemColor;
 
 public class RevisionFinanzas extends JDialog {
 
@@ -61,7 +63,7 @@ public class RevisionFinanzas extends JDialog {
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RevisionFinanzas.class.getResource("/imagenes/logo altice pf.PNG")));
 		setTitle("Altice - Revision Finanzas");
-		setBounds(100, 100, 621, 419);
+		setBounds(100, 100, 621, 396);
 
 		setTitle("Revision de ganancias");
 		setResizable(false);
@@ -70,6 +72,7 @@ public class RevisionFinanzas extends JDialog {
 		setLocationRelativeTo(null);
 
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(SystemColor.window);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -82,9 +85,10 @@ public class RevisionFinanzas extends JDialog {
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Revision Finanzas");
+		JLabel lblNewLabel = new JLabel(" Revision finanzas");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setIcon(new ImageIcon(RevisionFinanzas.class.getResource("/imagenes/icons8-documento-42.png")));
-		lblNewLabel.setBounds(10, 0, 466, 58);
+		lblNewLabel.setBounds(10, 0, 595, 58);
 		panel.add(lblNewLabel);
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 30));
@@ -120,11 +124,14 @@ public class RevisionFinanzas extends JDialog {
 
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(SystemColor.window);
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnCancelar = new JButton("Cerrar");
+				btnCancelar.setIcon(new ImageIcon(RevisionFinanzas.class.getResource("/imagenes/icono cancelar.png")));
+				btnCancelar.setFont(new Font("Arial", Font.PLAIN, 15));
 				btnCancelar.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseEntered(MouseEvent arg0) {

@@ -39,6 +39,7 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.SystemColor;
 
 public class Menu extends JFrame {
 
@@ -169,14 +170,14 @@ public class Menu extends JFrame {
 		
 		admin = aux;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/imagenes/logo altice pf.PNG")));
-		setTitle("Altice - Menu Principal");
+		setTitle("Altice - Menu principal");
 		setBounds(100, 100, 450, 300);
 		dim = getToolkit().getScreenSize();
 		setSize(dim.width,dim.height-50);
 		setLocationRelativeTo(null);
 		
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(253, 245, 230));
+		contentPane.setBackground(SystemColor.textHighlightText);
 		contentPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

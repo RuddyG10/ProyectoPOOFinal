@@ -33,6 +33,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
 import java.awt.SystemColor;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 public class ListVent extends JDialog {
 
@@ -41,7 +43,7 @@ public class ListVent extends JDialog {
 	private String[] headers = {"Codigo","Cant. Planes","Total","Fecha"};
 	private DefaultTableModel model;
 	private Object[] row;
-	private JButton btnCerrar;
+	private JButton btnAtras;
 	private Venta selected = null;
 	private JButton btnVer;
 	/**
@@ -64,8 +66,8 @@ public class ListVent extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListVent.class.getResource("/imagenes/logo altice pf.PNG")));
 		setResizable(false);
 		setModal(true);
-		setTitle("Altice - Lista de Ventas");
-		setBounds(100, 100, 519, 348);
+		setTitle("Altice - Lista de ventas");
+		setBounds(100, 100, 519, 364);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.window);
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -79,11 +81,12 @@ public class ListVent extends JDialog {
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Lista de Ventas");
+		JLabel lblNewLabel = new JLabel(" Lista de ventas");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setIcon(new ImageIcon(ListVent.class.getResource("/imagenes/icons8-money-30.png")));
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 25));
 		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(10, 11, 201, 26);
+		lblNewLabel.setBounds(10, 11, 493, 26);
 		panel.add(lblNewLabel);
 		
 		JPanel panelTabla = new JPanel();
@@ -118,6 +121,18 @@ public class ListVent extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnVer = new JButton("Ver venta");
+				btnVer.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+					btnVer.setBackground(Color.blue);
+					}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						btnVer.setBackground(UIManager.getColor("control"));
+					}
+				});
+				btnVer.setFont(new Font("Arial", Font.PLAIN, 15));
+				btnVer.setIcon(new ImageIcon(ListVent.class.getResource("/imagenes/ver icono.png")));
 				btnVer.setEnabled(false);
 				btnVer.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -137,14 +152,26 @@ public class ListVent extends JDialog {
 				getRootPane().setDefaultButton(btnVer);
 			}
 			{
-				btnCerrar = new JButton("Cerrar");
-				btnCerrar.addActionListener(new ActionListener() {
+				btnAtras = new JButton("Atras");
+				btnAtras.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						btnAtras.setBackground(Color.red);
+					}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						btnAtras.setBackground(UIManager.getColor("control"));
+					}
+				});
+				btnAtras.setFont(new Font("Arial", Font.PLAIN, 15));
+				btnAtras.setIcon(new ImageIcon(ListVent.class.getResource("/imagenes/logo siguiente.png")));
+				btnAtras.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
 					}
 				});
-				btnCerrar.setActionCommand("Cancel");
-				buttonPane.add(btnCerrar);
+				btnAtras.setActionCommand("Cancel");
+				buttonPane.add(btnAtras);
 			}
 		}
 		load();

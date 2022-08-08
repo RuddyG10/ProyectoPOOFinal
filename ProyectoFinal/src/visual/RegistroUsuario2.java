@@ -36,6 +36,7 @@ import java.awt.SystemColor;
 import javax.swing.UIManager;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.SwingConstants;
 
 public class RegistroUsuario2 extends JDialog {
 
@@ -74,7 +75,7 @@ public class RegistroUsuario2 extends JDialog {
 	 */
 	public RegistroUsuario2() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroUsuario2.class.getResource("/imagenes/logo altice pf.PNG")));
-		setTitle("Altice - Registro Usuario");
+		setTitle("Altice - Registro usuario");
 		setResizable(false);
 		setBounds(100, 100, 670, 508);
 		contentPane = new JPanel();
@@ -171,7 +172,7 @@ public class RegistroUsuario2 extends JDialog {
 		});
 		contentPane.add(btnGuardar);
 		
-		btnAtras = new JButton("Regresar");
+		btnAtras = new JButton("Atras");
 		btnAtras.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnAtras.setIcon(new ImageIcon(RegistroUsuario2.class.getResource("/imagenes/icono atras.png")));
 		btnAtras.addMouseListener(new MouseAdapter() {
@@ -200,9 +201,10 @@ public class RegistroUsuario2 extends JDialog {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel_3 = new JLabel("Registro Usuario");
+		JLabel lblNewLabel_3 = new JLabel(" Registro Usuario");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setIcon(new ImageIcon(RegistroUsuario2.class.getResource("/imagenes/Cliente gris.png")));
-		lblNewLabel_3.setBounds(10, 23, 523, 50);
+		lblNewLabel_3.setBounds(10, 23, 625, 50);
 		panel.add(lblNewLabel_3);
 		lblNewLabel_3.setForeground(Color.WHITE);
 		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 30));
@@ -345,9 +347,9 @@ public class RegistroUsuario2 extends JDialog {
 		lblNewLabel_1.setBounds(313, 29, 86, 14);
 		panel_2.add(lblNewLabel_1);
 		
-		JLabel lblConfirmContr = new JLabel("Confirm. Contr.:\r\n");
+		JLabel lblConfirmContr = new JLabel("Confirm. Contrase\u00F1a:\r\n");
 		lblConfirmContr.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblConfirmContr.setBounds(282, 60, 117, 14);
+		lblConfirmContr.setBounds(253, 60, 146, 14);
 		panel_2.add(lblConfirmContr);
 		
 		password = new JPasswordField();

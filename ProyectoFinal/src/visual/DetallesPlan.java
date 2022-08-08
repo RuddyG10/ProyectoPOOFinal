@@ -68,7 +68,7 @@ public class DetallesPlan extends JDialog {
 	public DetallesPlan() {
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DetallesPlan.class.getResource("/imagenes/logo altice pf.PNG")));
-		setTitle("Altice - Detalles del Plan");
+		setTitle("Altice - Detalles del plan");
 		setBounds(100, 100, 678, 620);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -85,17 +85,18 @@ public class DetallesPlan extends JDialog {
 			panel.setLayout(null);
 			{
 				JLabel lblNewLabel = new JLabel("  Detalles del plan");
+				lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 				lblNewLabel.setIcon(new ImageIcon(DetallesPlan.class.getResource("/imagenes/detalles icono.png")));
 				lblNewLabel.setForeground(SystemColor.text);
 				lblNewLabel.setFont(new Font("Arial", Font.BOLD, 30));
-				lblNewLabel.setBounds(10, 11, 352, 53);
+				lblNewLabel.setBounds(10, 11, 641, 53);
 				panel.add(lblNewLabel);
 			}
 		}
 		{
 			JPanel panel = new JPanel();
 			panel.setBackground(SystemColor.controlLtHighlight);
-			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informacion", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 51)));
+			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informacion", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 102)));
 			panel.setBounds(10, 89, 642, 114);
 			contentPanel.add(panel);
 			panel.setLayout(null);
@@ -146,7 +147,7 @@ public class DetallesPlan extends JDialog {
 		{
 			JPanel panel = new JPanel();
 			panel.setBackground(SystemColor.controlLtHighlight);
-			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Servicios incluidos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 51)));
+			panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Servicios incluidos", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 102)));
 			panel.setBounds(10, 210, 642, 219);
 			contentPanel.add(panel);
 			panel.setLayout(new BorderLayout(0, 0));
