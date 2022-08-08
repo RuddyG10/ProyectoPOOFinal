@@ -90,12 +90,14 @@ public class Menu extends JFrame {
 					int genCodePlan = reader.readInt();
 					int genCodeServ = reader.readInt();
 					int genCodeVent = reader.readInt();
+					int genCodeFile = reader.readInt();
 					Altice temp = (Altice)reader.readObject();
 					Altice.setAltice(temp);
 					temp.genCodeFac = genCodeFac;
 					temp.genCodePlan = genCodePlan;
 					temp.genCodeServ = genCodeServ;
 					temp.genCodeVent = genCodeVent;
+					temp.genCodeFile = genCodeFile;
 					altice.close();
 					reader.close();
 					
@@ -109,6 +111,7 @@ public class Menu extends JFrame {
 						alticeWrite.writeInt(Altice.getInstance().genCodePlan);
 						alticeWrite.writeInt(Altice.getInstance().genCodeServ);
 						alticeWrite.writeInt(Altice.getInstance().genCodeVent);
+						alticeWrite.writeInt(Altice.getInstance().genCodeFile);
 						alticeWrite.writeObject(Altice.getInstance());
 						
 						altice2.close();
@@ -150,6 +153,7 @@ public class Menu extends JFrame {
 					alticeWrite.writeInt(Altice.getInstance().genCodePlan);
 					alticeWrite.writeInt(Altice.getInstance().genCodeServ);
 					alticeWrite.writeInt(Altice.getInstance().genCodeVent);
+					alticeWrite.writeInt(Altice.getInstance().genCodeFile);
 					alticeWrite.writeObject(Altice.getInstance());
 				} catch (FileNotFoundException e2) {
 					// TODO: handle exception
@@ -369,6 +373,7 @@ public class Menu extends JFrame {
 						alticeWrite.writeInt(Altice.getInstance().genCodePlan);
 						alticeWrite.writeInt(Altice.getInstance().genCodeServ);
 						alticeWrite.writeInt(Altice.getInstance().genCodeVent);
+						alticeWrite.writeInt(Altice.getInstance().genCodeFile);
 						alticeWrite.writeObject(Altice.getInstance());
 					} catch (FileNotFoundException e2) {
 						// TODO: handle exception
@@ -574,6 +579,12 @@ public class Menu extends JFrame {
 		panelRevision.add(btnGanancias);
 		
 		btnImprimir = new JButton("Imprimir");
+		btnImprimir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Imprimir imp = new Imprimir();
+				imp.setVisible(true);
+			}
+		});
 		btnImprimir.setBackground(Color.LIGHT_GRAY);
 		btnImprimir.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnImprimir.setForeground(Color.DARK_GRAY);

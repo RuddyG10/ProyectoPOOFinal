@@ -71,7 +71,7 @@ public class ListadoUsuarios extends JDialog {
 	public ListadoUsuarios() {
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListadoUsuarios.class.getResource("/imagenes/logo altice pf.PNG")));
-		setTitle("Altice");
+		setTitle("Altice - Listado de Usuarios");
 		setBounds(100, 100, 652, 554);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -86,11 +86,11 @@ public class ListadoUsuarios extends JDialog {
 		contentPanel.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("  Listado de usuarios");
+		JLabel lblNewLabel = new JLabel("Listado de usuarios");
 		lblNewLabel.setIcon(new ImageIcon(ListadoUsuarios.class.getResource("/imagenes/listado icono.png")));
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 30));
 		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(32, 11, 458, 54);
+		lblNewLabel.setBounds(10, 11, 458, 54);
 		panel.add(lblNewLabel);
 
 		JPanel panel_1 = new JPanel();

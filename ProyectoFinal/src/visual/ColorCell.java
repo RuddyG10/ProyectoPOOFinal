@@ -23,7 +23,7 @@ public class ColorCell extends JTable {
 			componente.setBackground(Color.red);
 		}
 		if(Altice.getInstance().cantFacturasPendientes(client)<3 && Altice.getInstance().cantFacturasPendientes(client)>0 ) {
-			componente.setBackground(Color.blue);
+			componente.setBackground(Color.yellow);
 		}
 		if(Altice.getInstance().cantFacturasPendientes(client)==0) {
 			componente.setBackground(Color.green);

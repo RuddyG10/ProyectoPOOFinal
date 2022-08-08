@@ -68,7 +68,7 @@ public class DetallesPlan extends JDialog {
 	public DetallesPlan() {
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DetallesPlan.class.getResource("/imagenes/logo altice pf.PNG")));
-		setTitle("Altice");
+		setTitle("Altice - Detalles del Plan");
 		setBounds(100, 100, 678, 620);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -76,6 +76,7 @@ public class DetallesPlan extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setLocationRelativeTo(null);
 		{
 			JPanel panel = new JPanel();
 			panel.setBackground(SystemColor.activeCaptionText);
@@ -86,8 +87,8 @@ public class DetallesPlan extends JDialog {
 				JLabel lblNewLabel = new JLabel("  Detalles del plan");
 				lblNewLabel.setIcon(new ImageIcon(DetallesPlan.class.getResource("/imagenes/detalles icono.png")));
 				lblNewLabel.setForeground(SystemColor.text);
-				lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
-				lblNewLabel.setBounds(27, 11, 352, 53);
+				lblNewLabel.setFont(new Font("Arial", Font.BOLD, 30));
+				lblNewLabel.setBounds(10, 11, 352, 53);
 				panel.add(lblNewLabel);
 			}
 		}

@@ -27,6 +27,7 @@ import logico.Cliente;
 import logico.Factura;
 import logico.Plan;
 import logico.Trabajador;
+import java.awt.Toolkit;
 
 public class VerFacClient extends JDialog {
 
@@ -60,14 +61,17 @@ public class VerFacClient extends JDialog {
 	 * Create the dialog.
 	 */
 	public VerFacClient(Factura aux) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VerFacClient.class.getResource("/imagenes/logo altice pf.PNG")));
+		setResizable(false);
 		setModal(true);
-		setTitle("Factura");
+		setTitle("Altice - Factura Cliente");
 		factura = aux;
 		setBounds(100, 100, 682, 463);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JPanel panelAltice = new JPanel();
 		panelAltice.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -195,6 +199,7 @@ public class VerFacClient extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnCancelar = new JButton("Cerrar");
+				btnCancelar.setIcon(new ImageIcon(VerFacClient.class.getResource("/imagenes/icono cancelar.png")));
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
@@ -217,7 +222,7 @@ public class VerFacClient extends JDialog {
 			row[0] = plan.getCodigo();
 			row[1] = plan.getNombrePlan();
 			row[2] = plan.getFechaPago();
-			row[3] = plan.getTotalPrecio();
+			row[3] = formater.format(plan.getFechaPago());
 			model.addRow(row);
 			txtNomClient.setText(client.getNombre()+" "+client.getApellido());
 			txtCeduClient.setText(client.getCedula());

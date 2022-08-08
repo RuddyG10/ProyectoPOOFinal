@@ -38,6 +38,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.awt.Toolkit;
+import java.awt.SystemColor;
 
 public class Login extends JFrame {
 
@@ -63,12 +65,14 @@ public class Login extends JFrame {
 					int genCodePlan = reader.readInt();
 					int genCodeServ = reader.readInt();
 					int genCodeVent = reader.readInt();
+					int genCodeFile = reader.readInt();
 					Altice temp = (Altice)reader.readObject();
 					Altice.setAltice(temp);
 					temp.genCodeFac = genCodeFac;
 					temp.genCodePlan = genCodePlan;
 					temp.genCodeServ = genCodeServ;
 					temp.genCodeVent = genCodeVent;
+					temp.genCodeFile = genCodeFile;
 					altice.close();
 					reader.close();
 					
@@ -82,6 +86,7 @@ public class Login extends JFrame {
 						alticeWrite.writeInt(Altice.getInstance().genCodePlan);
 						alticeWrite.writeInt(Altice.getInstance().genCodeServ);
 						alticeWrite.writeInt(Altice.getInstance().genCodeVent);
+						alticeWrite.writeInt(Altice.getInstance().genCodeFile);
 						alticeWrite.writeObject(Altice.getInstance());
 						
 						altice2.close();
@@ -112,6 +117,8 @@ public class Login extends JFrame {
 	 * Create the dialog.
 	 */
 	public Login() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/imagenes/logo altice pf.PNG")));
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -125,6 +132,7 @@ public class Login extends JFrame {
 					alticeWrite.writeInt(Altice.getInstance().genCodePlan);
 					alticeWrite.writeInt(Altice.getInstance().genCodeServ);
 					alticeWrite.writeInt(Altice.getInstance().genCodeVent);
+					alticeWrite.writeInt(Altice.getInstance().genCodeFile);
 					alticeWrite.writeObject(Altice.getInstance());
 				} catch (FileNotFoundException e2) {
 					// TODO: handle exception
@@ -138,13 +146,14 @@ public class Login extends JFrame {
 			}
 		});
 		setTitle("Altice - Iniciar Sesi\u00F3n");
-		setBounds(100, 100, 525, 354);
+		setBounds(100, 100, 525, 333);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(new Color(253, 245, 230));
+		contentPanel.setBackground(SystemColor.window);
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPanel.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 0, 0));
@@ -164,7 +173,7 @@ public class Login extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("Iniciar Sesi\u00F3n");
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 20));
-		lblNewLabel_2.setBounds(72, 121, 155, 16);
+		lblNewLabel_2.setBounds(73, 120, 155, 16);
 		contentPanel.add(lblNewLabel_2);
 		
 		txtUser = new JTextField();
@@ -186,7 +195,7 @@ public class Login extends JFrame {
 		lblContrasea.setBounds(10, 207, 114, 14);
 		contentPanel.add(lblContrasea);
 		
-		btnIniciar = new JButton("Iniciar");
+		btnIniciar = new JButton("Ingresar");
 		btnIniciar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {

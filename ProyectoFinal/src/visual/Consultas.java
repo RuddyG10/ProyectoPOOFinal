@@ -26,6 +26,7 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JRadioButton;
+import java.awt.Toolkit;
 
 public class Consultas extends JFrame {
 
@@ -51,6 +52,9 @@ public class Consultas extends JFrame {
 	 * Create the frame.
 	 */
 	public Consultas() {
+		setTitle("Altice - Revision");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Consultas.class.getResource("/imagenes/logo altice pf.PNG")));
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 674, 435);
 		contentPane = new JPanel();

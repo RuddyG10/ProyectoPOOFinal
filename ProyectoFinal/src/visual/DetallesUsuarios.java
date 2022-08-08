@@ -67,7 +67,7 @@ public class DetallesUsuarios extends JDialog {
 	public DetallesUsuarios() {
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DetallesUsuarios.class.getResource("/imagenes/logo altice pf.PNG")));
-		setTitle("Altice");
+		setTitle("Altice - Detalle Usuarios");
 		setBounds(100, 100, 568, 483);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -82,12 +82,12 @@ public class DetallesUsuarios extends JDialog {
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
-				lblTitulo = new JLabel("");
+				lblTitulo = new JLabel("Detalle Usuarios");
 				lblTitulo.setIcon(new ImageIcon(DetallesUsuarios.class.getResource("/imagenes/detalles icono.png")));
 				lblTitulo.setForeground(Color.WHITE);
 				lblTitulo.setFont(new Font("Arial", Font.BOLD, 25));
-				lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-				lblTitulo.setBounds(41, 11, 501, 50);
+				lblTitulo.setHorizontalAlignment(SwingConstants.LEFT);
+				lblTitulo.setBounds(10, 11, 501, 50);
 				panel.add(lblTitulo);
 			}
 		}

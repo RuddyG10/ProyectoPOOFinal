@@ -1,0 +1,21 @@
+Informacion de los Trabajadores.
+===================================================
+Fecha: 07/08/2022
+===================================================
+Administradores:
+
+Nombre: RuddyAdmin
+Apellidos: AdminRuddy
+===================================================
+Comerciales:
+
+Nombre: Ruddy
+Apellidos: Gomez
+Cantidad de ventas: 5
+===================================================
+Mejor comercial:
+
+Nombre: Ruddy
+Apellido: Gomez
+Cantidad de ventas: 5
+===================================================

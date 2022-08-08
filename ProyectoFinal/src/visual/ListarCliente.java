@@ -32,6 +32,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Date;
+import java.awt.Toolkit;
+import java.awt.SystemColor;
 
 public class ListarCliente extends JDialog {
 
@@ -43,7 +45,6 @@ public class ListarCliente extends JDialog {
 	private Object[] row;
 	private Cliente selected;
 	private JButton btnVerFac;
-	private JButton btnEliminar;
 	private JButton btnMod;
 	private JButton btnPagarFac;
 	private boolean facturar = false;
@@ -65,25 +66,23 @@ public class ListarCliente extends JDialog {
 	 * Create the frame.
 	 */
 	public ListarCliente(boolean pagar) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarCliente.class.getResource("/imagenes/logo altice pf.PNG")));
 		facturar = pagar;
 		setResizable(false);
 		setTitle("Altice - Lista Clientes");
-		setBounds(100, 100, 672, 470);
+		setBounds(100, 100, 755, 470);
 		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.window);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.window);
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 382, 646, 48);
+		panel.setBounds(10, 382, 729, 48);
 		contentPane.add(panel);
 		panel.setLayout(null);
-
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setEnabled(false);
-		btnEliminar.setBounds(337, 23, 94, 23);
-		panel.add(btnEliminar);
 
 		btnMod = new JButton("Modificar");
 		btnMod.addActionListener(new ActionListener() {
@@ -95,7 +94,7 @@ public class ListarCliente extends JDialog {
 			}
 		});
 		btnMod.setEnabled(false);
-		btnMod.setBounds(441, 23, 100, 23);
+		btnMod.setBounds(524, 23, 100, 23);
 		panel.add(btnMod);
 		
 		JButton btnCerrar = new JButton("Cerrar");
@@ -104,7 +103,7 @@ public class ListarCliente extends JDialog {
 				dispose();
 			}
 		});
-		btnCerrar.setBounds(551, 23, 85, 23);
+		btnCerrar.setBounds(634, 23, 85, 23);
 		panel.add(btnCerrar);
 		
 		btnVerFac = new JButton("Ver Facturas");
@@ -112,13 +111,13 @@ public class ListarCliente extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				ListFac facturas = new ListFac(selected,false);
 				facturas.setVisible(true);
-				btnEliminar.setEnabled(false);
 				btnMod.setEnabled(false);
+				btnVerFac.setEnabled(false);
 				obtenerClientes();
 			}
 		});
 		btnVerFac.setEnabled(false);
-		btnVerFac.setBounds(214, 23, 113, 23);
+		btnVerFac.setBounds(401, 23, 113, 23);
 		panel.add(btnVerFac);
 		
 		btnPagarFac = new JButton("Facturar");
@@ -142,18 +141,22 @@ public class ListarCliente extends JDialog {
 								}
 							}
 							Altice.getInstance().revisarFacturasClient(cliente);
+							
 					}
+					JOptionPane.showMessageDialog(null, "Facturas ralizadas.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+					obtenerClientes();
+					
 				}else {
 					JOptionPane.showMessageDialog(null, "Error: No hay clientes registrados.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 		btnPagarFac.setVisible(false);
-		btnPagarFac.setBounds(115, 23, 89, 23);
+		btnPagarFac.setBounds(302, 23, 89, 23);
 		panel.add(btnPagarFac);
 		
 		JPanel panelTabla = new JPanel();
-		panelTabla.setBounds(10, 164, 646, 207);
+		panelTabla.setBounds(10, 164, 729, 207);
 		contentPane.add(panelTabla);
 		panelTabla.setLayout(new BorderLayout(0, 0));
 		
@@ -169,13 +172,11 @@ public class ListarCliente extends JDialog {
 				int index = table.getSelectedRow();
 				selected = Altice.getInstance().buscarClientePorCedula(table.getValueAt(index, 0).toString());
 				if(selected != null) {
-					btnEliminar.setEnabled(true);
 					btnMod.setEnabled(true);
 					btnVerFac.setEnabled(true);
 					
 				}
 				else {
-					btnEliminar.setEnabled(false);
 					btnMod.setEnabled(false);
 					btnVerFac.setEnabled(false);
 				}
@@ -188,33 +189,41 @@ public class ListarCliente extends JDialog {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.BLACK);
-		panel_1.setBounds(0, 0, 666, 72);
+		panel_1.setBounds(0, 0, 749, 72);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
+		JLabel lblNewLabel_2 = new JLabel("Lista Clientes");
+		lblNewLabel_2.setIcon(new ImageIcon(ListarCliente.class.getResource("/imagenes/detalles icono.png")));
+		lblNewLabel_2.setForeground(Color.WHITE);
+		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 30));
+		lblNewLabel_2.setBounds(10, 11, 356, 50);
+		panel_1.add(lblNewLabel_2);
+		
 		JPanel panelInfo = new JPanel();
-		panelInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informacion del cliente segun su color", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelInfo.setBackground(SystemColor.window);
+		panelInfo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Leyenda de colores sobre los clientes", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelInfo.setName("");
-		panelInfo.setBounds(10, 83, 646, 70);
+		panelInfo.setBounds(10, 83, 729, 70);
 		contentPane.add(panelInfo);
 		panelInfo.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Pagos al dia");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel.setIcon(new ImageIcon(ListarCliente.class.getResource("/imagenes/icons8-green-circle-48.png")));
-		lblNewLabel.setBounds(39, 17, 151, 40);
+		lblNewLabel.setBounds(27, 17, 151, 40);
 		panelInfo.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("En proceso de pago.");
+		JLabel lblNewLabel_1 = new JLabel("Debe de 1 a 2 fac. de un plan");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_1.setIcon(new ImageIcon(ListarCliente.class.getResource("/imagenes/icons8-blue-circle-48.png")));
-		lblNewLabel_1.setBounds(229, 17, 188, 40);
+		lblNewLabel_1.setIcon(new ImageIcon(ListarCliente.class.getResource("/imagenes/icons8-yellow-circle-48.png")));
+		lblNewLabel_1.setBounds(205, 17, 227, 40);
 		panelInfo.add(lblNewLabel_1);
 		
-		JLabel lblEndeudado = new JLabel("Endeudado");
+		JLabel lblEndeudado = new JLabel("Debe mas de 3 fac. de un plan");
 		lblEndeudado.setIcon(new ImageIcon(ListarCliente.class.getResource("/imagenes/icons8-red-circle-48.png")));
 		lblEndeudado.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblEndeudado.setBounds(456, 17, 151, 40);
+		lblEndeudado.setBounds(459, 17, 243, 40);
 		panelInfo.add(lblEndeudado);
 		obtenerClientes();
 	}

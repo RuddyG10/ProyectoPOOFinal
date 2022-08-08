@@ -31,6 +31,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Toolkit;
+import java.awt.SystemColor;
 
 public class ListVent extends JDialog {
 
@@ -59,14 +61,17 @@ public class ListVent extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListVent() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListVent.class.getResource("/imagenes/logo altice pf.PNG")));
 		setResizable(false);
 		setModal(true);
-		setTitle("Lista De Ventas");
+		setTitle("Altice - Lista de Ventas");
 		setBounds(100, 100, 519, 348);
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(SystemColor.window);
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.BLACK);
@@ -107,6 +112,7 @@ public class ListVent extends JDialog {
 		scrollPane.setViewportView(table);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(SystemColor.window);
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
